@@ -1,0 +1,19 @@
+:root {
+    --light-50: #F0F5F5;
+    --white: #FFFFFF;
+}
+body {
+    line-height: 1;
+    width: 100vw;
+    background-color: var(--light-50);
+    margin: 0;
+    padding: 0;
+}
+html {
+    margin: 0;
+    padding: 0;
+}
+
+ol, ul {
+	list-style: none;
+}
