@@ -56,14 +56,10 @@ const props = defineProps({
 
 .drink-name-title {
     width: 95%;
-    margin: 0 auto;
+    margin: 0.5rem auto;
     font-style: normal;
-    font-weight: 400;
-    font-size: 72px;
-    line-height: 87px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    font-size: 4rem;
+    text-align: center;
 }
 
 .drink-info-container {
@@ -75,45 +71,24 @@ const props = defineProps({
 
 
 .drink-recipe-title {
+    margin: 0.5rem auto;
     font-style: normal;
-    font-weight: 400;
-    font-size: 32px;
-    line-height: 39px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
+    font-size: 2.5rem;
+    text-align: center;
 }
 
-.ingredient-items-group {
-    text-decoration: none;
-    margin: unset;
-    padding: unset;
-}
 
-.ingredient-item {
 
-    font-style: normal;
-    font-weight: 400;
-    font-size: 26px;
-    line-height: 31px;
-    display: flex;
-    align-items: center;
-}
-
+.ingredient-item,
 .drink-method {
     font-style: normal;
-    font-weight: 400;
-    font-size: 26px;
-    line-height: 31px;
-    display: flex;
-    align-items: center;
+    font-size: 1.5rem;
 }
+
 
 @media (min-width: 1190px) {
     .section-content {
         width: 1190px;
-
     }
 
     .drink-info-container {
@@ -127,6 +102,5 @@ const props = defineProps({
     .ingredients-content {
         flex: 1;
     }
-
 }
 </style>

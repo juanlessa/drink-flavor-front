@@ -33,17 +33,17 @@ const props = defineProps({
 }
 
 .section-content {
-    padding: 20px;
+    padding: 1.025rem;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: 17px;
+    gap: 1rem;
 }
 
 @media (min-width: 1190px) {
     .section-content {
-        width: 1150px;
+        width: 1190px;
         margin: 0 auto;
         flex-direction: row;
 

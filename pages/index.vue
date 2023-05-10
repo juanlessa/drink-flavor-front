@@ -1,6 +1,6 @@
 <template>
     <NavBar />
-    <main>
+    <main class="main-content">
         <DrinksSection :drinks="drinks" />
     </main>
     <Footer />

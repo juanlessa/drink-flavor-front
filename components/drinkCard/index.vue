@@ -3,15 +3,15 @@
 
         <img class="card-image" src="/sex-on-beach.png" />
         <div class="card-content">
-            <div class="card-title">
+            <h2 class="card-title">
                 <div>{{ props.drinkName }}</div>
-            </div>
+            </h2>
             <div class="card-ingredients">
                 <div v-for="i in props.drinkIngredients" :key="i.name" class="ingredient">
                     <div class="ingredient-circle" :style="{ 'background-color': i.colorTheme ? i.colorTheme : '#aabbcc' }">
                     </div>
                     <div class="ingredient-name">
-                        {{ i.name }}
+                        {{ i.category }}
                     </div>
                 </div>
             </div>
@@ -47,15 +47,15 @@ const goToDrinkDetailPage = () => {
 <style scoped>
 .card-container {
     background-color: var(--white);
-    height: 120px;
+    height: 136px;
     width: 100%;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 8px;
 
-    padding: 8px;
+    padding: 0.5rem;
 
     display: flex;
-    gap: 12px;
+    gap: 0.75rem;
 
     cursor: pointer;
 }
@@ -71,42 +71,39 @@ const goToDrinkDetailPage = () => {
 .card-title {
     width: 100%;
     text-align: center;
-    height: 62px;
+    height: 4rem;
     display: flex;
     align-items: center;
     justify-content: center;
 
     font-style: normal;
-    font-weight: 400;
-    font-size: 26px;
-    line-height: 31px;
+    font-size: 1.6rem;
+
 
 }
 
 .card-ingredients {
-    margin-top: 12px;
+    margin-top: 0.75rem;
     display: flex;
     flex-wrap: wrap;
-    gap: 3px 7px;
+    gap: 0.3rem 0.5rem;
 }
 
 .ingredient {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 0.25rem;
 }
 
 .ingredient-circle {
-    width: 15px;
-    height: 15px;
+    width: 1rem;
+    height: 0.9rem;
     border-radius: 50%;
 }
 
 .ingredient-name {
     font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 19px;
+    font-size: 1rem;
 }
 
 @media (min-width: 768px) {
@@ -118,7 +115,7 @@ const goToDrinkDetailPage = () => {
 
 @media (min-width: 1190px) {
     .card-container {
-        width: 356px;
+        width: 372px;
     }
 
 }

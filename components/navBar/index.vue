@@ -9,7 +9,8 @@
 </template>
 <style scoped>
 .header-container {
-    height: 90px;
+    height: 10vh;
+    max-height: 5.5rem;
     width: 100vw;
     background-color: var(--white);
 }
