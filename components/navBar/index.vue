@@ -1,7 +1,9 @@
 <template>
     <header class="header-container">
         <div class="header-content">
-            <img class="img-logo" src="logo.png" height="75" alt="DrunkFlavor">
+            <NuxtLink to="/">
+                <img class="img-logo" src="/logo.png" height="75" alt="DrunkFlavor">
+            </NuxtLink>
         </div>
     </header>
 </template>
