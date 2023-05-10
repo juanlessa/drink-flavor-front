@@ -1,7 +1,7 @@
 <template>
-    <div class="card-container">
+    <div @click="goToDrinkDetailPage" class="card-container">
 
-        <img class="card-image" src="sex-on-beach.png" />
+        <img class="card-image" src="/sex-on-beach.png" />
         <div class="card-content">
             <div class="card-title">
                 <div>{{ props.drinkName }}</div>
@@ -19,25 +19,30 @@
     </div>
 </template>
 <script setup lang="ts">
+import { IDrinkIngredient } from '@/utils/dtos/DrinksDTO'
 
-export interface Ingredient {
-    name: string,
-    quantity: Number,
-    unity: string,
-    category: string,
-    isAlcoholic: boolean,
-    colorTheme?: string
-}
+const route = useRoute()
 const props = defineProps({
     drinkName: {
         type: String,
         default: "",
     },
+    drinkId: {
+        type: String,
+        default: "",
+    },
     drinkIngredients: {
-        type: Array<Ingredient>,
+        type: Array<IDrinkIngredient>,
         default: [],
     },
 });
+
+
+
+const goToDrinkDetailPage = () => {
+
+    useNuxtApp().$router.push(`/drink/${props.drinkId}`)
+}
 </script>
 <style scoped>
 .card-container {
@@ -52,6 +57,7 @@ const props = defineProps({
     display: flex;
     gap: 12px;
 
+    cursor: pointer;
 }
 
 .card-image {
