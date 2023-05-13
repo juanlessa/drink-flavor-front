@@ -5,6 +5,9 @@
     --light-50: #F0F5F5;
     --white: #FFFFFF;
     --text-color: #14213D;
+    --button-cancel: #E6E6FA;
+    --button-submit: #9370DB;
+    --button-delete: #E60000;
 }
 
 * {
@@ -25,6 +28,7 @@ body {
 html {
     margin: 0;
     padding: 0;
+    font-size: 87.5%;
 }
 
 ol, ul {
@@ -53,7 +57,44 @@ body, input, textarea, select, button {
     cursor: not-allowed;
 
 }
+.page-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
 
 .main-content {
-    min-height: 85vh;
+    flex: 1;
+}
+.section-container {
+    width: 100vw;
+}
+
+
+.section-content {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+
+
+
+@media (min-width: 720px) {
+    html {
+        font-size: 93.75%;
+    }
+}
+
+
+@media (min-width: 1190px) {
+    html {
+        font-size: 100%;
+    }
+    .section-content {
+        width: 1190px;
+        padding: 0;
+    }
+
+  
 }
