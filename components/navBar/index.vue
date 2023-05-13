@@ -1,39 +1,31 @@
 <template>
-    <header class="header-container">
-        <div class="header-content">
-            <NuxtLink to="/">
-                <img class="img-logo" src="/logo.png" height="75" alt="DrunkFlavor">
-            </NuxtLink>
-        </div>
-    </header>
+    <NavBarMobileNav :links="links" class="desktop-hidden" />
+    <NavBarDesktopNav :links="links" class="mobile-hidden" />
 </template>
+<script setup lang="ts">
+const links = [
+    {
+        name: "ingredients",
+        path: "/ingredients"
+    },
+    {
+        name: "drinks",
+        path: "/drinks"
+    }
+]
+</script>
 <style scoped>
-.header-container {
-    height: 10vh;
-    max-height: 5.5rem;
-    width: 100vw;
-    background-color: var(--white);
+.mobile-hidden {
+    display: none;
 }
-
-.header-content {
-    width: 95%;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    height: 100%;
-
-}
-
-.img-logo {
-    cursor: pointer;
-}
-
-
-
 
 @media (min-width: 1190px) {
-    .header-content {
-        width: 1048px;
+    .desktop-hidden {
+        display: none;
+    }
+
+    .mobile-hidden {
+        display: block;
     }
 
 }
