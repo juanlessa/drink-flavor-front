@@ -37,16 +37,6 @@ const props = defineProps({
 
 </script>
 <style scoped>
-.section-container {
-    width: 100vw;
-}
-
-
-.section-content {
-    width: 100%;
-    margin: 0 auto;
-}
-
 .drink-image {
     height: 30vh;
     width: 100%;
@@ -87,10 +77,6 @@ const props = defineProps({
 
 
 @media (min-width: 1190px) {
-    .section-content {
-        width: 1190px;
-    }
-
     .drink-info-container {
         flex-direction: row;
     }

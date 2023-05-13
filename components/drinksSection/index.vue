@@ -13,9 +13,6 @@
 import { IDrinkResponse } from '@/utils/dtos/DrinksDTO'
 
 onMounted(() => {
-    console.log("childd");
-    console.log(props.drinks);
-
 
 })
 

@@ -20,8 +20,6 @@
 </template>
 <script setup lang="ts">
 import { IDrinkIngredient } from '@/utils/dtos/DrinksDTO'
-
-const route = useRoute()
 const props = defineProps({
     drinkName: {
         type: String,
