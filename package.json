@@ -13,7 +13,8 @@
     "nuxt": "^3.4.3"
   },
   "dependencies": {
+    "@vueuse/nuxt": "^10.1.0",
     "axios": "^1.4.0",
-    "@vueuse/nuxt": "^10.1.0"
+    "vue-toastification": "^2.0.0-rc.5"
   }
 }
