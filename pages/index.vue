@@ -15,12 +15,8 @@ onMounted(() => {
     axios.get("/drinks")
         .then((response) => {
             drinks.value = response.data as IDrinkResponse[]
-            console.log("landing page");
-            console.log(drinks);
-
-
         }).catch((error) => {
-            console.log("error ",)
+            console.error("error ",)
         })
 })
 

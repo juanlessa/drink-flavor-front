@@ -5,6 +5,17 @@ interface IDrinkResponse {
     method: string,
     ingredients: IDrinkIngredient[]
 }
+
+interface ICreateDrink {
+    id?: string,
+    name: string,
+    method: string,
+    ingredients: {
+        ingredientId: string,
+        quantity: number
+    }[]
+}
+
 interface IDrinkIngredient {
     ingredientId: string,
     quantity: number,
@@ -16,4 +27,4 @@ interface IDrinkIngredient {
     created_at: Date
 }
 
-export { IDrinkResponse, IDrinkIngredient }
+export { IDrinkResponse, IDrinkIngredient, ICreateDrink }
