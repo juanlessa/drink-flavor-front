@@ -8,6 +8,7 @@
     --button-cancel: #E6E6FA;
     --button-submit: #9370DB;
     --button-delete: #E60000;
+    --error-color: #E60000;
 }
 
 * {
@@ -93,7 +94,7 @@ body, input, textarea, select, button {
     }
     .section-content {
         width: 1190px;
-        padding: 0;
+        padding: 0 1.5rem;
     }
 
   

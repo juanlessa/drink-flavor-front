@@ -222,7 +222,7 @@ const handleLoadIngredients = () => {
 
 @media (min-width: 1190px) {
     .ingredient-card {
-        max-width: 36.6rem;
+        width: 35.1rem;
     }
 
     .delete-modal-box {

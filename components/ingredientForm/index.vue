@@ -48,7 +48,6 @@
 <script setup lang="ts">
 import { IIngredient } from '@/utils/dtos/IngredientsDTO'
 const axios = useNuxtApp().$axios
-const route = useRoute()
 
 const props = defineProps({
     ingredient: {
