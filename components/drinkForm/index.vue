@@ -374,11 +374,6 @@ const handleMethodValidation = (value: string) => {
     cursor: pointer;
 }
 
-
-
-
-
-
 .button-container {
     margin-top: 2.5rem;
     margin-left: auto;
@@ -409,9 +404,6 @@ const handleMethodValidation = (value: string) => {
     border-radius: 1rem;
     color: var(--white);
 }
-
-
-
 
 .input-ingredient-title-container {
     margin-top: 1rem;

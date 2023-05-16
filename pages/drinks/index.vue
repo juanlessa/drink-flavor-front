@@ -37,7 +37,8 @@
 import { ref } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 import { IDrinkResponse } from '@/utils/dtos/DrinksDTO'
-
+import toastConfig from '@/utils/toastConfig'
+import { AxiosError } from 'axios';
 const axios = useNuxtApp().$axios
 const deleteNodal = ref<HTMLElement>();
 const drinks = ref<IDrinkResponse[]>([])
@@ -66,6 +67,7 @@ const handleDeleteDrink = () => {
     }
     axios.delete("/drinks", requestBody).then(() => {
         isDeleteModalOpen.value = false
+        useNuxtApp().$toast.success("SUCCESS", toastConfig);
         handleLoadDrinks()
 
     })

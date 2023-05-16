@@ -37,7 +37,7 @@
 import { ref } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 import { IIngredient } from '@/utils/dtos/IngredientsDTO'
-
+import toastConfig from '@/utils/toastConfig'
 const axios = useNuxtApp().$axios
 const deleteNodal = ref<HTMLElement>();
 const ingredients = ref<IIngredient[]>([])
@@ -66,6 +66,7 @@ const handleDeleteIngredient = () => {
     }
     axios.delete("/ingredients", requestBody).then(() => {
         isDeleteModalOpen.value = false
+        useNuxtApp().$toast.success("SUCCESS", toastConfig);
         handleLoadIngredients()
 
     })
@@ -82,7 +83,7 @@ const handleLoadIngredients = () => {
             ingredients.value = response.data as IIngredient[]
 
         }).catch((error) => {
-            console.log("error ")
+            console.error("error ")
         })
 }
 </script>

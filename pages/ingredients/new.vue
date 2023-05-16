@@ -13,7 +13,7 @@
 <script setup lang="ts">
 import { IIngredient } from '@/utils/dtos/IngredientsDTO'
 const defaultIngredient: IIngredient = {
-    id: "", name: "", category: "", unity: "", colorTheme: "#acacbb", isAlcoholic: false
+    id: "", name: "", category: "", unity: "", colorTheme: "#dc0cbb", isAlcoholic: false
 }
 
 </script>

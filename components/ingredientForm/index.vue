@@ -5,11 +5,15 @@
             <div class="input-column">
                 <div>
                     <label class="input-label" for="name">name</label>
-                    <input v-model="props.ingredient.name" class="text-input" type="text" id="name" />
+                    <input v-model="props.ingredient.name" :class="{ 'text-input': true, 'has-error': isNameInvalid }"
+                        @blur="handleNameValidation(($event.target as HTMLInputElement).value)" type="text" id="name" />
                 </div>
                 <div>
                     <label class="input-label" for="category">category</label>
-                    <input v-model="props.ingredient.category" class="text-input" type="text" id="category" />
+                    <input v-model="props.ingredient.category"
+                        :class="{ 'text-input': true, 'has-error': isCategoryInvalid }"
+                        @blur="handleCategoryValidation(($event.target as HTMLInputElement).value)" type="text"
+                        id="category" />
                 </div>
 
             </div>
@@ -17,7 +21,9 @@
                 <div class="input-md-row">
                     <div class="input-unity-group">
                         <label for="unity">unity</label>
-                        <input v-model="props.ingredient.unity" class="text-input input-unity" type="text" id="unity" />
+                        <input v-model="props.ingredient.unity"
+                            :class="{ 'text-input': true, 'input-unity': true, 'has-error': isUnityInvalid }" type="text"
+                            @blur="handleUnityValidation(($event.target as HTMLInputElement).value)" id=" unity" />
                     </div>
                     <div class="input-alcoholic-group">
                         <label for="ingredientIsAlcoholic">is alcoholic?</label>
@@ -33,7 +39,9 @@
                     <div class="input-color-picker-group">
                         <input v-model="props.ingredient.colorTheme" class="input-color-picker" type="color"
                             id="ingredientColor" />
-                        <input v-model="props.ingredient.colorTheme" class="input-text-color-picker" type="text"
+                        <input v-model="props.ingredient.colorTheme"
+                            :class="{ 'input-text-color-picker': true, 'has-error': isColorThemeInvalid }" type="text"
+                            @blur="handleColorThemeValidation(($event.target as HTMLInputElement).value)"
                             id="IngredientColor" />
                     </div>
                 </div>
@@ -47,7 +55,16 @@
 </template>
 <script setup lang="ts">
 import { IIngredient } from '@/utils/dtos/IngredientsDTO'
+import toastConfig from '@/utils/toastConfig'
+import { AxiosError } from 'axios';
 const axios = useNuxtApp().$axios
+
+const isNameInvalid = ref<boolean>(false)
+const isCategoryInvalid = ref<boolean>(false)
+const isUnityInvalid = ref<boolean>(false)
+const isColorThemeInvalid = ref<boolean>(false)
+
+
 
 const props = defineProps({
     ingredient: {
@@ -57,7 +74,6 @@ const props = defineProps({
 });
 
 onMounted(() => {
-    props.ingredient.colorTheme = "aabbcc" //default color
 })
 
 const handleCancelButton = () => {
@@ -65,6 +81,29 @@ const handleCancelButton = () => {
 }
 
 const handleSubmitButton = () => {
+    //validation
+    const nameIsInvalid = handleNameValidation(props.ingredient.name)
+    if (nameIsInvalid) {
+        useNuxtApp().$toast.error("Name invalid.", toastConfig);
+    }
+    const categoryIsInvalid = handleCategoryValidation(props.ingredient.category)
+    if (categoryIsInvalid) {
+        useNuxtApp().$toast.error("Category invalid.", toastConfig);
+    }
+    const unityIsInvalid = handleUnityValidation(props.ingredient.unity)
+    if (unityIsInvalid) {
+        useNuxtApp().$toast.error("Unity invalid.", toastConfig);
+    }
+    const colorIsInvalid = handleColorThemeValidation(props.ingredient.colorTheme)
+    if (colorIsInvalid) {
+        useNuxtApp().$toast.error("Color invalid.", toastConfig);
+    }
+
+    if (nameIsInvalid || categoryIsInvalid || unityIsInvalid || colorIsInvalid) {
+        return
+    }
+
+
     let requestBody: IIngredient = {
         "name": props.ingredient.name,
         "unity": props.ingredient.unity,
@@ -81,15 +120,48 @@ const handleSubmitButton = () => {
         }
         axios.patch("/ingredients", requestBody)
             .then((response) => {
-                useNuxtApp().$router.push("/ingredients")
+                useNuxtApp().$toast.success("SUCCESS", toastConfig);
+                setTimeout(() => (useNuxtApp().$router.back()), 750);
+            }).catch((error: AxiosError) => {
+                if (error.response?.status === 400) {
+                    const errorMessage = (error.response.data as { status: string, message: string }).message
+                    useNuxtApp().$toast.error(errorMessage, toastConfig);
+                }
             })
         return
     }
     axios.post("/ingredients", requestBody)
         .then((response) => {
-            useNuxtApp().$router.push("/ingredients")
+            useNuxtApp().$toast.success("SUCCESS", toastConfig);
+            setTimeout(() => (useNuxtApp().$router.back()), 750);
+        }).catch((error: AxiosError) => {
+            if (error.response?.status === 400) {
+                const errorMessage = (error.response.data as { status: string, message: string }).message
+                useNuxtApp().$toast.error(errorMessage, toastConfig);
+            }
         })
     return
+}
+
+const handleNameValidation = (value: string) => {
+    const isInvalid = value.trim().length <= 1
+    isNameInvalid.value = isInvalid
+    return isInvalid
+}
+const handleCategoryValidation = (value: string) => {
+    const isInvalid = value.trim().length <= 1
+    isCategoryInvalid.value = isInvalid
+    return isInvalid
+}
+const handleUnityValidation = (value: string) => {
+    const isInvalid = value.trim().length < 1
+    isUnityInvalid.value = isInvalid
+    return isInvalid
+}
+const handleColorThemeValidation = (value: string) => {
+    const isInvalid = !(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(value)) // color regex validation
+    isColorThemeInvalid.value = isInvalid
+    return isInvalid
 }
 
 </script>
@@ -135,6 +207,10 @@ const handleSubmitButton = () => {
     padding: 0.5rem;
     width: 100%;
 
+}
+
+.has-error {
+    border: 0.1rem solid var(--error-color) !important;
 }
 
 .button-container {
