@@ -1,9 +1,11 @@
 <template>
-    <NavBar />
-    <main class="main-content">
-        <DrinksSection :drinks="drinks" />
-    </main>
-    <Footer />
+    <div class="page-container">
+        <NavBar />
+        <main class="main-content">
+            <DrinksSection :drinks="drinks" />>
+        </main>
+        <Footer />
+    </div>
 </template>
 
 <script setup lang="ts">

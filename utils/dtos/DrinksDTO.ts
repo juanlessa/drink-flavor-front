@@ -3,7 +3,9 @@ interface IDrinkResponse {
     id?: string,
     name: string,
     method: string,
-    ingredients: IDrinkIngredient[]
+    ingredients: IDrinkIngredient[],
+    cover?: string,
+    thumbnail?: string
 }
 
 interface ICreateDrink {

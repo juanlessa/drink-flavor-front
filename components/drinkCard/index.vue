@@ -1,7 +1,7 @@
 <template>
     <div @click="goToDrinkDetailPage" class="card-container">
 
-        <img class="card-image" src="/sex-on-beach.png" />
+        <img class="card-image" :src="drinkThumbnail" />
         <div class="card-content">
             <h2 class="card-title">
                 <div>{{ props.drinkName }}</div>
@@ -20,6 +20,7 @@
 </template>
 <script setup lang="ts">
 import { IDrinkIngredient } from '@/utils/dtos/DrinksDTO'
+
 const props = defineProps({
     drinkName: {
         type: String,
@@ -33,33 +34,36 @@ const props = defineProps({
         type: Array<IDrinkIngredient>,
         default: [],
     },
+    drinkThumbnail: {
+        type: String,
+        default: '/default-drink-thumb.png'
+    }
 });
 
 
 
 const goToDrinkDetailPage = () => {
 
-    useNuxtApp().$router.push(`/drink/${props.drinkId}`)
+    useNuxtApp().$router.push(`/drinks/${props.drinkId}`)
 }
 </script>
 <style scoped>
 .card-container {
     background-color: var(--white);
-    height: 136px;
+    height: 8.5rem;
     width: 100%;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 8px;
-
+    box-shadow: 0 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
+    border-radius: 0.5rem;
     padding: 0.5rem;
-
     display: flex;
     gap: 0.75rem;
-
     cursor: pointer;
 }
 
 .card-image {
-    border-radius: 4px;
+    border-radius: 0.25rem;
+    height: 7.5rem;
+    width: 7rem;
 }
 
 .card-content {
@@ -113,8 +117,7 @@ const goToDrinkDetailPage = () => {
 
 @media (min-width: 1190px) {
     .card-container {
-        width: 372px;
+        width: 23.25rem;
     }
-
 }
 </style>

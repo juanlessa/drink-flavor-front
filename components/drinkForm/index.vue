@@ -19,10 +19,8 @@
             <div class="input-column">
                 <div class="input-ingredient-title-container">
                     <div class="input-ingredient-title-row">
-
-
                         <label class="search-ingredient-label" for="searchIngredient">ingredients</label>
-                        <a class="new-ingredient-link">new ingredient</a>
+                        <a href="/ingredients/new" class="new-ingredient-link">new ingredient</a>
                     </div>
                     <div class="input-ingredient-title-row">
                         <IngredientSearchInput :already-selected="drinkIngredientIdsList" :search-min-length="1"

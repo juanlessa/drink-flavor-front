@@ -77,7 +77,7 @@ onMounted(() => {
 })
 
 const handleCancelButton = () => {
-    useNuxtApp().$router.push("/ingredients")
+    useNuxtApp().$router.back()
 }
 
 const handleSubmitButton = () => {

@@ -1,11 +1,11 @@
 <template>
-    <NavBar />
-    <main class="main-content">
-        <DrinkDetailSection :drink="drink" />
-    </main>
-    <Footer />
+    <div class="page-container">
+        <NavBar />
+        <main class="main-content">
+            <DrinkDetailSection :drink="drink" />
+        </main>
+    </div>
 </template>
-
 <script setup lang="ts">
 import { IDrinkResponse } from '@/utils/dtos/DrinksDTO'
 
@@ -16,15 +16,13 @@ const drink = ref<IDrinkResponse>()
 
 onMounted(() => {
     const drinkId = route.params.id
-    console.log("drink_id", drinkId);
     axios.get(`/drinks/${drinkId}`)
         .then((response) => {
             drink.value = response.data as IDrinkResponse
 
         }).catch((error) => {
-            console.log("error ", error)
+            console.error("error ", error)
         })
 })
-
-
 </script>
+<style scoped></style>

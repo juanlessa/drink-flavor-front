@@ -2,8 +2,8 @@
     <section class="section-container">
         <div class="section-content">
             <DrinkCard v-for="d in props.drinks" :key="d.id" :drink-name="d.name" :drink-id="d.id"
-                :drink-ingredients="d.ingredients.slice(0, 4)" />
-
+                :drink-ingredients="d.ingredients.slice(0, 4)"
+                :drink-thumbnail="d.thumbnail ? d.thumbnail : '/default-drink-thumb.png'" />
         </div>
 
     </section>
@@ -30,20 +30,18 @@ const props = defineProps({
 }
 
 .section-content {
-    padding: 1.025rem;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     gap: 1rem;
+    padding: 1.5rem 1rem;
 }
 
 @media (min-width: 1190px) {
     .section-content {
-        width: 1190px;
-        margin: 0 auto;
         flex-direction: row;
-
+        padding: 1.5rem 0;
     }
 
 }
