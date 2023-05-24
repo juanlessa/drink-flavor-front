@@ -15,6 +15,7 @@
   "dependencies": {
     "@vueuse/nuxt": "^10.1.0",
     "axios": "^1.4.0",
-    "vue-toastification": "^2.0.0-rc.5"
+    "vue-toastification": "^2.0.0-rc.5",
+    "vue3-dropzone": "^2.0.1"
   }
 }

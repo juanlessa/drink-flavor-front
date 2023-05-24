@@ -58,7 +58,7 @@ const props = defineProps({
 }
 
 .drink-name-title {
-    width: 95%;
+    width: 100%;
     padding: 1.5rem 0;
     font-style: normal;
     font-size: 3rem;

@@ -66,9 +66,10 @@ onClickOutside(menuElement, () => isMenuOpen.value = false)
     top: 100%;
     left: 0;
     width: 100vw;
-    height: 100px;
     z-index: 1;
     background-color: var(--white);
+    box-shadow: 0 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
+
 }
 
 .img-logo {
@@ -90,6 +91,8 @@ onClickOutside(menuElement, () => isMenuOpen.value = false)
 
 .link-item {
     font-size: 1.2rem;
+    padding: 0.5rem 0;
+    margin: 0.25rem 0;
 }
 
 .link-group {

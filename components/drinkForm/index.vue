@@ -11,10 +11,19 @@
                 <div>
                     <label class="input-label" for="method">method</label>
                     <textarea v-model="drinkToCreateMethod"
-                        :class="{ 'textarea-input': true, 'has-error': isMethodInvalid }" type="text" id="method" rows="4"
+                        :class="{ 'textarea-input': true, 'has-error': isMethodInvalid }" type="text" id="method" rows="6"
                         @blur="handleMethodValidation(($event.target as HTMLTextAreaElement).value)" />
                 </div>
-
+                <div class="drink-drop-zone-container">
+                    <div class="drink-drop-zone-item">
+                        <label class="input-label" for="cover">cover</label>
+                        <DropZoneInput @file="handleCoverFileUpdate" id="cover" />
+                    </div>
+                    <div class="drink-drop-zone-item">
+                        <label class="input-label" for="thumbnail">thumbnail</label>
+                        <DropZoneInput @file="handleThumbnailFileUpdate" id="thumbnail" />
+                    </div>
+                </div>
             </div>
             <div class="input-column">
                 <div class="input-ingredient-title-container">
@@ -67,6 +76,7 @@ import toastConfig from '@/utils/toastConfig'
 import { AxiosError } from 'axios';
 const axios = useNuxtApp().$axios
 
+
 interface IAutoCompleteOption {
     id: string, name: string
 }
@@ -74,7 +84,8 @@ interface IAutoCompleteOption {
 const drinkToCreateName = ref<string>("")
 const drinkToCreateMethod = ref<string>("")
 const drinkToCreateIngredients = ref<IDrinkIngredient[]>([])
-
+const drinkToCreateCover = ref<File>()
+const drinkToCreateThumbnail = ref<File>()
 
 const ingredientsFullSearchResult = ref<IIngredient[]>([])
 const searchedIngredients = ref<IAutoCompleteOption[]>([])
@@ -102,11 +113,12 @@ watch(() => props.drink, (newValue: IDrinkResponse) => {
 onMounted(() => {
 })
 
+
 const handleCancelButton = () => {
     useNuxtApp().$router.back()
 }
 
-const handleSubmitButton = () => {
+const handleSubmitButton = async () => {
     // validation
     const nameIsValid = !handleNameValidation(drinkToCreateName.value)
     if (!nameIsValid) {
@@ -149,29 +161,60 @@ const handleSubmitButton = () => {
             id: props.drink.id as string
 
         }
-        axios.patch("/drinks", requestBody)
-            .then((response) => {
-                useNuxtApp().$toast.success("SUCCESS", toastConfig);
-                setTimeout(() => (useNuxtApp().$router.back()), 750);
-            }).catch((error: AxiosError) => {
-                if (error.response?.status === 400) {
-                    const errorMessage = (error.response.data as { status: string, message: string }).message
-                    useNuxtApp().$toast.error(errorMessage, toastConfig);
-                }
-            })
-        return
-    }
-    axios.post("/drinks", requestBody)
-        .then((response) => {
+
+        try {
+            await axios.patch("/drinks", requestBody)
+            if (drinkToCreateCover.value) {
+                let coverData = new FormData();
+                coverData.append('cover', drinkToCreateCover.value, drinkToCreateCover.value.name);
+                await axios.patch(`drinks/${requestBody.id}/cover`, coverData)
+            }
+            if (drinkToCreateThumbnail.value) {
+                let thumbnailData = new FormData();
+                thumbnailData.append('thumbnail', drinkToCreateThumbnail.value, drinkToCreateThumbnail.value.name);
+                await axios.patch(`drinks/${requestBody.id}/thumbnail`, thumbnailData)
+            }
             useNuxtApp().$toast.success("SUCCESS", toastConfig);
             setTimeout(() => (useNuxtApp().$router.back()), 750);
-        }).catch((error: AxiosError) => {
-            if (error.response?.status === 400) {
-                const errorMessage = (error.response.data as { status: string, message: string }).message
+
+        } catch (error) {
+            const axiosError = error as AxiosError
+            console.error(error)
+            if (axiosError.response?.status === 400) {
+                const errorMessage = (axiosError.response.data as { status: string, message: string }).message
                 useNuxtApp().$toast.error(errorMessage, toastConfig);
             }
-        })
-    return
+        }
+
+        return
+    }
+
+    try {
+        const response = await axios.post("/drinks", requestBody)
+        const { id: drinkId } = response.data as { id: string }
+        if (drinkToCreateCover.value) {
+            let coverData = new FormData();
+            coverData.append('cover', drinkToCreateCover.value, drinkToCreateCover.value.name);
+            await axios.patch(`drinks/${drinkId}/cover`, coverData)
+        }
+        if (drinkToCreateThumbnail.value) {
+            let thumbnailData = new FormData();
+            thumbnailData.append('thumbnail', drinkToCreateThumbnail.value, drinkToCreateThumbnail.value.name);
+            await axios.patch(`drinks/${drinkId}/thumbnail`, thumbnailData)
+        }
+        useNuxtApp().$toast.success("SUCCESS", toastConfig);
+        setTimeout(() => (useNuxtApp().$router.back()), 750);
+
+    } catch (error) {
+        const axiosError = error as AxiosError
+        console.error(error)
+        if (axiosError.response?.status === 400) {
+            const errorMessage = (axiosError.response.data as { status: string, message: string }).message
+            useNuxtApp().$toast.error(errorMessage, toastConfig);
+        }
+    }
+    return;
+
 }
 const onIngredientSearch = (value: string) => {
 
@@ -263,7 +306,13 @@ const handleMethodValidation = (value: string) => {
     isMethodInvalid.value = isInvalid
     return isInvalid
 }
+const handleThumbnailFileUpdate = (file: File) => {
+    drinkToCreateThumbnail.value = file;
+}
 
+const handleCoverFileUpdate = (file: File) => {
+    drinkToCreateCover.value = file;
+}
 </script>
 <style scoped>
 .form-container {
@@ -323,10 +372,19 @@ const handleMethodValidation = (value: string) => {
 
 }
 
+.drink-drop-zone-container {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    gap: 1.5rem;
+}
+
 .ingredients-list-container {
     display: flex;
     gap: 0.75rem;
     flex-direction: column;
+    min-height: 9rem;
 }
 
 .ingredients-list-row {
@@ -473,6 +531,20 @@ const handleMethodValidation = (value: string) => {
         right: 5%;
     }
 
+    .drink-drop-zone-container {
+        flex-direction: row;
+        justify-content: unset;
+        gap: 1.5rem;
+    }
+
+    .drink-drop-zone-item {
+        flex: 1;
+    }
+
+    .ingredients-list-container {
+        height: 20.75rem;
+        overflow-y: scroll;
+    }
 }
 
 @media (min-width: 1190px) {
