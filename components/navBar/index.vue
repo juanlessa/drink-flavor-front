@@ -13,6 +13,12 @@ const links = [
         path: "/drinks"
     }
 ]
+
+const authState = useNuxtApp().$getAuthState()
+if (!authState.authenticated) {
+    links.push({ name: "login", path: "/login" })
+}
+
 </script>
 <style scoped>
 .mobile-hidden {
