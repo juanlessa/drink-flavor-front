@@ -44,6 +44,9 @@ const ingredients = ref<IIngredient[]>([])
 const isDeleteModalOpen = ref<boolean>(false)
 const ingredientToDelete = ref<string>("")
 
+definePageMeta({
+    middleware: 'auth'
+})
 onMounted(() => {
     handleLoadIngredients()
 })

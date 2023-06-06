@@ -45,6 +45,10 @@ const drinks = ref<IDrinkResponse[]>([])
 const isDeleteModalOpen = ref<boolean>(false)
 const drinkToDelete = ref<string>("")
 
+definePageMeta({
+    middleware: 'auth'
+})
+
 onMounted(() => {
     handleLoadDrinks()
 })

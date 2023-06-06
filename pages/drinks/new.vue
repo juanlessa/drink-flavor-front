@@ -16,6 +16,10 @@ const defaultDrink: IDrinkResponse = {
     id: "", name: "", method: "", ingredients: []
 }
 
+definePageMeta({
+    middleware: 'auth'
+})
+
 </script>
 <style scoped>
 .section-content {

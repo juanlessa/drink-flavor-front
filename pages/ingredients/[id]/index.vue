@@ -17,6 +17,10 @@ const route = useRoute()
 
 const ingredient = ref<IIngredient>()
 
+definePageMeta({
+    middleware: 'auth'
+})
+
 onMounted(() => {
     const ingredientId = route.params.id
 

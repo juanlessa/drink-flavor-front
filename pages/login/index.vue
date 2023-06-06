@@ -27,7 +27,7 @@
 import { AxiosError } from 'axios';
 import { IAuthenticateResponse, ITokens } from "@/utils/dtos/TokensDTO";
 import toastConfig from '@/utils/toastConfig'
-const { $axios: axios, $storeTokens, $toast, $router } = useNuxtApp()
+const { $axios: axios, $login, $toast, $router } = useNuxtApp()
 
 const email = ref<string>("")
 const password = ref<string>("")
@@ -35,10 +35,10 @@ const isEmailInvalid = ref<boolean>(false)
 const isPasswordInvalid = ref<boolean>(false)
 
 definePageMeta({
-    middleware: "auth",
-});
-onMounted(() => { });
+    middleware: 'guest'
+})
 
+onMounted(() => { });
 
 const handleLogin = async () => {
     handleEmailValidate(email.value)
@@ -55,20 +55,9 @@ const handleLogin = async () => {
 
     try {
         const response = await axios.post<IAuthenticateResponse>("/sessions", requestBody);
-        const { token, refresh_token } = response.data;
 
-        const tokens: ITokens = {
-            token: {
-                token: token.token,
-                expires: new Date(token.expires),
-            },
-            refresh_token: {
-                token: refresh_token.token,
-                expires: new Date(refresh_token.expires),
-            },
-        };
+        $login(response.data)
 
-        $storeTokens(tokens);
         $toast.success("SUCCESS", toastConfig);
         setTimeout(() => ($router.back()), 750);
 

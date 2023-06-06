@@ -17,6 +17,10 @@ const route = useRoute()
 
 const drink = ref<IDrinkResponse>()
 
+definePageMeta({
+    middleware: 'auth'
+})
+
 onMounted(() => {
     const drinkId = route.params.id
 

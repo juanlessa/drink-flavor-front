@@ -14,6 +14,10 @@ const route = useRoute()
 
 const drink = ref<IDrinkResponse>()
 
+definePageMeta({
+    middleware: 'guest'
+})
+
 onMounted(() => {
     const drinkId = route.params.id
     axios.get(`/drinks/${drinkId}`)

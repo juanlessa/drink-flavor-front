@@ -15,6 +15,9 @@ import { IIngredient } from '@/utils/dtos/IngredientsDTO'
 const defaultIngredient: IIngredient = {
     id: "", name: "", category: "", unity: "", colorTheme: "#dc0cbb", isAlcoholic: false
 }
+definePageMeta({
+    middleware: 'auth'
+})
 
 </script>
 <style scoped>
