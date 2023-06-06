@@ -26,7 +26,6 @@ export default defineNuxtPlugin(() => {
         return value
     }
 
-
     const responseHandler = (response: AxiosResponse<string, unknown>) => {
         return response;
     };
@@ -34,15 +33,16 @@ export default defineNuxtPlugin(() => {
 
     const errorHandler = async(error: any) => {
         const originalRequest = error.config;
-        if ([401, 403].includes(error.response.status) && !originalRequest._retry) {
-            originalRequest._retry = true;
+        // passar para uma variavel
+        if (error.response && [401, 403].includes(error.response.status) ) {
+           
             try{
-                const token = await useNuxtApp().$refreshToken();
-                if(!token){
+                const newAccessToken = await useNuxtApp().$refreshToken();
+                if(!newAccessToken){
                     return Promise.reject(error);
                 }
 
-                originalRequest.headers.Authorization = `Bearer ${token}`;
+                originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
                 return axios(originalRequest);
                 
             }catch(e){
@@ -53,8 +53,6 @@ export default defineNuxtPlugin(() => {
 		return Promise.reject(error);
 
 	};
-      
-
     
 
 	api.interceptors.request.use((request) => requestInterceptor(request));
@@ -62,6 +60,7 @@ export default defineNuxtPlugin(() => {
 		(response) => responseHandler(response),
 		(error) => errorHandler(error)
 	);
+
     return {
         provide: {
             axios: api

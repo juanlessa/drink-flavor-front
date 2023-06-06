@@ -1,59 +1,120 @@
 import  { IAuthenticateResponse, ITokens, IRefreshTokenResponse } from '@/utils/dtos/TokensDTO'
+import { IUser } from '@/utils/dtos/UsersDTO'
 
 export type AuthState = {
 	user: {
 		email: string;
+        name: string
 	};
-	forceUpdate: boolean;
 	authenticated: boolean;
 };
 
-const initState = (): AuthState => ({
-	user: {
-		email: '',
-	},
-	forceUpdate: false,
-	authenticated: false
-});
+const initState = (): AuthState => {
+    return {
+	    user: {
+		    email: '',
+            name: '',
+	    },
+	    authenticated: false
+    }
+}
 
 export default defineNuxtPlugin(() => {
 
-    const state = useState<AuthState>('auth', initState);
+    const authState = useState<AuthState>('auth', initState);
 
-    const getAuthState = () => state.value;
-
+    const getAuthState = () => authState.value;
+    const resetAuthState = () => authState.value = initState()
 
     const storeTokens = ({token, refresh_token}: ITokens) => {
         // store refresh token
-        const refreshTokenCookie = useCookie(
-            "refresh_token", 
-            {
-                expires: refresh_token.expires,
-                maxAge: (refresh_token.expires.getTime() - new Date().getDate())/1000
-            }
-        )
-        refreshTokenCookie.value = refresh_token.token
-        
+        if(refresh_token.token){
+            const refreshTokenCookie = useCookie(
+                "refresh_token", 
+                {
+                    expires: refresh_token.expires,
+                    maxAge: (refresh_token.expires.getTime() - new Date().getDate())/1000
+                }
+            )
+            refreshTokenCookie.value = refresh_token.token
+        }
+
         // store token
-        const tokenCookie = useCookie(
-            "token", 
-            {
-                expires: token.expires,
-                maxAge: (token.expires.getTime() - new Date().getTime())/1000
-            }
-        )
-        tokenCookie.value = token.token        
+        if(token.token){
+            const tokenCookie = useCookie(
+                "token", 
+                {
+                    expires: token.expires,
+                    maxAge: (token.expires.getTime() - new Date().getTime())/1000
+                }
+            )
+            tokenCookie.value = token.token
+        }       
     }
 
-    const signOut = () =>{
-        const refreshTokenCookie = useCookie("refresh_token")
-        refreshTokenCookie.value = null
+    const checkTokens = () => {
+        const tokenCookie = useCookie('token')
+        const refreshTokenCookie = useCookie('refresh_token')
 
-        const tokenCookie = useCookie("refresh_token")
-        tokenCookie.value = null
+
+        if(!tokenCookie.value && !refreshTokenCookie.value){
+            return false;
+        }
+        return true;
+
+    }
+
+    const login = (data: IAuthenticateResponse) => {
+        const tokens: ITokens = {
+            token: {
+                token: data.token.token,
+                expires: new Date(data.token.expires),
+            },
+            refresh_token: {
+                token: data.refresh_token.token,
+                expires: new Date(data.refresh_token.expires),
+            },
+        };
+
+        storeTokens(tokens);
+        authState.value.authenticated = true
+        authState.value.user.email = data.user.email
+        authState.value.user.name = data.user.name
+    }
+
+    const authenticate = async() => {
+        try {
+            const { $axios: axios } = useNuxtApp()
+            const { data } = await axios.get<IUser>('/users/profile')
+
+            authState.value.authenticated = true
+            authState.value.user.email = data.email
+            authState.value.user.name = data.name
+
+            return true
+        }catch(error){
+            console.error(error)
+            return false
+        }
+    }
+
+    const signOut = (manual = false) => {
+        const refreshTokenCookie = useCookie("refresh_token")
+        refreshTokenCookie.value = undefined
+
+        const tokenCookie = useCookie("token")
+        tokenCookie.value = undefined
+
+        resetAuthState()
+        
+        if(manual){
+            return navigateTo("/")
+        }
+
+        return navigateTo("/login")
     }  
 
-    const refreshToken = async()=>{
+    const refreshToken = async() => {
         const refreshTokenCookie = useCookie("refresh_token")
         if(!refreshTokenCookie.value){
             return;
@@ -63,27 +124,24 @@ export default defineNuxtPlugin(() => {
             const { data } = await axios.post<IRefreshTokenResponse>(
                 '/refresh-token',
                 { "token": refreshTokenCookie.value }, 
-                { 
-                    headers: { NoAuth: true }
-                }
+                { headers: { NoAuth: true } }
             )
-            const token = data.token
-            const expires = new Date(data.expires)
-            const tokenCookie = useCookie(
-                "token", 
-                {
-                    expires: expires,
-                    maxAge: (expires.getTime() - new Date().getTime())/1000
-                }
-            )
-            tokenCookie.value = token
+            const newAccessToken = data.token
+            const newAccessTokenExpires = new Date(data.expires)
+           
+            storeTokens({
+                refresh_token: { token: "", expires: {} as Date },
+                token: { token: newAccessToken, expires: newAccessTokenExpires }
+            })
  
-            return token
+            return newAccessToken
             
         } catch(error){
             console.error('refresh token request error');
             console.error(error)
-            return
+
+            signOut()
+            return;
         }
     }
 
@@ -92,7 +150,10 @@ export default defineNuxtPlugin(() => {
             getAuthState,
             storeTokens,
             signOut,
-            refreshToken
+            login,
+            refreshToken,
+            authenticate,
+            checkTokens,
         },
       };
 })
