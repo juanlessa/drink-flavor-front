@@ -12,6 +12,9 @@
                 <NuxtLink v-for="l in props.links" :key="l.name" class="link-item" :to="l.path">
                     {{ l.name }}
                 </NuxtLink>
+                <div v-show="authSate.authenticated" @click="handleLogout" class="link-item">
+                    logout
+                </div>
             </div>
         </div>
     </header>
@@ -19,9 +22,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { onClickOutside } from '@vueuse/core'
+import { AuthState } from '@/plugins/auth';
+
+const { $getAuthState, $signOut } = useNuxtApp()
 
 const menuElement = ref<HTMLElement>();
 const isMenuOpen = ref<boolean>(false)
+const authSate = ref<AuthState>($getAuthState())
 
 interface ILink {
     name: string,
@@ -43,6 +50,10 @@ const handleToggleMenu = () => {
 
 onClickOutside(menuElement, () => isMenuOpen.value = false)
 
+
+const handleLogout = () => {
+    return $signOut(true)
+}
 </script>
 <style scoped>
 .header-container {
@@ -93,6 +104,7 @@ onClickOutside(menuElement, () => isMenuOpen.value = false)
     font-size: 1.2rem;
     padding: 0.5rem 0;
     margin: 0.25rem 0;
+    cursor: pointer;
 }
 
 .link-group {

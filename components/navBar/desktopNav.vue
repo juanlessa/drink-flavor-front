@@ -8,11 +8,16 @@
                 <NuxtLink v-for="l in props.links" :key="l.name" class="link-item" :to="l.path">
                     {{ l.name }}
                 </NuxtLink>
+                <div v-show="showLogout" @click="handleLogout" class="link-item">
+                    logout
+                </div>
             </div>
         </div>
     </header>
 </template>
 <script setup lang="ts">
+const { $signOut } = useNuxtApp()
+
 
 interface ILink {
     name: string,
@@ -23,8 +28,15 @@ const props = defineProps({
         type: Array<ILink>,
         default: [],
     },
-
+    showLogout: {
+        type: Boolean,
+        default: false
+    }
 });
+
+const handleLogout = () => {
+    $signOut(true)
+}
 </script>
 <style scoped>
 .header-container {
@@ -56,5 +68,6 @@ const props = defineProps({
 .link-item {
     font-size: 1.2rem;
     display: block;
+    cursor: pointer;
 }
 </style>
