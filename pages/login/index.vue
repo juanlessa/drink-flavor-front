@@ -54,7 +54,11 @@ const handleLogin = async () => {
     }
 
     try {
-        const response = await axios.post<IAuthenticateResponse>("/sessions", requestBody);
+        const response = await axios.post<IAuthenticateResponse>(
+            "/sessions",
+            requestBody,
+            { headers: { NoAuth: true } }
+        );
 
         $login(response.data)
 

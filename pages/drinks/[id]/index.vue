@@ -18,15 +18,18 @@ definePageMeta({
     middleware: 'guest'
 })
 
-onMounted(() => {
+onMounted(async () => {
     const drinkId = route.params.id
-    axios.get(`/drinks/${drinkId}`)
-        .then((response) => {
-            drink.value = response.data as IDrinkResponse
+    try {
+        const response = await axios.get<IDrinkResponse>(
+            `/drinks/${drinkId}`,
+            { headers: { NoAuth: true } }
+        )
+        drink.value = response.data
 
-        }).catch((error) => {
-            console.error("error ", error)
-        })
+    } catch (error) {
+        console.error("error ", error)
+    }
 })
 </script>
 <style scoped></style>

@@ -12,19 +12,21 @@
 import { IDrinkResponse } from '~/utils/dtos/Drinks'
 
 const axios = useNuxtApp().$axios
+
 const drinks = ref<IDrinkResponse[]>([])
 
 definePageMeta({
     middleware: 'guest'
 })
 
-onMounted(() => {
-    axios.get("/drinks")
-        .then((response) => {
-            drinks.value = response.data as IDrinkResponse[]
-        }).catch((error) => {
-            console.error("error ",)
-        })
+onMounted(async () => {
+    try {
+        const response = await axios.get<IDrinkResponse[]>("/drinks", { headers: { NoAuth: true } })
+        drinks.value = response.data
+
+    } catch (error) {
+        console.error("error ",)
+    }
 })
 
 </script>
