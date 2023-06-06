@@ -1,4 +1,5 @@
-import axios, { AxiosRequestHeaders, AxiosInstance, AxiosRequestConfig, AxiosResponse,InternalAxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestHeaders, AxiosInstance, AxiosRequestConfig, AxiosResponse,InternalAxiosRequestConfig, AxiosError } from 'axios';
+import { DFAxiosError, DFAxiosErrorTypes } from '@/types/error';
 
 
 export default defineNuxtPlugin(() => {
@@ -32,10 +33,18 @@ export default defineNuxtPlugin(() => {
 
 
     const errorHandler = async(error: any) => {
-        const originalRequest = error.config;
-        // passar para uma variavel
-        if (error.response && [401, 403].includes(error.response.status) ) {
-           
+        if(!(error instanceof AxiosError)){
+            return Promise.reject(error);
+        }
+        const axiosError = error as DFAxiosError;
+        
+        if (axiosError.response && 
+            axiosError.response.status === 401 &&
+            axiosError.response.data.message === DFAxiosErrorTypes.ERR_MISSING_TOKEN 
+        ) {
+
+            const originalRequest = axiosError.config as InternalAxiosRequestConfig;
+            
             try{
                 const newAccessToken = await useNuxtApp().$refreshToken();
                 if(!newAccessToken){
