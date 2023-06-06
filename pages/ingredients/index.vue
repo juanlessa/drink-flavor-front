@@ -36,7 +36,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { onClickOutside } from '@vueuse/core'
-import { IIngredient } from '@/utils/dtos/IngredientsDTO'
+import { IIngredient } from '~/utils/dtos/Ingredients'
 import toastConfig from '@/utils/toastConfig'
 const axios = useNuxtApp().$axios
 const deleteNodal = ref<HTMLElement>();

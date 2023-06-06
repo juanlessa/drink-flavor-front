@@ -54,7 +54,7 @@
     </div>
 </template>
 <script setup lang="ts">
-import { IIngredient } from '@/utils/dtos/IngredientsDTO'
+import { IIngredient } from '~/utils/dtos/Ingredients'
 import toastConfig from '@/utils/toastConfig'
 import { AxiosError } from 'axios';
 const axios = useNuxtApp().$axios

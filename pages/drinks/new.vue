@@ -11,7 +11,7 @@
     </div>
 </template>
 <script setup lang="ts">
-import { IDrinkResponse } from '@/utils/dtos/DrinksDTO'
+import { IDrinkResponse } from '~/utils/dtos/Drinks'
 const defaultDrink: IDrinkResponse = {
     id: "", name: "", method: "", ingredients: []
 }

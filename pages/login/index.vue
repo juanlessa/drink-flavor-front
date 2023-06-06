@@ -25,7 +25,7 @@
 </template>
 <script setup lang="ts">
 import { AxiosError } from 'axios';
-import { IAuthenticateResponse, ITokens } from "@/utils/dtos/TokensDTO";
+import { IAuthenticateResponse, ITokens } from "~/utils/dtos/Tokens";
 import toastConfig from '@/utils/toastConfig'
 const { $axios: axios, $login, $toast, $router } = useNuxtApp()
 

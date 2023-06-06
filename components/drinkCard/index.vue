@@ -19,7 +19,7 @@
     </div>
 </template>
 <script setup lang="ts">
-import { IDrinkIngredient } from '@/utils/dtos/DrinksDTO'
+import { IDrinkIngredient } from '~/utils/dtos/Drinks'
 
 const props = defineProps({
     drinkName: {

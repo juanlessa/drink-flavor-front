@@ -11,7 +11,7 @@
     </div>
 </template>
 <script setup lang="ts">
-import { IIngredient } from '@/utils/dtos/IngredientsDTO'
+import { IIngredient } from '~/utils/dtos/Ingredients'
 const axios = useNuxtApp().$axios
 const route = useRoute()
 

@@ -36,7 +36,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { onClickOutside } from '@vueuse/core'
-import { IDrinkResponse } from '@/utils/dtos/DrinksDTO'
+import { IDrinkResponse } from '~/utils/dtos/Drinks'
 import toastConfig from '@/utils/toastConfig'
 import { AxiosError } from 'axios';
 const axios = useNuxtApp().$axios

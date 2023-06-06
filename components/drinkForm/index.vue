@@ -70,8 +70,8 @@
     </div>
 </template>
 <script setup lang="ts">
-import { IDrinkResponse, IDrinkIngredient, ICreateDrink } from '@/utils/dtos/DrinksDTO'
-import { IIngredient } from '@/utils/dtos/IngredientsDTO'
+import { IDrinkResponse, IDrinkIngredient, ICreateDrink } from '~/utils/dtos/Drinks'
+import { IIngredient } from '~/utils/dtos/Ingredients'
 import toastConfig from '@/utils/toastConfig'
 import { AxiosError } from 'axios';
 const axios = useNuxtApp().$axios
