@@ -2,20 +2,21 @@
     <div class="login-page-container">
         <div class="login-content">
             <NuxtLink class="back-button" to="/">
-                <span><img src="/left-arrow.svg" width="16" alt=""></span>
+                <span><img src="/left-arrow.svg" width="16" alt="" /></span>
                 back
             </NuxtLink>
             <img src="/logo.svg" height="120" alt="logo" />
             <div class="input-item">
-                <label class="input-label" for="email">email</label>
-                <input v-model="email" @blur="handleEmailValidate(($event.target as HTMLInputElement).value)"
-                    :class="{ 'text-input': true, 'has-error': isEmailInvalid }" type="email" id="email" name="email" />
+                <label class="input-label" for="emailInput">email</label>
+                <input v-model="emailInputValue" @blur="handleEmailValidate(($event.target as HTMLInputElement).value)"
+                    :class="{ 'text-input': true, 'has-error': isEmailInvalid }" type="email" id="emailInput" />
                 <span v-show="isEmailInvalid" class="error-message">email incorrect</span>
             </div>
             <div class="input-item">
-                <label class="input-label" for="password">password</label>
-                <input v-model="password" @blur="handlePasswordValidate(($event.target as HTMLInputElement).value)"
-                    :class="{ 'text-input': true, 'has-error': isPasswordInvalid }" type="password" id="password"
+                <label class="input-label" for="passwordInput">password</label>
+                <input v-model="passwordInputValue"
+                    @blur="handlePasswordValidate(($event.target as HTMLInputElement).value)"
+                    :class="{ 'text-input': true, 'has-error': isPasswordInvalid }" type="password" id="passwordInput"
                     name="password" />
                 <span v-show="isPasswordInvalid" class="error-message">password incorrect</span>
             </div>
@@ -24,67 +25,65 @@
     </div>
 </template>
 <script setup lang="ts">
-import { AxiosError } from 'axios';
+import { AxiosError } from "axios";
 import { IAuthenticateResponse, ITokens } from "~/utils/dtos/Tokens";
-import toastConfig from '@/utils/toastConfig'
-const { $axios: axios, $login, $toast, $router } = useNuxtApp()
+import toastConfig from "@/utils/toastConfig";
+const { $axios: axios, $login, $toast, $router } = useNuxtApp();
 
-const email = ref<string>("")
-const password = ref<string>("")
-const isEmailInvalid = ref<boolean>(false)
-const isPasswordInvalid = ref<boolean>(false)
+const emailInputValue = ref<string>("");
+const passwordInputValue = ref<string>("");
+const isEmailInvalid = ref<boolean>(false);
+const isPasswordInvalid = ref<boolean>(false);
 
 definePageMeta({
-    middleware: 'guest'
-})
+    middleware: "guest",
+});
 
 onMounted(() => { });
 
 const handleLogin = async () => {
-    handleEmailValidate(email.value)
-    handlePasswordValidate(password.value)
+    handleEmailValidate(emailInputValue.value);
+    handlePasswordValidate(passwordInputValue.value);
 
     if (isEmailInvalid.value || isPasswordInvalid.value) {
         return;
     }
 
     const requestBody = {
-        email: email.value,
-        password: password.value,
-    }
+        email: emailInputValue.value,
+        password: passwordInputValue.value,
+    };
 
     try {
-        const response = await axios.post<IAuthenticateResponse>(
-            "/sessions",
-            requestBody,
-            { headers: { NoAuth: true } }
-        );
+        const response = await axios.post<IAuthenticateResponse>("/sessions", requestBody, {
+            headers: { NoAuth: true },
+        });
 
-        $login(response.data)
+        $login(response.data);
 
         $toast.success("SUCCESS", toastConfig);
-        setTimeout(() => ($router.back()), 750);
-
+        setTimeout(() => $router.back(), 750);
     } catch (error) {
-        const axiosError = error as AxiosError
+        const axiosError = error as AxiosError;
         if (axiosError.response?.status === 400) {
-            const errorMessage = (axiosError.response.data as { status: string, message: string }).message
+            const errorMessage = (axiosError.response.data as {
+                status: string;
+                message: string;
+            }).message;
             $toast.error(errorMessage, toastConfig);
         }
     }
 };
 
-
-const handleEmailValidate = (email: string) => {
+const handleEmailValidate = (emailValue: string) => {
     const emailRegex = /\S+@\S+\.\S+/;
-    const isValid = emailRegex.test(email)
-    return isEmailInvalid.value = !isValid
-}
-const handlePasswordValidate = (password: string) => {
-    const isValid = password.length >= 8
-    return isPasswordInvalid.value = !isValid
-}
-
+    const isValid = emailRegex.test(emailValue);
+    return (isEmailInvalid.value = !isValid);
+};
+const handlePasswordValidate = (passwordValue: string) => {
+    const isValid = passwordValue.length >= 8;
+    return (isPasswordInvalid.value = !isValid);
+};
 </script>
 <style scoped>
 .login-page-container {
@@ -102,14 +101,12 @@ const handlePasswordValidate = (password: string) => {
     flex-direction: column;
     align-items: center;
     gap: 1rem;
-
 }
 
 .input-item {
     width: 100%;
     display: flex;
     flex-direction: column;
-
 }
 
 .input-label {
@@ -137,7 +134,6 @@ const handlePasswordValidate = (password: string) => {
     margin-top: 0.25rem;
     font-size: 0.9rem;
     margin-left: 0.5rem;
-
 }
 
 .back-button {
@@ -161,7 +157,6 @@ const handlePasswordValidate = (password: string) => {
     color: var(--white);
 }
 
-
 @media (min-width: 780px) {
     .login-page-container {
         background-color: var(--light-50);
@@ -174,7 +169,6 @@ const handlePasswordValidate = (password: string) => {
         padding: 3rem 2rem;
         border-radius: 1rem;
         box-shadow: 0 0.3rem 0.3rem rgba(0, 0, 0, 0.25);
-
 
         position: relative;
     }
