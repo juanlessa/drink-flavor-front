@@ -63,18 +63,20 @@ const handleDeleteButton = (d: IDrinkResponse) => {
     isDeleteModalOpen.value = true
     drinkToDelete.value = d.id as string
 }
-const handleDeleteDrink = () => {
+const handleDeleteDrink = async () => {
     let requestBody = {
         data: {
             "id": drinkToDelete.value
         }
     }
-    axios.delete("/drinks", requestBody).then(() => {
+    try {
+        const response = await axios.delete("/drinks", requestBody)
         isDeleteModalOpen.value = false
         useNuxtApp().$toast.success("SUCCESS", toastConfig);
         handleLoadDrinks()
-
-    })
+    } catch (error) {
+        console.error(error)
+    }
 }
 const handleCancelButton = () => {
     isDeleteModalOpen.value = false
@@ -82,14 +84,13 @@ const handleCancelButton = () => {
 }
 onClickOutside(deleteNodal, handleCancelButton)
 
-const handleLoadDrinks = () => {
-    axios.get("/drinks")
-        .then((response) => {
-            drinks.value = response.data as IDrinkResponse[]
-
-        }).catch((error) => {
-            console.error("error ")
-        })
+const handleLoadDrinks = async () => {
+    try {
+        const response = await axios.get("/drinks")
+        drinks.value = response.data as IDrinkResponse[]
+    } catch (error) {
+        console.error(error)
+    }
 }
 </script>
 <style scoped>

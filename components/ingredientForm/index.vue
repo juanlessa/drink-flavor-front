@@ -80,7 +80,7 @@ const handleCancelButton = () => {
     useNuxtApp().$router.back()
 }
 
-const handleSubmitButton = () => {
+const handleSubmitButton = async () => {
     //validation
     const nameIsInvalid = handleNameValidation(props.ingredient.name)
     if (nameIsInvalid) {
@@ -118,28 +118,30 @@ const handleSubmitButton = () => {
             id: props.ingredient.id,
             ...requestBody
         }
-        axios.patch("/ingredients", requestBody)
-            .then((response) => {
-                useNuxtApp().$toast.success("SUCCESS", toastConfig);
-                setTimeout(() => (useNuxtApp().$router.back()), 750);
-            }).catch((error: AxiosError) => {
-                if (error.response?.status === 400) {
-                    const errorMessage = (error.response.data as { status: string, message: string }).message
-                    useNuxtApp().$toast.error(errorMessage, toastConfig);
-                }
-            })
-        return
-    }
-    axios.post("/ingredients", requestBody)
-        .then((response) => {
+        try {
+            const response = await axios.patch("/ingredients", requestBody)
             useNuxtApp().$toast.success("SUCCESS", toastConfig);
             setTimeout(() => (useNuxtApp().$router.back()), 750);
-        }).catch((error: AxiosError) => {
-            if (error.response?.status === 400) {
-                const errorMessage = (error.response.data as { status: string, message: string }).message
+        } catch (error) {
+            const axiosError = error as AxiosError
+            if (axiosError.response?.status === 400) {
+                const errorMessage = (axiosError.response.data as { status: string, message: string }).message
                 useNuxtApp().$toast.error(errorMessage, toastConfig);
             }
-        })
+        }
+        return
+    }
+    try {
+        const response = await axios.post("/ingredients", requestBody)
+        useNuxtApp().$toast.success("SUCCESS", toastConfig);
+        setTimeout(() => (useNuxtApp().$router.back()), 750);
+    } catch (error) {
+        const axiosError = error as AxiosError
+        if (axiosError.response?.status === 400) {
+            const errorMessage = (axiosError.response.data as { status: string, message: string }).message
+            useNuxtApp().$toast.error(errorMessage, toastConfig);
+        }
+    }
     return
 }
 

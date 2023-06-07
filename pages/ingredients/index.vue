@@ -61,18 +61,20 @@ const handleDeleteButton = (ing: IIngredient) => {
     isDeleteModalOpen.value = true
     ingredientToDelete.value = ing.id as string
 }
-const handleDeleteIngredient = () => {
+const handleDeleteIngredient = async () => {
     let requestBody = {
         data: {
             "id": ingredientToDelete.value
         }
     }
-    axios.delete("/ingredients", requestBody).then(() => {
+    try {
+        const response = await axios.delete("/ingredients", requestBody)
         isDeleteModalOpen.value = false
         useNuxtApp().$toast.success("SUCCESS", toastConfig);
         handleLoadIngredients()
-
-    })
+    } catch (error) {
+        console.error(error);
+    }
 }
 const handleCancelButton = () => {
     isDeleteModalOpen.value = false
@@ -80,14 +82,13 @@ const handleCancelButton = () => {
 }
 onClickOutside(deleteNodal, handleCancelButton)
 
-const handleLoadIngredients = () => {
-    axios.get("/ingredients")
-        .then((response) => {
-            ingredients.value = response.data as IIngredient[]
-
-        }).catch((error) => {
-            console.error("error ")
-        })
+const handleLoadIngredients = async () => {
+    try {
+        const response = await axios.get("/ingredients")
+        ingredients.value = response.data as IIngredient[]
+    } catch (error) {
+        console.error(error)
+    }
 }
 </script>
 <style scoped>

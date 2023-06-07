@@ -21,17 +21,17 @@ definePageMeta({
     middleware: 'auth'
 })
 
-onMounted(() => {
+onMounted(async () => {
     const drinkId = route.params.id
 
-    axios.get(`/drinks/${drinkId}`)
-        .then((response) => {
-            drink.value = response.data as IDrinkResponse
-            console.log(response.data)
+    try {
+        const response = await axios.get(`/drinks/${drinkId}`)
 
-        }).catch((error) => {
-            console.log("error ", error)
-        })
+        drink.value = response.data as IDrinkResponse
+
+    } catch (error) {
+        console.error(error)
+    }
 })
 
 </script>
