@@ -3,10 +3,10 @@ import { DFAxiosError, DFAxiosErrorTypes } from '@/types/error';
 
 
 export default defineNuxtPlugin(() => {
-    const baseURL = "http://localhost:3333" 
+    const { apiBase } = useRuntimeConfig().public
     
     const api = axios.create({
-		baseURL: baseURL
+		baseURL: apiBase
 	});
 
 
