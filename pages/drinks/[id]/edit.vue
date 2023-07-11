@@ -1,43 +1,41 @@
 <template>
-    <div class="page-container">
-        <NavBar />
-        <main class="main-content">
-            <section class="section-container">
-                <div class="section-content">
-                    <DrinkForm :drink="drink" />
-                </div>
-            </section>
-        </main>
-    </div>
+	<div class="page-container">
+		<NavBar />
+		<main class="main-content">
+			<section class="section-container">
+				<div class="section-content">
+					<DrinkForm :drink="drink" />
+				</div>
+			</section>
+		</main>
+	</div>
 </template>
 <script setup lang="ts">
-import { IDrinkResponse } from '~/utils/dtos/Drinks'
-const axios = useNuxtApp().$axios
-const route = useRoute()
+import { IDrinkResponse } from "~/utils/dtos/Drinks";
+const axios = useNuxtApp().$axios;
+const route = useRoute();
 
-const drink = ref<IDrinkResponse>()
+const drink = ref<IDrinkResponse>();
 
 definePageMeta({
-    middleware: 'auth'
-})
+	middleware: "auth",
+});
 
 onMounted(async () => {
-    const drinkId = route.params.id
+	const drinkId = route.params.id;
 
-    try {
-        const response = await axios.get(`/drinks/${drinkId}`)
+	try {
+		const response = await axios.get(`/drinks/${drinkId}`);
 
-        drink.value = response.data as IDrinkResponse
-
-    } catch (error) {
-        console.error(error)
-    }
-})
-
+		drink.value = response.data as IDrinkResponse;
+	} catch (error) {
+		console.error(error);
+	}
+});
 </script>
 <style scoped>
 .section-content {
-    background-color: var(--white);
-    min-height: 92vh;
+	background-color: var(--primary-background);
+	min-height: 92vh;
 }
 </style>
