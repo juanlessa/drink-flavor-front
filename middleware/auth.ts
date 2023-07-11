@@ -1,24 +1,20 @@
-
-
 export default defineNuxtRouteMiddleware(async (to) => {
-    if (process.server) {
-        return;
-    }
-    
-    const { $checkTokens, $authenticate, $getAuthState } = useNuxtApp();
+	if (process.server) {
+		return;
+	}
 
-    const state = $getAuthState()
-     const userHasToken = $checkTokens()
+	const { $checkTokens, $authenticate, $getAuthState } = useNuxtApp();
 
-     if(userHasToken && !state.authenticated) {
-        console.log('não ta autenticado e tem tokens');
-        
-        await $authenticate()        
-    }
+	const state = $getAuthState();
+	const userHasToken = $checkTokens();
 
+	if (userHasToken && !state.authenticated) {
+		console.log("não ta autenticado e tem tokens");
 
-    if(!state.authenticated){
-        return navigateTo("/");
-    }
-    
-})
+		await $authenticate();
+	}
+
+	if (!state.authenticated) {
+		return navigateTo("/");
+	}
+});
