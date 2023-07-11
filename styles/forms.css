@@ -1,0 +1,109 @@
+.form-container {
+	background-color: var(--primary-background);
+}
+
+.form-title {
+	padding-top: 1rem;
+	display: block;
+	font-size: 2rem;
+	width: 100%;
+	text-align: center;
+	margin-bottom: 1rem;
+}
+
+.input-container {
+	display: flex;
+	flex-direction: column;
+}
+
+.input-column {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+
+
+.input-label {
+	display: block;
+	margin-bottom: 0.5rem;
+	margin-left: 0.5rem;
+	font-size: 1rem;
+}
+
+.text-input {
+	font-size: 1rem;
+	background-color: var(--secondary-background);
+	border: 0.5px solid var(--secondary-background);
+	border-radius: 0.5rem;
+	padding: 0.5rem;
+	width: 100%;
+}
+
+.textarea-input {
+	font-size: 1rem;
+	background-color: var(--secondary-background);
+	border: 0.5px solid var(--secondary-background);
+	border-radius: 0.5rem;
+	padding: 0.5rem;
+	width: 100%;
+}
+
+.has-error {
+	border: 0.1rem solid var(--error) !important;
+}
+
+
+.button-container {
+	margin-top: 2.5rem;
+	margin-left: auto;
+	display: flex;
+	flex-direction: column-reverse;
+	gap: 0.5rem;
+	align-items: center;
+}
+
+.button-cancel {
+	width: 100%;
+	padding: auto;
+	height: 2.5rem;
+	max-width: 25rem;
+	background-color: var(--cancel-button);
+	border: none;
+	border-radius: 1rem;
+}
+
+.button-submit {
+	width: 100%;
+	padding: auto;
+	height: 2.5rem;
+	max-width: 25rem;
+	background-color: var(--primary-color);
+	border: none;
+	border-radius: 1rem;
+	color: var(--secondary-text);
+}
+
+@media(min-width: 780px) {
+
+	.input-container {
+		flex-direction: row;
+		gap: 1.5rem;
+	}
+
+	.input-column {
+		flex: 1;
+	}
+    .button-container {
+		flex-direction: row;
+		gap: 1.5rem;
+		justify-content: center;
+	}
+
+	.button-cancel {
+		max-width: 15rem;
+	}
+
+	.button-submit {
+		max-width: 15rem;
+	}
+}

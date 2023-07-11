@@ -1,26 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&family=Rozha+One&display=swap');
-
-
-:root {
-    --light-50: #F0F5F5;
-    --white: #FFFFFF;
-    --text-color: #14213D;
-    --button-cancel: #E6E6FA;
-    --button-submit: #9370DB;
-    --button-delete: #E60000;
-    --error-color: #E60000;
-}
-
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
+@import url('./forms.css');
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
 }
 
 body {
     line-height: 1;
     width: 100vw;
-    background-color: var(--light-50);
+    background-color: var(--secondary-background);
     margin: 0;
     padding: 0;
 
@@ -48,16 +38,23 @@ a {
 body, input, textarea, select, button {
     font-weight: 400;
     font-size: 1rem;
-    font-family: 'Roboto Slab', sans-serif;
-    color: var(--text-color);
+    color: var(--primary-text);
 }
-
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 500;
+    color: var(--primary-text);
+}
 
 [disabled] {
     opacity: 0.6;
     cursor: not-allowed;
 
 }
+
+.mobile-hidden {
+	display: none;
+}
+
 .page-container {
     min-height: 100vh;
     display: flex;
@@ -78,9 +75,6 @@ body, input, textarea, select, button {
     padding: 0 1.5rem;
 }
 
-
-
-
 @media (min-width: 720px) {
     html {
         font-size: 93.75%;
@@ -92,6 +86,15 @@ body, input, textarea, select, button {
     html {
         font-size: 100%;
     }
+    
+    .desktop-hidden {
+		display: none;
+	}
+
+	.mobile-hidden {
+		display: block;
+	}
+
     .section-content {
         width: 1190px;
     }
