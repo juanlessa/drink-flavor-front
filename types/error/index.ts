@@ -1,7 +1,13 @@
-import { AxiosRequestConfig, AxiosResponse, AxiosResponseHeaders, InternalAxiosRequestConfig, RawAxiosResponseHeaders } from 'axios';
+import {
+	AxiosRequestConfig,
+	AxiosResponse,
+	AxiosResponseHeaders,
+	InternalAxiosRequestConfig,
+	RawAxiosResponseHeaders,
+} from "axios";
 
 export enum DFAxiosErrorTypes {
-	ERR_MISSING_TOKEN = "token missing",
+	ERR_MISSING_TOKEN = "Token is missing",
 }
 
 export type DFAxiosError<T = unknown, D = any> = Error & {
@@ -12,13 +18,13 @@ export type DFAxiosError<T = unknown, D = any> = Error & {
 };
 
 export type DFAxiosResponse<D = any> = {
-    data: {
-        status: string,
-	    message: string,
-    };
-    status: number;
-    statusText: string;
-    headers: RawAxiosResponseHeaders | AxiosResponseHeaders;
-    config: InternalAxiosRequestConfig<D>;
-    request?: any;
-  }
+	data: {
+		status: string;
+		message: string;
+	};
+	status: number;
+	statusText: string;
+	headers: RawAxiosResponseHeaders | AxiosResponseHeaders;
+	config: InternalAxiosRequestConfig<D>;
+	request?: any;
+};
