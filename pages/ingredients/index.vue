@@ -2,7 +2,7 @@
 	<PageTemplate>
 		<div class="main-content-padding">
 			<button @click="handleNewIngredient" class="action-button primary-button-color button-create-new">
-				new Category
+				new Ingredient
 			</button>
 			<DisplayItems
 				:items="ingredientItems"
