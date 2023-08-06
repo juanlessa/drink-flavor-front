@@ -1,21 +1,14 @@
 <template>
-	<div class="page-container">
-		<NavBar />
-		<main class="main-content">
-			<section class="section-container">
-				<div class="section-content">
-					<IngredientForm :ingredient="ingredient" />
-				</div>
-			</section>
-		</main>
-	</div>
+	<PageTemplate bg-color="primary-background">
+		<IngredientsForm :ingredient="ingredient" class="main-content-padding" />
+	</PageTemplate>
 </template>
 <script setup lang="ts">
-import { IIngredient } from "~/utils/dtos/Ingredients";
-const axios = useNuxtApp().$axios;
+import { Ingredient } from "@/utils/dtos/Ingredients";
+const { $axios: axios } = useNuxtApp();
 const route = useRoute();
 
-const ingredient = ref<IIngredient>();
+const ingredient = ref<Ingredient>();
 
 definePageMeta({
 	middleware: "auth",
@@ -25,17 +18,11 @@ onMounted(async () => {
 	const ingredientId = route.params.id;
 
 	try {
-		const response = await axios.get(`/ingredients/${ingredientId}`);
-
-		ingredient.value = response.data as IIngredient;
+		const { data } = await axios.get<Ingredient>(`/ingredients/${ingredientId}`);
+		ingredient.value = data;
 	} catch (error) {
 		console.error(error);
 	}
 });
 </script>
-<style scoped>
-.section-content {
-	background-color: var(--primary-background);
-	min-height: 92vh;
-}
-</style>
+<style scoped></style>
