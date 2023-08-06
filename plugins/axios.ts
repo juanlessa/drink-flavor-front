@@ -8,6 +8,12 @@ import axios, {
 } from "axios";
 import { DFAxiosError, DFAxiosErrorTypes } from "@/types/error";
 
+declare module "#app" {
+	interface NuxtApp {
+		$axios: AxiosInstance;
+	}
+}
+
 export default defineNuxtPlugin(() => {
 	const { apiBase } = useRuntimeConfig().public;
 

@@ -9,6 +9,18 @@ export type AuthState = {
 	authenticated: boolean;
 };
 
+declare module "#app" {
+	interface NuxtApp {
+		$getAuthState: () => AuthState;
+		$storeTokens: (data: ITokens) => void;
+		$checkTokens: () => boolean;
+		$login: (data: IAuthenticateResponse) => void;
+		$authenticate: () => Promise<boolean>;
+		$signOut: (manual?: boolean) => void;
+		$refreshToken: () => Promise<string>;
+	}
+}
+
 const initState = (): AuthState => {
 	return {
 		user: {
@@ -108,7 +120,7 @@ export default defineNuxtPlugin(() => {
 	const refreshToken = async () => {
 		const refreshTokenCookie = useCookie("refresh_token");
 		if (!refreshTokenCookie.value) {
-			return;
+			return "";
 		}
 		const { $axios: axios } = useNuxtApp();
 		try {
@@ -131,7 +143,7 @@ export default defineNuxtPlugin(() => {
 			console.error(error);
 
 			signOut();
-			return;
+			return "";
 		}
 	};
 
