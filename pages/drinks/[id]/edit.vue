@@ -1,21 +1,14 @@
 <template>
-	<div class="page-container">
-		<NavBar />
-		<main class="main-content">
-			<section class="section-container">
-				<div class="section-content">
-					<DrinkForm :drink="drink" />
-				</div>
-			</section>
-		</main>
-	</div>
+	<PageTemplate bg-color="primary-background">
+		<DrinksForm :drink="drink" class="main-content-padding" />
+	</PageTemplate>
 </template>
 <script setup lang="ts">
-import { IDrinkResponse } from "~/utils/dtos/Drinks";
-const axios = useNuxtApp().$axios;
+import { Drink } from "@/utils/dtos/Drinks";
+const { $axios: axios } = useNuxtApp();
 const route = useRoute();
 
-const drink = ref<IDrinkResponse>();
+const drink = ref<Drink>();
 
 definePageMeta({
 	middleware: "auth",
@@ -25,17 +18,11 @@ onMounted(async () => {
 	const drinkId = route.params.id;
 
 	try {
-		const response = await axios.get(`/drinks/${drinkId}`);
-
-		drink.value = response.data as IDrinkResponse;
+		const { data } = await axios.get<Drink>(`/drinks/${drinkId}`);
+		drink.value = data;
 	} catch (error) {
 		console.error(error);
 	}
 });
 </script>
-<style scoped>
-.section-content {
-	background-color: var(--primary-background);
-	min-height: 92vh;
-}
-</style>
+<style scoped></style>
