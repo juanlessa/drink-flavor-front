@@ -1,33 +1,23 @@
 <template>
 	<footer class="footer-container">
-		<div class="footer-content">
-			<p>
-				Project made by
-				<NuxtLink class="owner-link" to="https://www.linkedin.com/in/juanlessa/?originalSubdomain=pt"
-					>Juan Lessa
-				</NuxtLink>
-			</p>
-		</div>
+		<NuxtLink class="owner-link" to="https://www.linkedin.com/in/juanlessa/?originalSubdomain=pt">
+			© Juan Lessa
+		</NuxtLink>
 	</footer>
 </template>
 <style scoped>
 .footer-container {
-	height: 5vh;
-	max-height: 5rem;
 	width: 100vw;
-}
-
-.footer-content {
-	width: 95%;
+	height: 40px;
 	margin: 0 auto;
-
 	display: flex;
 	font-size: 1rem;
+	padding: 0.5rem 1.5rem;
 }
 
 @media (min-width: 1190px) {
-	.footer-content {
-		width: 1190px;
+	.footer-container {
+		max-width: 1190px;
 	}
 }
 </style>
