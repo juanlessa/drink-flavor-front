@@ -24,7 +24,6 @@
 					{{ l.name }}
 				</NuxtLink>
 				<div v-show="authSate.authenticated" @click="handleLogout" class="link-item">logout</div>
-				<ThemeSwitch />
 			</div>
 		</div>
 	</header>

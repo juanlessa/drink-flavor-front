@@ -31,6 +31,7 @@ const handleUpdateLinks = (): ILink[] => {
 	let value = [] as ILink[];
 	if (authState.value.authenticated) {
 		value = [
+			{ name: "categories", path: "/categories" },
 			{ name: "ingredients", path: "/ingredients" },
 			{ name: "drinks", path: "/drinks" },
 		];
