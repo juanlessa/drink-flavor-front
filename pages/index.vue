@@ -1,32 +1,27 @@
 <template>
-    <div class="page-container">
-        <NavBar />
-        <main class="main-content">
-            <DrinksSection :drinks="drinks" />
-        </main>
-        <Footer />
-    </div>
+	<PageTemplate>
+		<DrinksCatalogSection :drinks="drinks" />
+	</PageTemplate>
 </template>
 
 <script setup lang="ts">
-import { IDrinkResponse } from '~/utils/dtos/Drinks'
+import { Drink } from "~/utils/dtos/Drinks";
 
-const axios = useNuxtApp().$axios
+const axios = useNuxtApp().$axios;
 
-const drinks = ref<IDrinkResponse[]>([])
+const drinks = ref<Drink[]>([]);
 
 definePageMeta({
-    middleware: 'guest'
-})
+	middleware: "guest",
+});
 
 onMounted(async () => {
-    try {
-        const response = await axios.get<IDrinkResponse[]>("/drinks", { headers: { NoAuth: true } })
-        drinks.value = response.data
-
-    } catch (error) {
-        console.error("error ",)
-    }
-})
-
+	try {
+		const response = await axios.get<Drink[]>("/drinks", { headers: { NoAuth: true } });
+		drinks.value = response.data;
+	} catch (error) {
+		console.error("error ");
+	}
+});
 </script>
+~/utils/dtos/Drink
