@@ -5,7 +5,7 @@
 			class="drink-image"
 			:style="{ 'background-image': 'url(' + (drink.cover ? drink.cover : '') + ')' }"
 		></div>
-		<div>
+		<div class="main-content-padding">
 			<h1 class="drink-name-title">{{ drink.name }}</h1>
 			<div class="drink-info-container">
 				<div class="ingredients-content">
