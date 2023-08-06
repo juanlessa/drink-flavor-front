@@ -9,8 +9,6 @@ export default defineNuxtRouteMiddleware(async (to) => {
 	const userHasToken = $checkTokens();
 
 	if (userHasToken && !state.authenticated) {
-		console.log("não ta autenticado e tem tokens");
-
 		await $authenticate();
 	}
 
