@@ -1,32 +1,37 @@
+import { Ingredient } from "./Ingredients";
 
-interface IDrinkResponse {
-    id?: string,
-    name: string,
-    method: string,
-    ingredients: IDrinkIngredient[],
-    cover?: string,
-    thumbnail?: string
-}
+type Drink = {
+	id: string;
+	name: string;
+	method: string;
+	cover: string;
+	thumbnail: string;
+	ingredients: DrinkIngredient[];
+	created_at: Date;
+};
 
+type DrinkIngredient = {
+	ingredient: Ingredient;
+	ingredientId: string;
+	quantity: number;
+};
 interface ICreateDrink {
-    id?: string,
-    name: string,
-    method: string,
-    ingredients: {
-        ingredientId: string,
-        quantity: number
-    }[]
+	name: string;
+	method: string;
+	ingredients: {
+		ingredientId: string;
+		quantity: number;
+	}[];
 }
-
-interface IDrinkIngredient {
-    ingredientId: string,
-    quantity: number,
-    name: string,
-    unity: string,
-    category: string,
-    isAlcoholic: boolean,
-    colorTheme: string,
-    created_at: Date
+interface IUpdateDrink {
+	id: string;
+	name: string;
+	method: string;
+	cover?: string;
+	thumbnail?: string;
+	ingredients: {
+		ingredientId: string;
+		quantity: number;
+	}[];
 }
-
-export { IDrinkResponse, IDrinkIngredient, ICreateDrink }
+export { Drink, DrinkIngredient, ICreateDrink, IUpdateDrink };

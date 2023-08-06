@@ -1,13 +1,30 @@
+import { Category } from "./Categories";
 
+type Ingredient = {
+	id: string;
+	name: string;
+	unitySingular: string;
+	unityPlural: string;
+	categoryId: string;
+	category: Category;
+	isAlcoholic: boolean;
+	created_at: Date;
+};
+type ICreateIngredient = {
+	name: string;
+	unitySingular: string;
+	unityPlural: string;
+	categoryId: string;
+	isAlcoholic: boolean;
+};
 
-interface IIngredient {
-    id?: string,
-    name: string,
-    unity: string,
-    category: string,
-    isAlcoholic: boolean,
-    colorTheme: string,
-    created_at?: Date
-}
+type IUpdateIngredient = {
+	id: string;
+	name: string;
+	unitySingular: string;
+	unityPlural: string;
+	categoryId: string;
+	isAlcoholic: boolean;
+};
 
-export {IIngredient }
+export { Ingredient, ICreateIngredient, IUpdateIngredient };
