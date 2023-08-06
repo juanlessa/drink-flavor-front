@@ -106,7 +106,7 @@ const handleToggleTheme = () => {
 
 .darkmode .btn__indicator {
 	transform: translateX(2rem);
-	background-color: black;
+	background-color: var(--primary-background);
 	box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
 }
 
