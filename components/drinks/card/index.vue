@@ -6,8 +6,8 @@
 				<div>{{ props.drinkName }}</div>
 			</h2>
 			<div class="card-ingredients">
-				<div v-for="i in props.drinkIngredients" :key="i.ingredient.name" class="ingredient">
-					{{ i.ingredient.category.name }}
+				<div v-for="cat in categories" :key="cat" class="ingredient">
+					{{ cat }}
 				</div>
 			</div>
 		</div>
@@ -34,6 +34,8 @@ const props = defineProps({
 		default: "/default-drink-thumb.png",
 	},
 });
+
+const categories = ref<string[]>([...new Set(props.drinkIngredients.map((ing) => ing.ingredient.category.name))]);
 
 const goToDrinkDetailPage = () => {
 	useNuxtApp().$router.push(`/drinks/${props.drinkId}`);
