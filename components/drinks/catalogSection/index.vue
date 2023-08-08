@@ -30,7 +30,7 @@ const props = defineProps({
 	align-items: center;
 	justify-content: center;
 	gap: 1rem;
-	padding: 1.5rem 0;
+	padding: 1.5rem;
 }
 </style>
 ~/utils/dtos/Drink

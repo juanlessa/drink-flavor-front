@@ -63,7 +63,7 @@ const props = defineProps({
 .drink-recipe-title {
 	font-size: 2rem;
 	text-align: center;
-	margin-bottom: 1rem;
+	margin: 1rem 0;
 }
 
 .ingredient-item {
