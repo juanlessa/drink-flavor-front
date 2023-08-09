@@ -9,7 +9,7 @@
 .footer-container {
 	width: 100vw;
 	height: 40px;
-	margin: 1rem auto 0 auto;
+	margin: 0 auto 0 auto;
 	display: flex;
 	font-size: 1rem;
 	padding: 0.5rem 1.5rem;
