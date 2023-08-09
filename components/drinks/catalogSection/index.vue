@@ -32,5 +32,10 @@ const props = defineProps({
 	gap: 1rem;
 	padding: 1.5rem;
 }
+@media (min-width: 1190px) {
+	.drinks-content {
+		padding: 1.5rem 0;
+	}
+}
 </style>
 ~/utils/dtos/Drink
