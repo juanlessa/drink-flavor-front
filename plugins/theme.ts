@@ -1,41 +1,11 @@
-import { ITheme, ThemeState, THEME_MODES, IThemeColors } from "~/types/theme";
-
-const themes: ITheme = {
-	[THEME_MODES.light]: {
-		primaryColor: "#4E86E4",
-		primaryBackground: "#FFFFFF",
-		secondaryBackground: "#F0F5F5",
-		primaryText: "#14213D",
-		secondaryText: "#FFFFFF",
-		darkText: "#14213D",
-		lightText: "#FFFFFF",
-		error: "#E60000",
-		deleteButton: "#E60000",
-		cancelButton: "#E6E6FA",
-		boxShadowColor: "rgba(0, 0, 0, 0.25)",
-		iconsColor: "#14213D",
-	},
-	[THEME_MODES.dark]: {
-		primaryColor: "#FFD700",
-		primaryBackground: "#000000",
-		secondaryBackground: "#3E3636",
-		primaryText: "#FFFFFF",
-		secondaryText: "#14213D",
-		darkText: "#14213D",
-		lightText: "#FFFFFF",
-		error: "#E60000",
-		deleteButton: "#E60000",
-		cancelButton: "#313737",
-		boxShadowColor: "hsla(0, 0%, 0%, 0.09)",
-		iconsColor: "#FFFFFF",
-	},
-};
+import { THEMES_COLORS } from "@/constants/theme";
+import { ThemeState, THEME_MODES, IThemeColors } from "@/types/theme";
 
 export default defineNuxtPlugin(() => {
 	const initThemeState = (): ThemeState => {
 		return {
 			themeMode: THEME_MODES.light,
-			colors: themes[THEME_MODES.light],
+			colors: THEMES_COLORS[THEME_MODES.light],
 		};
 	};
 
@@ -44,7 +14,7 @@ export default defineNuxtPlugin(() => {
 	const getTheme = () => themeState;
 
 	const setTheme = (desiredThemeMode = getTheme().value.themeMode) => {
-		const colors: IThemeColors = themes[desiredThemeMode];
+		const colors: IThemeColors = THEMES_COLORS[desiredThemeMode];
 		themeState.value.colors = colors;
 		themeState.value.themeMode = desiredThemeMode;
 
