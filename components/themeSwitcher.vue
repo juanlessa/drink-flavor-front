@@ -8,22 +8,32 @@
 	</div>
 </template>
 <script setup lang="ts">
+import { THEME_MODES } from "@/types/theme";
+import { LOCAL_STORAGE_KEYS } from "~/types/localStorage";
+
 const { $toggleTheme, $getTheme } = useNuxtApp();
+const { setLocalStorageItem } = useLocalStorage();
+
+const themeState = $getTheme();
 
 const btnToggleTheme = ref<HTMLElement>();
 const btnIcon = ref<HTMLElement>();
 
-//function that indicates if the "darkmode" property exists. It loads the page as we had left it.
 onMounted(() => {
-	const theme = $getTheme();
+	btnIcon.value?.classList.add("animated");
 
-	if (theme === "dark") {
-		btnToggleTheme.value?.classList.add("darkmode");
+	if (themeState.value.themeMode === THEME_MODES.dark) {
+		btnToggleTheme.value?.classList.toggle("darkmode");
+		btnIcon.value?.classList.remove("fa-sun");
 		btnIcon.value?.classList.add("fa-moon");
-	}
-	if (theme === "light") {
+	} else {
+		btnIcon.value?.classList.remove("fa-moon");
 		btnIcon.value?.classList.add("fa-sun");
 	}
+
+	setTimeout(() => {
+		btnIcon.value?.classList.remove("animated");
+	}, 500);
 });
 
 const handleToggleTheme = () => {
@@ -33,7 +43,7 @@ const handleToggleTheme = () => {
 	//save true or false
 	$toggleTheme();
 
-	if ($getTheme() === "dark") {
+	if (themeState.value.themeMode === THEME_MODES.dark) {
 		btnIcon.value?.classList.remove("fa-sun");
 		btnIcon.value?.classList.add("fa-moon");
 	} else {
@@ -45,6 +55,11 @@ const handleToggleTheme = () => {
 		btnIcon.value?.classList.remove("animated");
 	}, 500);
 };
+
+watch(
+	() => themeState.value.themeMode,
+	(newThemeMode: THEME_MODES) => setLocalStorageItem(LOCAL_STORAGE_KEYS.theme, newThemeMode)
+);
 </script>
 <style scoped>
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css");

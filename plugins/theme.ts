@@ -1,20 +1,7 @@
-type IThemeColors = {
-	primaryColor: string;
-	primaryBackground: string;
-	secondaryBackground: string;
-	primaryText: string;
-	secondaryText: string;
-	darkText: string;
-	lightText: string;
-	error: string;
-	deleteButton: string;
-	cancelButton: string;
-	boxShadowColor: string;
-};
-type IThemeOptions = "light" | "dark";
+import { ITheme, ThemeState, THEME_MODES, IThemeColors } from "~/types/theme";
 
-const themes = {
-	light: {
+const themes: ITheme = {
+	[THEME_MODES.light]: {
 		primaryColor: "#4E86E4",
 		primaryBackground: "#FFFFFF",
 		secondaryBackground: "#F0F5F5",
@@ -26,8 +13,9 @@ const themes = {
 		deleteButton: "#E60000",
 		cancelButton: "#E6E6FA",
 		boxShadowColor: "rgba(0, 0, 0, 0.25)",
+		iconsColor: "#14213D",
 	},
-	dark: {
+	[THEME_MODES.dark]: {
 		primaryColor: "#FFD700",
 		primaryBackground: "#000000",
 		secondaryBackground: "#3E3636",
@@ -39,23 +27,26 @@ const themes = {
 		deleteButton: "#E60000",
 		cancelButton: "#313737",
 		boxShadowColor: "hsla(0, 0%, 0%, 0.09)",
+		iconsColor: "#FFFFFF",
 	},
 };
 
 export default defineNuxtPlugin(() => {
-	const initTheme = (): string => {
-		const theme = "light";
-		return theme;
+	const initThemeState = (): ThemeState => {
+		return {
+			themeMode: THEME_MODES.light,
+			colors: themes[THEME_MODES.light],
+		};
 	};
 
-	const themeState = useState<string>("theme", initTheme);
+	const themeState = useState<ThemeState>("theme", initThemeState);
 
-	const getTheme = () => themeState.value;
+	const getTheme = () => themeState;
 
-	const setTheme = (data = getTheme()) => {
-		const selectedTheme = data as IThemeOptions;
-
-		const colors: IThemeColors = themes[selectedTheme];
+	const setTheme = (desiredThemeMode = getTheme().value.themeMode) => {
+		const colors: IThemeColors = themes[desiredThemeMode];
+		themeState.value.colors = colors;
+		themeState.value.themeMode = desiredThemeMode;
 
 		document.documentElement.style.setProperty("--primary-color", colors.primaryColor);
 		document.documentElement.style.setProperty("--primary-background", colors.primaryBackground);
@@ -68,12 +59,14 @@ export default defineNuxtPlugin(() => {
 		document.documentElement.style.setProperty("--delete-button", colors.deleteButton);
 		document.documentElement.style.setProperty("--cancel-button", colors.cancelButton);
 		document.documentElement.style.setProperty("--box-shadow-color", colors.boxShadowColor);
+		document.documentElement.style.setProperty("--icons-color", colors.iconsColor);
 	};
 
 	const toggleTheme = () => {
-		themeState.value = themeState.value === "light" ? "dark" : "light";
+		themeState.value.themeMode =
+			themeState.value.themeMode === THEME_MODES.light ? THEME_MODES.dark : THEME_MODES.light;
 
-		setTheme(themeState.value);
+		setTheme(themeState.value.themeMode);
 	};
 
 	return {
