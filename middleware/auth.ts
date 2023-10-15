@@ -5,14 +5,14 @@ export default defineNuxtRouteMiddleware(async (to) => {
 
 	const { $checkTokens, $authenticate, $getAuthState } = useNuxtApp();
 
-	const state = $getAuthState();
+	const authState = $getAuthState();
 	const userHasToken = $checkTokens();
 
-	if (userHasToken && !state.authenticated) {
+	if (userHasToken && !authState.value.authenticated) {
 		await $authenticate();
 	}
 
-	if (!state.authenticated) {
+	if (!authState.value.authenticated) {
 		return navigateTo("/");
 	}
 });
