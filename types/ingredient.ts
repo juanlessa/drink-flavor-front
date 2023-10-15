@@ -13,3 +13,7 @@ export type IIngredient = DatabaseCommonInfo & {
 	category: ICategory;
 	is_alcoholic: boolean;
 };
+
+export type IngredientState = {
+	ingredients: IIngredient[];
+};

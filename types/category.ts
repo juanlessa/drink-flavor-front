@@ -8,3 +8,7 @@ export type ICategoryTranslation = {
 export type ICategory = DatabaseCommonInfo & {
 	translations: ITranslations<ICategoryTranslation>;
 };
+
+export type CategoryState = {
+	categories: ICategory[];
+};
