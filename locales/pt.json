@@ -19,5 +19,7 @@
     "deleteModal.message": "Tem certeza que deseja excluir o item",
     "deleteModal.cancelButton.message": "cancelar",
     "deleteModal.deleteButton.message": "excluir",
-    "drinksPage.newDrinkButton.message": "novo drink"
+    "drinksPage.newDrinkButton.message": "novo drink",
+    "ingredientsPage.newIngredientButton.message": "novo ingrediente",
+    "categoriesPage.newCategoryButton.message": "nova categoria"
 }

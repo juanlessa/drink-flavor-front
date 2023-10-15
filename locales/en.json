@@ -19,5 +19,7 @@
     "deleteModal.message": "Are you sure you want to delete the item",
     "deleteModal.cancelButton.message": "cancel",
     "deleteModal.deleteButton.message": "delete",
-    "drinksPage.newDrinkButton.message": "new drink"
+    "drinksPage.newDrinkButton.message": "new drink",
+    "ingredientsPage.newIngredientButton.message": "new ingredient",
+    "categoriesPage.newCategoryButton.message": "new category"
 }
