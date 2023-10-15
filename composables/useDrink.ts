@@ -33,6 +33,16 @@ export const useDrink = () => {
 		}
 	};
 
+	const deleteDrink = async (drinkToDelete: IDrink) => {
+		let requestBody = {
+			data: {
+				id: drinkToDelete._id,
+			},
+		};
+
+		await axios.delete("/drinks", requestBody);
+	};
+
 	const getDrink = async (id: string): Promise<IDrink> => {
 		let drink = { ...emptyDrink };
 		try {
@@ -50,6 +60,7 @@ export const useDrink = () => {
 		getDrinkState,
 		loadDrinks,
 		getDrink,
+		deleteDrink,
 		initEmptyDrink,
 	};
 };
