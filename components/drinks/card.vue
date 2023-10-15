@@ -17,7 +17,9 @@
 import { IDrink } from "@/types/drink";
 import { ICategory } from "@/types/category";
 import { LANGUAGES } from "@/types/translations";
-import { ROUTES } from "~/types/routes";
+import { ROUTES } from "@/types/appRoutes";
+
+const { $router } = useNuxtApp();
 
 const props = defineProps({
 	drink: {
@@ -29,7 +31,7 @@ const props = defineProps({
 const categories = ref<ICategory[]>([...new Set(props.drink.ingredients.map((ing) => ing.ingredient.category))]);
 
 const goToDrinkDetailPage = () => {
-	useNuxtApp().$router.push(`${ROUTES.drinks}/${props.drink._id}`);
+	$router.push(`${ROUTES.drinks}/${props.drink._id}`);
 };
 </script>
 <style scoped>
