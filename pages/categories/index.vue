@@ -1,29 +1,36 @@
 <template>
-	<PageTemplate>
+	<NuxtLayout>
 		<div class="main-content-padding">
 			<button @click="handleNewCategory" class="action-button primary-button-color button-create-new">
-				new Category
+				{{ $t("categoriesPage.newCategoryButton.message") }}
 			</button>
-			<DisplayItems :items="categoryItems" @item-click="handleCategoryClick" @delete="handleDeleteClick" />
+			<DisplayItems
+				:items="categoryState.categories"
+				@item-click="handleEditCategoryClick"
+				@delete="handleDeleteClick"
+			/>
 			<DeleteModal
 				@delete-click="handleDeleteCategory"
 				@cancel-click="handleCancelModalClick"
 				:show-modal="showDeleteModal"
-				:modal-text="deleteModalText"
+				:delete-item="categoryToDelete"
 			/>
 		</div>
-	</PageTemplate>
+	</NuxtLayout>
 </template>
 <script setup lang="ts">
+import { ICategory } from "@/types/category";
+import { ROUTES } from "@/types/appRoutes";
+import { IItem } from "@/types/deleteModal";
 import toastConfig from "@/utils/toastConfig";
-import { Category } from "@/utils/dtos/Categories";
-const { $axios: axios, $toast } = useNuxtApp();
-type Item = { id: string; name: string };
 
-const categoryItems = ref<Item[]>([]);
+const { $toast, $router } = useNuxtApp();
+const { loadCategories, getCategoryState, initEmptyCategory, deleteCategory } = useCategory();
+
+const categoryState = getCategoryState();
+
 const showDeleteModal = ref<boolean>(false);
-const deleteModalText = ref<string>("");
-const categoryToDelete = ref<string>("");
+const categoryToDelete = ref<ICategory>(initEmptyCategory());
 
 definePageMeta({
 	middleware: "auth",
@@ -34,38 +41,27 @@ onMounted(() => {
 });
 
 const handleNewCategory = () => {
-	useNuxtApp().$router.push(`/categories/new`);
+	$router.push(`${ROUTES.categories}/new`);
 };
-const handleCategoryClick = (categoryId: string): void => {
-	useNuxtApp().$router.push(`/categories/${categoryId}`);
+const handleEditCategoryClick = (item: IItem): void => {
+	$router.push(`${ROUTES.categories}/${item._id}`);
 };
-const handleDeleteClick = (categoryId: string): void => {
-	categoryToDelete.value = categoryId;
-	const category = categoryItems.value.find((cat) => cat.id === categoryId);
-	deleteModalText.value = `Are you sure you want to delete the category "${category?.name}"?`;
+const handleDeleteClick = (item: IItem): void => {
+	const category = item as ICategory;
+	categoryToDelete.value = category;
 	showDeleteModal.value = true;
 };
 
 const handleLoadCategories = async () => {
-	try {
-		const { data } = await axios.get<Category[]>("/categories");
-		categoryItems.value = data.map((cat) => ({ id: cat.id, name: cat.name }));
-	} catch (error) {
-		console.error(error);
-	}
+	loadCategories();
 };
 const handleCancelModalClick = (): void => {
 	showDeleteModal.value = false;
+	categoryToDelete.value = initEmptyCategory();
 };
 const handleDeleteCategory = async (): Promise<void> => {
-	let requestBody = {
-		data: {
-			id: categoryToDelete.value,
-		},
-	};
-
 	try {
-		await axios.delete("/categories", requestBody);
+		await deleteCategory(categoryToDelete.value);
 		$toast.success("SUCCESS", toastConfig);
 		handleLoadCategories();
 	} catch (error) {
@@ -73,5 +69,6 @@ const handleDeleteCategory = async (): Promise<void> => {
 		console.error(error);
 	}
 	showDeleteModal.value = false;
+	categoryToDelete.value = initEmptyCategory();
 };
 </script>

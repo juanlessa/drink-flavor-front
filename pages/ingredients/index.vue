@@ -1,11 +1,11 @@
 <template>
-	<PageTemplate>
+	<NuxtLayout>
 		<div class="main-content-padding">
 			<button @click="handleNewIngredient" class="action-button primary-button-color button-create-new">
-				new Ingredient
+				{{ $t("ingredientsPage.newIngredientButton.message") }}
 			</button>
 			<DisplayItems
-				:items="ingredientItems"
+				:items="ingredientState.ingredients"
 				@item-click="handleEditIngredientClick"
 				@delete="handleDeleteClick"
 			/>
@@ -13,21 +13,24 @@
 				@delete-click="handleDeleteIngredient"
 				@cancel-click="handleCancelModalClick"
 				:show-modal="showDeleteModal"
-				:modal-text="deleteModalText"
+				:delete-item="ingredientToDelete"
 			/>
 		</div>
-	</PageTemplate>
+	</NuxtLayout>
 </template>
 <script setup lang="ts">
-import { Ingredient } from "@/utils/dtos/Ingredients";
+import { IIngredient } from "@/types/ingredient";
+import { ROUTES } from "@/types/appRoutes";
+import { IItem } from "@/types/deleteModal";
 import toastConfig from "@/utils/toastConfig";
-const { $axios: axios, $toast, $router } = useNuxtApp();
-type Item = { id: string; name: string };
 
-const ingredientItems = ref<Item[]>([]);
+const { $toast, $router } = useNuxtApp();
+const { loadIngredients, getIngredientState, initEmptyIngredient, deleteIngredient } = useIngredient();
+
+const ingredientState = getIngredientState();
+
 const showDeleteModal = ref<boolean>(false);
-const deleteModalText = ref<string>("");
-const ingredientToDelete = ref<string>("");
+const ingredientToDelete = ref<IIngredient>(initEmptyIngredient());
 
 definePageMeta({
 	middleware: "auth",
@@ -37,38 +40,27 @@ onMounted(() => {
 });
 
 const handleNewIngredient = () => {
-	$router.push(`/ingredients/new`);
+	$router.push(`${ROUTES.ingredients}/new`);
 };
-const handleEditIngredientClick = (ingredientId: string): void => {
-	$router.push(`/ingredients/${ingredientId}`);
+const handleEditIngredientClick = (item: IItem): void => {
+	$router.push(`${ROUTES.ingredients}/${item._id}`);
 };
-const handleDeleteClick = (ingredientId: string): void => {
-	ingredientToDelete.value = ingredientId;
-	const ingredient = ingredientItems.value.find((ing) => ing.id === ingredientId);
-	deleteModalText.value = `Are you sure you want to delete the ingredient "${ingredient?.name}"?`;
+const handleDeleteClick = (item: IItem): void => {
+	const ingredient = item as IIngredient;
+	ingredientToDelete.value = ingredient;
 	showDeleteModal.value = true;
 };
 
 const handleLoadIngredients = async () => {
-	try {
-		const { data } = await axios.get<Ingredient[]>("/ingredients");
-		ingredientItems.value = data.map((ing) => ({ id: ing.id, name: ing.name }));
-	} catch (error) {
-		console.error(error);
-	}
+	loadIngredients();
 };
 const handleCancelModalClick = (): void => {
 	showDeleteModal.value = false;
+	ingredientToDelete.value = initEmptyIngredient();
 };
 const handleDeleteIngredient = async (): Promise<void> => {
-	let requestBody = {
-		data: {
-			id: ingredientToDelete.value,
-		},
-	};
-
 	try {
-		await axios.delete("/ingredients", requestBody);
+		await deleteIngredient(ingredientToDelete.value);
 		$toast.success("SUCCESS", toastConfig);
 		handleLoadIngredients();
 	} catch (error) {
@@ -76,5 +68,6 @@ const handleDeleteIngredient = async (): Promise<void> => {
 		console.error(error);
 	}
 	showDeleteModal.value = false;
+	ingredientToDelete.value = initEmptyIngredient();
 };
 </script>
