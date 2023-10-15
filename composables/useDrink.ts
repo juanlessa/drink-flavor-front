@@ -1,17 +1,5 @@
-import { DrinkState, IDrink, IDrinkIngredient } from "@/types/drink";
-
-const emptyDrink: IDrink = {
-	_id: "",
-	translations: {
-		en: { name: "", method: "" },
-		pt: { name: "", method: "" },
-	},
-	cover: "",
-	thumbnail: "",
-	ingredients: [] as IDrinkIngredient[],
-	created_at: new Date(),
-	updated_at: new Date(),
-};
+import { EMPTY_DRINK } from "@/constants/drink";
+import { DrinkState, IDrink } from "@/types/drink";
 
 const initState = (): DrinkState => ({
 	drinks: [],
@@ -44,7 +32,7 @@ export const useDrink = () => {
 	};
 
 	const getDrink = async (id: string): Promise<IDrink> => {
-		let drink = { ...emptyDrink };
+		let drink = { ...EMPTY_DRINK };
 		try {
 			const response = await axios.get<IDrink>(`/drinks/${id}`, { headers: { NoAuth: true } });
 			drink = response.data;
@@ -54,7 +42,7 @@ export const useDrink = () => {
 		return drink;
 	};
 
-	const initEmptyDrink = (): IDrink => ({ ...emptyDrink });
+	const initEmptyDrink = (): IDrink => ({ ...EMPTY_DRINK });
 
 	return {
 		getDrinkState,
