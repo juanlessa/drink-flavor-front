@@ -1,27 +1,20 @@
 <template>
-	<PageTemplate>
-		<DrinksCatalogSection :drinks="drinks" />
-	</PageTemplate>
+	<NuxtLayout>
+		<DrinksCatalogSection :drinks="drinkState.drinks" />
+	</NuxtLayout>
 </template>
 
 <script setup lang="ts">
-import { Drink } from "~/utils/dtos/Drinks";
+const { loadDrinks, getDrinkState } = useDrink();
 
-const axios = useNuxtApp().$axios;
-
-const drinks = ref<Drink[]>([]);
+const drinkState = getDrinkState();
 
 definePageMeta({
 	middleware: "guest",
 });
 
 onMounted(async () => {
-	try {
-		const response = await axios.get<Drink[]>("/drinks", { headers: { NoAuth: true } });
-		drinks.value = response.data;
-	} catch (error) {
-		console.error("error ");
-	}
+	loadDrinks();
 });
 </script>
 ~/utils/dtos/Drink

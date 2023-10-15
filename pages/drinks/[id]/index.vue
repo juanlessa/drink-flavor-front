@@ -1,28 +1,23 @@
 <template>
-	<PageTemplate bg-color="primary-background">
+	<NuxtLayout :bg-color="IBgColor.primary">
 		<DrinksDetailsSection :drink="drink" />
-	</PageTemplate>
+	</NuxtLayout>
 </template>
 <script setup lang="ts">
-import { Drink } from "@/utils/dtos/Drinks";
+import { IDrink } from "@/types/drink";
+import { IBgColor } from "@/types/layout";
 
-const { $axios: axios } = useNuxtApp();
+const { getDrink, initEmptyDrink } = useDrink();
 const route = useRoute();
 
-const drink = ref<Drink>();
+const drink = ref<IDrink>(initEmptyDrink());
 
 definePageMeta({
 	middleware: "guest",
 });
 
 onMounted(async () => {
-	const drinkId = route.params.id;
-	try {
-		const response = await axios.get<Drink>(`/drinks/${drinkId}`, { headers: { NoAuth: true } });
-		drink.value = response.data;
-	} catch (error) {
-		console.error("error ", error);
-	}
+	const drinkId = route.params.id as string;
+	drink.value = await getDrink(drinkId);
 });
 </script>
-<style scoped></style>
