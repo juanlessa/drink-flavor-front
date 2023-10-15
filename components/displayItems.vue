@@ -1,8 +1,8 @@
 <template>
 	<div class="cards-group">
-		<div v-for="i in props.items" :key="i.id" class="card-item">
+		<div v-for="i in props.items" :key="i._id" class="card-item">
 			<div @click="handleItemClick(i)" class="item-name">
-				{{ i.name }}
+				{{ i.translations[$i18n.locale as LANGUAGES].name }}
 			</div>
 			<div @click="handleDeleteButton(i)" class="delete-button">
 				<img src="/delete-icon.svg" height="24" alt="delete" />
@@ -11,25 +11,27 @@
 	</div>
 </template>
 <script setup lang="ts">
-type Item = { id: string; name: string };
+import { IItem } from "@/types/deleteModal";
+import { LANGUAGES } from "~/types/translations";
 
 const props = defineProps({
 	items: {
-		type: Array<{ id: string; name: string }>,
+		type: Array as PropType<IItem[]>,
 		default: [],
 	},
 });
 
 const emit = defineEmits<{
-	(e: "itemClick", value: string): void;
-	(e: "delete", value: string): void;
+	(e: "itemClick", value: IItem): void;
+	(e: "delete", value: IItem): void;
 }>();
 
-const handleItemClick = (item: Item): void => {
-	emit("itemClick", item.id);
+const handleItemClick = (item: IItem): void => {
+	emit("itemClick", item);
 };
-const handleDeleteButton = (item: Item): void => {
-	emit("delete", item.id);
+
+const handleDeleteButton = (item: IItem): void => {
+	emit("delete", item);
 };
 </script>
 <style scoped>

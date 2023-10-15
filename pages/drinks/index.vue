@@ -1,29 +1,32 @@
 <template>
-	<PageTemplate>
+	<NuxtLayout>
 		<div class="main-content-padding">
 			<button @click="handleNewDrink" class="action-button primary-button-color button-create-new">
-				new Drink
+				{{ $t("drinksPage.newDrinkButton.message") }}
 			</button>
-			<DisplayItems :items="drinkItems" @item-click="handleEditDrinkClick" @delete="handleDeleteClick" />
+			<DisplayItems :items="drinkState.drinks" @item-click="handleEditDrinkClick" @delete="handleDeleteClick" />
 			<DeleteModal
 				@delete-click="handleDeleteDrink"
 				@cancel-click="handleCancelModalClick"
 				:show-modal="showDeleteModal"
-				:modal-text="deleteModalText"
+				:delete-item="drinkToDelete"
 			/>
 		</div>
-	</PageTemplate>
+	</NuxtLayout>
 </template>
 <script setup lang="ts">
-import { Drink } from "@/utils/dtos/Drinks";
+import { IDrink } from "@/types/drink";
+import { ROUTES } from "@/types/appRoutes";
+import { IItem } from "@/types/deleteModal";
 import toastConfig from "@/utils/toastConfig";
-const { $axios: axios, $toast, $router } = useNuxtApp();
-type Item = { id: string; name: string };
 
-const drinkItems = ref<Item[]>([]);
+const { $toast, $router } = useNuxtApp();
+const { loadDrinks, getDrinkState, initEmptyDrink, deleteDrink } = useDrink();
+
+const drinkState = getDrinkState();
+
 const showDeleteModal = ref<boolean>(false);
-const deleteModalText = ref<string>("");
-const drinkToDelete = ref<string>("");
+const drinkToDelete = ref<IDrink>(initEmptyDrink());
 
 definePageMeta({
 	middleware: "auth",
@@ -33,38 +36,29 @@ onMounted(() => {
 });
 
 const handleNewDrink = () => {
-	$router.push(`/drinks/new`);
+	$router.push(`${ROUTES.drinks}/new`);
 };
-const handleEditDrinkClick = (drinkId: string): void => {
-	$router.push(`/drinks/${drinkId}/edit`);
+
+const handleEditDrinkClick = (item: IItem): void => {
+	const drink = item as IDrink;
+	$router.push(`${ROUTES.drinks}/${drink._id}/edit`);
 };
-const handleDeleteClick = (drinkId: string): void => {
-	drinkToDelete.value = drinkId;
-	const drink = drinkItems.value.find((d) => d.id === drinkId);
-	deleteModalText.value = `Are you sure you want to delete the drink "${drink?.name}"?`;
+const handleDeleteClick = (item: IItem): void => {
+	const drink = item as IDrink;
+	drinkToDelete.value = drink;
 	showDeleteModal.value = true;
 };
 
 const handleLoadDrinks = async () => {
-	try {
-		const { data } = await axios.get<Drink[]>("/drinks");
-		drinkItems.value = data.map((d) => ({ id: d.id, name: d.name }));
-	} catch (error) {
-		console.error(error);
-	}
+	loadDrinks();
 };
 const handleCancelModalClick = (): void => {
 	showDeleteModal.value = false;
+	drinkToDelete.value = initEmptyDrink();
 };
 const handleDeleteDrink = async (): Promise<void> => {
-	let requestBody = {
-		data: {
-			id: drinkToDelete.value,
-		},
-	};
-
 	try {
-		await axios.delete("/drinks", requestBody);
+		await deleteDrink(drinkToDelete.value);
 		$toast.success("SUCCESS", toastConfig);
 		handleLoadDrinks();
 	} catch (error) {
@@ -72,5 +66,6 @@ const handleDeleteDrink = async (): Promise<void> => {
 		console.error(error);
 	}
 	showDeleteModal.value = false;
+	drinkToDelete.value = initEmptyDrink();
 };
 </script>
