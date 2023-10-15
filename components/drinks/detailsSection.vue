@@ -6,23 +6,27 @@
 			:style="{ 'background-image': 'url(' + (drink.cover ? drink.cover : '') + ')' }"
 		></div>
 		<div class="main-content-padding">
-			<h1 class="drink-name-title">{{ drink.name }}</h1>
+			<h1 class="drink-name-title">{{ drink.translations[$i18n.locale as LANGUAGES].name }}</h1>
 			<div class="drink-info-container">
 				<div class="ingredients-content">
-					<h2 class="drink-recipe-title">Ingredients</h2>
+					<h2 class="drink-recipe-title">{{ $t("drinkDetailPage.ingredients") }}</h2>
 					<ul class="ingredient-items-group">
-						<li class="ingredient-item" v-for="ing in drink.ingredients" :key="ing.ingredientId">
+						<li class="ingredient-item" v-for="ing in drink.ingredients" :key="ing.ingredient._id">
 							{{
 								`${ing.quantity} ${
-									ing.quantity === 1 ? ing.ingredient.unitySingular : ing.ingredient.unityPlural
-								} of ${ing.ingredient.name}`
+									ing.quantity === 1
+										? ing.ingredient.translations[$i18n.locale as LANGUAGES].unit
+										: ing.ingredient.translations[$i18n.locale as LANGUAGES].unit_plural
+								} ${t("drinkDetailPage.ingredients.ofPreposition")} ${
+									ing.ingredient.translations[$i18n.locale as LANGUAGES].name
+								}`
 							}}
 						</li>
 					</ul>
 				</div>
 				<div class="method-content">
-					<h2 class="drink-recipe-title">Method</h2>
-					<p class="drink-method">{{ drink.method }}</p>
+					<h2 class="drink-recipe-title">{{ $t("drinkDetailPage.instructions") }}</h2>
+					<p class="drink-method">{{ drink.translations[$i18n.locale as LANGUAGES].method }}</p>
 				</div>
 			</div>
 		</div>
@@ -30,11 +34,15 @@
 </template>
 
 <script setup lang="ts">
-import { Drink } from "~/utils/dtos/Drinks";
+import { IDrink } from "@/types/drink";
+import { LANGUAGES } from "@/types/translations";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
 
 const props = defineProps({
 	drink: {
-		type: Object as PropType<Drink>,
+		type: Object as PropType<IDrink>,
 		default: {},
 	},
 });
@@ -91,4 +99,3 @@ const props = defineProps({
 	}
 }
 </style>
-~/utils/dtos/Drink

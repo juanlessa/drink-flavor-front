@@ -1,24 +1,15 @@
 <template>
 	<div class="drinks-content">
-		<DrinksCard
-			v-for="d in props.drinks"
-			:key="d.id"
-			:drink-name="d.name"
-			:drink-id="d.id"
-			:drink-ingredients="d.ingredients"
-			:drink-thumbnail="d.thumbnail ? d.thumbnail : '/default-drink-thumb.png'"
-		/>
+		<DrinksCard v-for="d in props.drinks" :key="d._id" :drink="d" />
 	</div>
 </template>
 
 <script setup lang="ts">
-import { Drink } from "~/utils/dtos/Drinks";
-
-onMounted(() => {});
+import { IDrink } from "@/types/drink";
 
 const props = defineProps({
 	drinks: {
-		type: Array<Drink>,
+		type: Array<IDrink>,
 		default: [],
 	},
 });

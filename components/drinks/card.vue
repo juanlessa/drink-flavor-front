@@ -1,44 +1,35 @@
 <template>
 	<div @click="goToDrinkDetailPage" class="card-container">
-		<img class="card-image" :src="drinkThumbnail" />
+		<img class="card-image" :src="drink.thumbnail || '/default-drink-thumb.png'" />
 		<div class="card-content">
 			<h2 class="card-title">
-				<div>{{ props.drinkName }}</div>
+				<div>{{ props.drink.translations[$i18n.locale as LANGUAGES].name }}</div>
 			</h2>
 			<div class="card-ingredients">
-				<div v-for="cat in categories" :key="cat" class="ingredient">
-					{{ cat }}
+				<div v-for="cat in categories" :key="cat._id" class="ingredient">
+					{{ cat.translations[$i18n.locale as LANGUAGES].name }}
 				</div>
 			</div>
 		</div>
 	</div>
 </template>
 <script setup lang="ts">
-import { DrinkIngredient } from "~/utils/dtos/Drinks";
+import { IDrink } from "@/types/drink";
+import { ICategory } from "@/types/category";
+import { LANGUAGES } from "@/types/translations";
+import { ROUTES } from "~/types/routes";
 
 const props = defineProps({
-	drinkName: {
-		type: String,
-		default: "",
-	},
-	drinkId: {
-		type: String,
-		default: "",
-	},
-	drinkIngredients: {
-		type: Array<DrinkIngredient>,
-		default: [],
-	},
-	drinkThumbnail: {
-		type: String,
-		default: "/default-drink-thumb.png",
+	drink: {
+		type: Object as PropType<IDrink>,
+		default: {},
 	},
 });
 
-const categories = ref<string[]>([...new Set(props.drinkIngredients.map((ing) => ing.ingredient.category.name))]);
+const categories = ref<ICategory[]>([...new Set(props.drink.ingredients.map((ing) => ing.ingredient.category))]);
 
 const goToDrinkDetailPage = () => {
-	useNuxtApp().$router.push(`/drinks/${props.drinkId}`);
+	useNuxtApp().$router.push(`${ROUTES.drinks}/${props.drink._id}`);
 };
 </script>
 <style scoped>
@@ -99,4 +90,4 @@ const goToDrinkDetailPage = () => {
 	}
 }
 </style>
-~/utils/dtos/Drink
+~/types/appRoutes
