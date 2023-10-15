@@ -11,7 +11,7 @@ export type AuthState = {
 
 declare module "#app" {
 	interface NuxtApp {
-		$getAuthState: () => AuthState;
+		$getAuthState: () => globalThis.Ref<AuthState>;
 		$storeTokens: (data: ITokens) => void;
 		$checkTokens: () => boolean;
 		$login: (data: IAuthenticateResponse) => void;
@@ -34,7 +34,7 @@ const initState = (): AuthState => {
 export default defineNuxtPlugin(() => {
 	const authState = useState<AuthState>("auth", initState);
 
-	const getAuthState = () => authState.value;
+	const getAuthState = () => authState;
 	const resetAuthState = () => (authState.value = initState());
 
 	const storeTokens = ({ token, refresh_token }: ITokens) => {
