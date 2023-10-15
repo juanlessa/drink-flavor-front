@@ -5,7 +5,7 @@
 				{{ i.translations[$i18n.locale as LANGUAGES].name }}
 			</div>
 			<div @click="handleDeleteButton(i)" class="delete-button">
-				<img src="/delete-icon.svg" height="24" alt="delete" />
+				<IconsGarbage :size="24" :color="themeState.colors.iconsColor" alt="delete" />
 			</div>
 		</div>
 	</div>
@@ -13,6 +13,10 @@
 <script setup lang="ts">
 import { IItem } from "@/types/deleteModal";
 import { LANGUAGES } from "~/types/translations";
+
+const { $getTheme } = useNuxtApp();
+
+const themeState = $getTheme();
 
 const props = defineProps({
 	items: {
