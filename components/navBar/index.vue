@@ -1,45 +1,13 @@
 <template>
-	<NavBarMobileNav :links="links" class="desktop-hidden" />
-	<NavBarDesktopNav :links="links" :show-logout="showLogout" class="mobile-hidden" />
+	<NavBarMobileNav :links="navbarState.links" class="desktop-hidden" />
+	<NavBarDesktopNav :links="navbarState.links" class="mobile-hidden" />
 </template>
 <script setup lang="ts">
-import { AuthState } from "@/plugins/auth";
-const { $getAuthState } = useNuxtApp();
+const { loadRoutes, getNavbarState } = useNavbar();
 
-interface ILink {
-	name: string;
-	path: string;
-}
-
-const showLogout = ref<boolean>(false);
-const authState = ref<AuthState>($getAuthState());
-const links = ref<ILink[]>();
+const navbarState = getNavbarState();
 
 onMounted(() => {
-	links.value = handleUpdateLinks();
+	loadRoutes();
 });
-
-watch(
-	() => $getAuthState(),
-	(newValue) => {
-		authState.value = newValue;
-		links.value = handleUpdateLinks();
-	}
-);
-
-const handleUpdateLinks = (): ILink[] => {
-	let value = [] as ILink[];
-	if (authState.value.authenticated) {
-		value = [
-			{ name: "categories", path: "/categories" },
-			{ name: "ingredients", path: "/ingredients" },
-			{ name: "drinks", path: "/drinks" },
-		];
-		showLogout.value = true;
-	} else {
-		value = [{ name: "login", path: "/login" }];
-		showLogout.value = false;
-	}
-	return value;
-};
 </script>

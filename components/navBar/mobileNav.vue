@@ -4,45 +4,57 @@
 			<NuxtLink to="/" class="logo-container">
 				<img
 					class="img-logo"
-					:src="$getTheme() === 'light' ? '/light-logo.png' : '/dark-logo.png'"
+					:src="themeState.themeMode === THEME_MODES.light ? '/light-logo.png' : '/dark-logo.png'"
 					height="40"
 					alt="DrunkFlavor"
 				/>
 				<span>DrunkFlavor</span>
 			</NuxtLink>
-			<img
+
+			<IconsMenu
+				v-if="!isMenuOpen"
+				:size="26"
+				:color="themeState.colors.iconsColor"
+				alt="open menu"
 				@click="handleToggleMenu"
-				:src="isMenuOpen ? '/menu-close-icon.svg' : '/menu-icon.svg'"
-				:class="{ 'menu-icon': isMenuOpen, 'menu-close-icon': !isMenuOpen }"
-				height="48"
-				alt=""
+			/>
+			<IconsMenuClose
+				v-else
+				:size="26"
+				:color="themeState.colors.iconsColor"
+				alt="close menu"
+				@click="handleToggleMenu"
 			/>
 		</div>
 		<div v-show="isMenuOpen" class="menu-modal">
+			<div class="switchers-container">
+				<LanguageSwitcher />
+				<ThemeSwitcher />
+			</div>
 			<div class="link-group">
-				<NuxtLink v-for="l in props.links" :key="l.name" class="link-item" :to="l.path">
-					{{ l.name }}
+				<NuxtLink v-for="l in props.links" :key="l.path" class="link-item" :to="l.path">
+					<span>{{ $t(l.i18nKey) }}</span
+					><IconsRightArrow :size="16" :color="themeState.colors.iconsColor" />
 				</NuxtLink>
-				<div v-show="authSate.authenticated" @click="handleLogout" class="link-item">logout</div>
+				<div v-show="authSate.authenticated" @click="handleLogout" class="link-item">
+					<span>{{ $t("navbar.logout") }}</span
+					><IconsRightArrow :size="16" :color="themeState.colors.iconsColor" />
+				</div>
 			</div>
 		</div>
 	</header>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
 import { onClickOutside } from "@vueuse/core";
-import { AuthState } from "@/plugins/auth";
-
-const { $getAuthState, $signOut } = useNuxtApp();
+import { ILink } from "@/types/navbar";
+import { THEME_MODES } from "~/types/theme";
+const { $getAuthState, $signOut, $getTheme } = useNuxtApp();
 
 const menuElement = ref<HTMLElement>();
 const isMenuOpen = ref<boolean>(false);
-const authSate = ref<AuthState>($getAuthState());
+const authSate = $getAuthState();
+const themeState = $getTheme();
 
-interface ILink {
-	name: string;
-	path: string;
-}
 const props = defineProps({
 	links: {
 		type: Array<ILink>,
@@ -76,7 +88,13 @@ const handleLogout = () => {
 	background-color: var(--primary-background);
 	position: relative;
 }
-
+.switchers-container {
+	display: flex;
+	align-items: center;
+	gap: 3rem;
+	justify-content: center;
+	margin-bottom: 1.5rem;
+}
 .header-content {
 	width: 95%;
 	margin: auto auto;
@@ -85,7 +103,11 @@ const handleLogout = () => {
 	align-items: center;
 	height: 100%;
 }
-
+.right-icons {
+	display: flex;
+	gap: 1.5rem;
+	align-items: center;
+}
 .menu-modal {
 	position: absolute;
 	top: 100%;
@@ -101,20 +123,14 @@ const handleLogout = () => {
 	height: 4rem;
 }
 
-.menu-icon {
-	height: 4rem;
-}
-
-.menu-icon {
-	height: 2.25rem;
-	padding-right: 0.65rem;
-}
-
 .link-item {
 	font-size: 1.2rem;
 	padding: 0.5rem 0;
 	margin: 0.25rem 0;
 	cursor: pointer;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .link-group {

@@ -4,36 +4,37 @@
 			<NuxtLink to="/" class="logo-container">
 				<img
 					class="img-logo"
-					:src="$getTheme() === 'light' ? '/light-logo.png' : '/dark-logo.png'"
+					:src="themeState.themeMode === THEME_MODES.light ? '/light-logo.png' : '/dark-logo.png'"
 					height="40"
 					alt="DrunkFlavor"
 				/>
 				<span>DrunkFlavor</span>
 			</NuxtLink>
+
 			<div class="link-group">
-				<NuxtLink v-for="l in props.links" :key="l.name" class="link-item" :to="l.path">
-					{{ l.name }}
+				<LanguageSwitcher />
+				<ThemeSwitcher />
+				<NuxtLink v-for="l in props.links" :key="l.path" class="link-item" :to="l.path">
+					{{ $t(l.i18nKey) }}
 				</NuxtLink>
-				<div v-show="showLogout" @click="handleLogout" class="link-item">logout</div>
+				<div v-show="authSate.authenticated" @click="handleLogout" class="link-item">logout</div>
 			</div>
 		</div>
 	</header>
 </template>
 <script setup lang="ts">
-const { $signOut } = useNuxtApp();
+import { ILink } from "@/types/navbar";
+import { THEME_MODES } from "~/types/theme";
 
-interface ILink {
-	name: string;
-	path: string;
-}
+const { $signOut, $getAuthState, $getTheme } = useNuxtApp();
+
+const authSate = $getAuthState();
+const themeState = $getTheme();
+
 const props = defineProps({
 	links: {
 		type: Array<ILink>,
 		default: [],
-	},
-	showLogout: {
-		type: Boolean,
-		default: false,
 	},
 });
 
