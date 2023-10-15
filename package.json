@@ -1,21 +1,21 @@
 {
-  "name": "nuxt-app",
-  "private": true,
-  "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
-  },
-  "devDependencies": {
-    "@types/node": "^18",
-    "nuxt": "^3.4.3"
-  },
-  "dependencies": {
-    "@vueuse/nuxt": "^10.1.0",
-    "axios": "^1.4.0",
-    "vue-toastification": "^2.0.0-rc.5",
-    "vue3-dropzone": "^2.0.1"
-  }
+    "name": "nuxt-app",
+    "private": true,
+    "scripts": {
+        "build": "nuxt build",
+        "dev": "nuxt dev",
+        "generate": "nuxt generate",
+        "preview": "nuxt preview",
+        "postinstall": "nuxt prepare"
+    },
+    "devDependencies": {
+        "@types/node": "^18",
+        "nuxt": "^3.4.3"
+    },
+    "dependencies": {
+        "@vueuse/nuxt": "^10.1.0",
+        "axios": "^1.4.0",
+        "vue-i18n": "^9.5.0",
+        "vue-toastification": "^2.0.0-rc.5"
+    }
 }
