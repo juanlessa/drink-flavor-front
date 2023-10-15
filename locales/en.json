@@ -15,5 +15,9 @@
     "loginPage.loginButton.label": "login",
     "drinkDetailPage.ingredients": "Ingredients",
     "drinkDetailPage.ingredients.ofPreposition": "of",
-    "drinkDetailPage.instructions": "Preparation Instructions"
+    "drinkDetailPage.instructions": "Preparation Instructions",
+    "deleteModal.message": "Are you sure you want to delete the item",
+    "deleteModal.cancelButton.message": "cancel",
+    "deleteModal.deleteButton.message": "delete",
+    "drinksPage.newDrinkButton.message": "new drink"
 }

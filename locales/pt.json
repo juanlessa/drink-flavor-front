@@ -2,7 +2,7 @@
     "language": "português",
     "navbar.categories": "categorias",
     "navbar.ingredients": "ingredientes",
-    "navbar.drinks": "bebidas",
+    "navbar.drinks": "drinks",
     "navbar.login": "entrar",
     "navbar.logout": "sair",
     "footer.author": "Juan Lessa",
@@ -15,5 +15,9 @@
     "loginPage.loginButton.label": "entrar",
     "drinkDetailPage.ingredients": "Ingredientes",
     "drinkDetailPage.ingredients.ofPreposition": "de",
-    "drinkDetailPage.instructions": "Modo de preparo"
+    "drinkDetailPage.instructions": "Modo de preparo",
+    "deleteModal.message": "Tem certeza que deseja excluir o item",
+    "deleteModal.cancelButton.message": "cancelar",
+    "deleteModal.deleteButton.message": "excluir",
+    "drinksPage.newDrinkButton.message": "novo drink"
 }
