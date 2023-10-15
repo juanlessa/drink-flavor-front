@@ -1,0 +1,19 @@
+{
+    "language": "english",
+    "navbar.categories": "categories",
+    "navbar.ingredients": "ingredients",
+    "navbar.drinks": "drinks",
+    "navbar.login": "login",
+    "navbar.logout": "logout",
+    "footer.author": "Juan Lessa",
+    "footer.githubProject": "github project",
+    "loginPage.back.label": "back",
+    "loginPage.email.label": "email",
+    "loginPage.email.errorMessage": "invalid email",
+    "loginPage.password.label": "password",
+    "loginPage.password.errorMessage": "invalid password",
+    "loginPage.loginButton.label": "login",
+    "drinkDetailPage.ingredients": "Ingredients",
+    "drinkDetailPage.ingredients.ofPreposition": "of",
+    "drinkDetailPage.instructions": "Preparation Instructions"
+}

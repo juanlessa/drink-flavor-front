@@ -1,0 +1,19 @@
+{
+    "language": "português",
+    "navbar.categories": "categorias",
+    "navbar.ingredients": "ingredientes",
+    "navbar.drinks": "bebidas",
+    "navbar.login": "entrar",
+    "navbar.logout": "sair",
+    "footer.author": "Juan Lessa",
+    "footer.githubProject": "projeto no github",
+    "loginPage.back.label": "voltar",
+    "loginPage.email.label": "email",
+    "loginPage.email.errorMessage": "email invalido",
+    "loginPage.password.label": "senha",
+    "loginPage.password.errorMessage": "senha invalida",
+    "loginPage.loginButton.label": "entrar",
+    "drinkDetailPage.ingredients": "Ingredientes",
+    "drinkDetailPage.ingredients.ofPreposition": "de",
+    "drinkDetailPage.instructions": "Modo de preparo"
+}
