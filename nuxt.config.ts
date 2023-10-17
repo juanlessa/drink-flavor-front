@@ -5,6 +5,14 @@ export default defineNuxtConfig({
 			apiBase: "",
 		},
 	},
+
+	imports: {
+		dirs: [
+			"composables", // top-level modules
+			"composables/**", // scan all modules within given directory
+		],
+	},
+
 	css: ["@/styles/global.css"],
 	modules: ["@vueuse/nuxt"],
 });
