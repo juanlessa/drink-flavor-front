@@ -28,7 +28,7 @@ watch(locale, (newLocale) => {
 }
 .language-select-input {
 	font-size: 1rem;
-	background-color: var(--secondary-background);
+	background-color: var(--primary-background);
 	border: none;
 	border-radius: 0.5rem;
 	padding: 0.5rem;
