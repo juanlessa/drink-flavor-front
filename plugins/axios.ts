@@ -1,12 +1,11 @@
 import axios, {
 	AxiosRequestHeaders,
 	AxiosInstance,
-	AxiosRequestConfig,
 	AxiosResponse,
 	InternalAxiosRequestConfig,
 	AxiosError,
 } from "axios";
-import { DFAxiosError, DFAxiosErrorTypes } from "@/types/error";
+import { DFAxiosError, DFAxiosErrorTypes } from "@/types/axios";
 
 declare module "#app" {
 	interface NuxtApp {
