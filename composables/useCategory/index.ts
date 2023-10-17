@@ -1,5 +1,6 @@
 import { EMPTY_CATEGORY } from "@/constants/category";
 import { ICategory, CategoryState } from "@/types/category";
+import { API_ROUTES } from "@/constants/routes";
 
 const initState = (): CategoryState => ({
 	categories: [],
@@ -14,7 +15,7 @@ export const useCategory = () => {
 
 	const loadCategories = async () => {
 		try {
-			const response = await axios.get<ICategory[]>("/categories");
+			const response = await axios.get<ICategory[]>(API_ROUTES.listCategories());
 			categoryState.value.categories = response.data;
 		} catch (error) {
 			console.error("error ");
@@ -28,13 +29,13 @@ export const useCategory = () => {
 			},
 		};
 
-		await axios.delete("/categories", requestBody);
+		await axios.delete(API_ROUTES.deleteCategory(), requestBody);
 	};
 
 	const getCategory = async (id: string): Promise<ICategory> => {
 		let category = { ...EMPTY_CATEGORY };
 		try {
-			const response = await axios.get<ICategory>(`/categories/${id}`);
+			const response = await axios.get<ICategory>(API_ROUTES.getCategory(id));
 			category = response.data;
 		} catch (error) {
 			console.error("error ", error);
