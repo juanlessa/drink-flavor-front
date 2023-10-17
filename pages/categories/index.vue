@@ -22,7 +22,6 @@
 import { ICategory } from "@/types/category";
 import { ROUTES } from "@/types/appRoutes";
 import { IItem } from "@/types/deleteModal";
-import toastConfig from "@/utils/toastConfig";
 
 const { $toast, $router } = useNuxtApp();
 const { loadCategories, getCategoryState, initEmptyCategory, deleteCategory } = useCategory();
@@ -62,10 +61,10 @@ const handleCancelModalClick = (): void => {
 const handleDeleteCategory = async (): Promise<void> => {
 	try {
 		await deleteCategory(categoryToDelete.value);
-		$toast.success("SUCCESS", toastConfig);
+		$toast.success("SUCCESS");
 		handleLoadCategories();
 	} catch (error) {
-		$toast.error("ERROR", toastConfig);
+		$toast.error("ERROR");
 		console.error(error);
 	}
 	showDeleteModal.value = false;

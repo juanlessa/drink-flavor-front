@@ -18,7 +18,6 @@
 import { IDrink } from "@/types/drink";
 import { ROUTES } from "@/types/appRoutes";
 import { IItem } from "@/types/deleteModal";
-import toastConfig from "@/utils/toastConfig";
 
 const { $toast, $router } = useNuxtApp();
 const { loadDrinks, getDrinkState, initEmptyDrink, deleteDrink } = useDrink();
@@ -59,10 +58,10 @@ const handleCancelModalClick = (): void => {
 const handleDeleteDrink = async (): Promise<void> => {
 	try {
 		await deleteDrink(drinkToDelete.value);
-		$toast.success("SUCCESS", toastConfig);
+		$toast.success("SUCCESS");
 		handleLoadDrinks();
 	} catch (error) {
-		$toast.error("ERROR", toastConfig);
+		$toast.error("ERROR");
 		console.error(error);
 	}
 	showDeleteModal.value = false;

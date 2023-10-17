@@ -22,7 +22,6 @@
 import { IIngredient } from "@/types/ingredient";
 import { ROUTES } from "@/types/appRoutes";
 import { IItem } from "@/types/deleteModal";
-import toastConfig from "@/utils/toastConfig";
 
 const { $toast, $router } = useNuxtApp();
 const { loadIngredients, getIngredientState, initEmptyIngredient, deleteIngredient } = useIngredient();
@@ -61,10 +60,10 @@ const handleCancelModalClick = (): void => {
 const handleDeleteIngredient = async (): Promise<void> => {
 	try {
 		await deleteIngredient(ingredientToDelete.value);
-		$toast.success("SUCCESS", toastConfig);
+		$toast.success("SUCCESS");
 		handleLoadIngredients();
 	} catch (error) {
-		$toast.error("ERROR", toastConfig);
+		$toast.error("ERROR");
 		console.error(error);
 	}
 	showDeleteModal.value = false;
