@@ -1,14 +1,22 @@
 import { z } from "zod";
-import { CATEGORY_ERRORS } from "@/errors/category.errors";
+import { getZodTranslationsSchema } from "@/validations/getZodTranslationsSchema";
+import { validateSchema } from "@/validations/validateSchema";
+import { ICreateCategory } from "@/types/category";
 
 // fields validation
 export const categoryNameValidation = z
-	.string({ required_error: CATEGORY_ERRORS.required_name })
+	.string()
 	.trim()
-	.toLowerCase()
-	.min(1, { message: CATEGORY_ERRORS.invalid_name_format });
+	.min(1, { message: "categoryForm.nameInput.errorInvalidFormat" });
 
 // schemas
 export const categoryTranslationSchema = z.object({
 	name: categoryNameValidation,
 });
+
+export const categoryFormSchema = z.object({
+	translations: getZodTranslationsSchema(categoryTranslationSchema),
+});
+
+//validators
+export const categoryFormValidator = validateSchema<ICreateCategory>(categoryFormSchema);
