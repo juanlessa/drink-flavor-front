@@ -35,7 +35,10 @@ export default defineNuxtPlugin(() => {
 	const authState = useState<AuthState>("auth", initState);
 
 	const getAuthState = () => authState;
-	const resetAuthState = () => (authState.value = initState());
+
+	const resetAuthState = () => {
+		authState.value = initState();
+	};
 
 	const storeTokens = ({ token, refresh_token }: ITokens) => {
 		// store refresh token
