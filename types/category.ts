@@ -1,5 +1,6 @@
 import { DatabaseCommonInfo } from "@/types/database";
-import { ITranslations } from "@/types/translations";
+import { ITranslations, LANGUAGES } from "@/types/translations";
+import { FieldError } from "./forms";
 
 export type ICategoryTranslation = {
 	name: string;
@@ -13,10 +14,21 @@ export type ICreateCategory = {
 	translations: ITranslations<ICategoryTranslation>;
 };
 
+export type IUpdateCategory = {
+	id: string;
+	translations: ITranslations<ICategoryTranslation>;
+};
+
 export type CategoryState = {
 	categories: ICategory[];
 };
 
+export type ICategoryForm = {
+	translations: ITranslations<ICategoryTranslation>;
+};
+
 export type CategoryFormState = {
-	form: ICreateCategory;
+	form: ICategoryForm;
+	errors: FieldError[];
+	displayErrors: boolean;
 };
