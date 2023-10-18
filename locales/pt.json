@@ -1,5 +1,6 @@
 {
-    "language": "português",
+    "language.en": "Inglês",
+    "language.pt": "Português",
     "navbar.categories": "categorias",
     "navbar.ingredients": "ingredientes",
     "navbar.drinks": "drinks",
@@ -21,5 +22,9 @@
     "deleteModal.deleteButton.message": "excluir",
     "drinksPage.newDrinkButton.message": "novo drink",
     "ingredientsPage.newIngredientButton.message": "novo ingrediente",
-    "categoriesPage.newCategoryButton.message": "nova categoria"
+    "categoriesPage.newCategoryButton.message": "nova categoria",
+    "categoryForm.nameInput.label": "nome",
+    "categoryForm.nameInput.errorInvalidFormat": "nome deve ter no mínimo 1 caractere",
+    "categoryForm.cancelButton.message": "cancelar",
+    "categoryForm.submitButton.message": "concluído"
 }
