@@ -1,5 +1,5 @@
 import { EMPTY_CATEGORY } from "@/constants/category";
-import { ICategory, CategoryState } from "@/types/category";
+import { ICategory, CategoryState, ICreateCategory, IUpdateCategory } from "@/types/category";
 import { API_ROUTES } from "@/constants/routes";
 
 const initState = (): CategoryState => ({
@@ -22,24 +22,21 @@ export const useCategory = () => {
 		}
 	};
 
-	const deleteCategory = async (categoryToDelete: ICategory) => {
-		let requestBody = {
-			data: {
-				id: categoryToDelete._id,
-			},
-		};
+	const createCategory = async (requestBody: ICreateCategory) => {
+		await axios.post(API_ROUTES.createCategory(), requestBody);
+	};
 
-		await axios.delete(API_ROUTES.deleteCategory(), requestBody);
+	const updateCategory = async (requestBody: IUpdateCategory) => {
+		await axios.patch(API_ROUTES.updateCategory(), requestBody);
+	};
+
+	const deleteCategory = async (id: string) => {
+		await axios.delete(API_ROUTES.deleteCategory(), { data: { id } });
 	};
 
 	const getCategory = async (id: string): Promise<ICategory> => {
-		let category = { ...EMPTY_CATEGORY };
-		try {
-			const response = await axios.get<ICategory>(API_ROUTES.getCategory(id));
-			category = response.data;
-		} catch (error) {
-			console.error("error ", error);
-		}
+		const response = await axios.get<ICategory>(API_ROUTES.getCategory(id));
+		const category = response.data;
 		return category;
 	};
 
@@ -48,6 +45,8 @@ export const useCategory = () => {
 	return {
 		getCategoryState,
 		loadCategories,
+		createCategory,
+		updateCategory,
 		getCategory,
 		deleteCategory,
 		initEmptyCategory,

@@ -1,27 +1,66 @@
 <template>
-	<PageTemplate bg-color="primary-background">
-		<CategoriesForm class="main-content-padding" :category="category" />
-	</PageTemplate>
+	<NuxtLayout :bg-color="IBgColor.primary">
+		<CategoriesForm class="main-content-padding" @submit="handleUpdateCategory" />
+	</NuxtLayout>
 </template>
 <script setup lang="ts">
-import { Category } from "@/utils/dtos/Categories";
-const { $axios: axios } = useNuxtApp();
+import { IBgColor } from "@/types/layout";
+import { ICategory, ICategoryForm, IUpdateCategory } from "@/types/category";
+import { EMPTY_CATEGORY } from "@/constants/category";
+import { AxiosError } from "axios";
+
+const { $toast, $router } = useNuxtApp();
+const { getCategory, updateCategory } = useCategory();
+const { getCategoryFormState, resetCategoryFormState } = useCategoryForm();
+
 const route = useRoute();
 
-const category = ref<Category>();
+const category = ref<ICategory>({ ...EMPTY_CATEGORY });
+
+const categoryFormState = getCategoryFormState();
+categoryFormState.value.displayErrors = true;
 
 definePageMeta({
 	middleware: "auth",
 });
 
 onMounted(async () => {
-	const categoryId = route.params.id;
+	const categoryId = route.params.id as string;
 
 	try {
-		const response = await axios.get<Category>(`/categories/${categoryId}`);
-		category.value = response.data;
+		category.value = await getCategory(categoryId);
 	} catch (error) {
 		console.error(error);
+		return;
 	}
+
+	const categoryForm: ICategoryForm = { translations: category.value.translations };
+	categoryFormState.value.form = categoryForm;
 });
+
+const handleUpdateCategory = async () => {
+	const categoryToUpdate: IUpdateCategory = {
+		id: category.value._id,
+		...categoryFormState.value.form,
+	};
+
+	try {
+		await updateCategory(categoryToUpdate);
+	} catch (error) {
+		const axiosError = error as AxiosError;
+		console.error(error);
+		if (axiosError.response?.status === 400) {
+			const errorMessage = (axiosError.response.data as { status: string; message: string }).message;
+			$toast.error(errorMessage);
+		}
+		return;
+	}
+
+	$toast.success("SUCCESS");
+	setTimeout(() => {
+		$router.back();
+		resetCategoryFormState();
+	}, 750);
+	return;
+};
 </script>
