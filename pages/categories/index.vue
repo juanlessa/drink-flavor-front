@@ -10,10 +10,10 @@
 				@delete="handleDeleteClick"
 			/>
 			<DeleteModal
-				@delete-click="handleDeleteCategory"
-				@cancel-click="handleCancelModalClick"
 				:show-modal="showDeleteModal"
 				:delete-item="categoryToDelete"
+				@delete-click="handleDeleteCategory"
+				@cancel-click="handleCancelModalClick"
 			/>
 		</div>
 	</NuxtLayout>
@@ -42,9 +42,11 @@ onMounted(() => {
 const handleNewCategory = () => {
 	$router.push(`${ROUTES.categories}/new`);
 };
+
 const handleEditCategoryClick = (item: IItem): void => {
 	$router.push(`${ROUTES.categories}/${item._id}`);
 };
+
 const handleDeleteClick = (item: IItem): void => {
 	const category = item as ICategory;
 	categoryToDelete.value = category;
@@ -54,13 +56,16 @@ const handleDeleteClick = (item: IItem): void => {
 const handleLoadCategories = async () => {
 	loadCategories();
 };
+
 const handleCancelModalClick = (): void => {
 	showDeleteModal.value = false;
 	categoryToDelete.value = initEmptyCategory();
 };
+
 const handleDeleteCategory = async (): Promise<void> => {
+	const categoryId = categoryToDelete.value._id;
 	try {
-		await deleteCategory(categoryToDelete.value);
+		await deleteCategory(categoryId);
 		$toast.success("SUCCESS");
 		handleLoadCategories();
 	} catch (error) {
