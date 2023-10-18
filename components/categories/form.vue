@@ -23,7 +23,7 @@
 			</div>
 		</div>
 		<div class="form-buttons-container">
-			<button @click="handleCancelButton" class="action-button cancel-button form-button-size">
+			<button @click="handleCancelButton" class="action-button cancel-button-color form-button-size">
 				{{ $t("categoryForm.cancelButton.message") }}
 			</button>
 			<button @click="handleSubmitButton" class="action-button primary-button-color form-button-size">
