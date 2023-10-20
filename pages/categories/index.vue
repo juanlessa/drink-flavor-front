@@ -19,11 +19,13 @@
 	</NuxtLayout>
 </template>
 <script setup lang="ts">
+import { useI18n } from "vue-i18n";
 import { ICategory } from "@/types/category";
 import { ROUTES } from "@/types/appRoutes";
-import { IItem } from "@/types/deleteModal";
+import { IItem } from "@/types/item";
 
 const { $toast, $router } = useNuxtApp();
+const { t } = useI18n();
 const { loadCategories, getCategoryState, initEmptyCategory, deleteCategory } = useCategory();
 
 const categoryState = getCategoryState();
@@ -35,8 +37,14 @@ definePageMeta({
 	middleware: "auth",
 });
 
-onMounted(() => {
-	handleLoadCategories();
+onMounted(async () => {
+	try {
+		await handleLoadCategories();
+	} catch (error) {
+		$toast.error(t("categoriesPage.loadCategories.errorMessage"));
+		console.error(error);
+		navigateTo("/");
+	}
 });
 
 const handleNewCategory = () => {
@@ -76,3 +84,4 @@ const handleDeleteCategory = async (): Promise<void> => {
 	categoryToDelete.value = initEmptyCategory();
 };
 </script>
+~/types/item

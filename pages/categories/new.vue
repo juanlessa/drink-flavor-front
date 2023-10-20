@@ -32,7 +32,6 @@ const handleCreateCategory = async () => {
 	}
 
 	$toast.success("SUCCESS");
-	resetCategoryFormState();
 	setTimeout(() => {
 		$router.back();
 		resetCategoryFormState();
