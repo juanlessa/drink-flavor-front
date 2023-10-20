@@ -1,0 +1,45 @@
+import { EMPTY_INGREDIENT_FORM } from "@/constants/ingredient";
+import { FieldError } from "@/types/forms";
+import { useI18n } from "vue-i18n";
+import { IngredientFormState } from "@/types/ingredient";
+import { IngredientFormValidator } from "@/validations/ingredient";
+
+const initState = (): IngredientFormState => ({
+	form: { ...EMPTY_INGREDIENT_FORM },
+	errors: [],
+	displayErrors: false,
+});
+
+export const useIngredientForm = () => {
+	const { t } = useI18n();
+
+	const ingredientFormState = useState<IngredientFormState>("ingredientForm", initState);
+
+	const getIngredientFormState = () => ingredientFormState;
+
+	const resetIngredientFormState = () => {
+		ingredientFormState.value = initState();
+	};
+
+	const checkFieldError = (errors: Array<FieldError>, field: string): string => {
+		const error = errors.find((err) => err.field === field);
+		return error === undefined ? "" : t(error.message);
+	};
+
+	const validateForm = () => {
+		if (!ingredientFormState.value.displayErrors) {
+			return;
+		}
+		const data = ingredientFormState.value.form;
+		const errors = IngredientFormValidator(data);
+
+		ingredientFormState.value.errors = errors;
+	};
+
+	return {
+		getIngredientFormState,
+		resetIngredientFormState,
+		validateForm,
+		checkFieldError,
+	};
+};

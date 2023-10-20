@@ -14,12 +14,8 @@ export const useCategory = () => {
 	const getCategoryState = () => categoryState;
 
 	const loadCategories = async () => {
-		try {
-			const response = await axios.get<ICategory[]>(API_ROUTES.listCategories());
-			categoryState.value.categories = response.data;
-		} catch (error) {
-			console.error("error ");
-		}
+		const response = await axios.get<ICategory[]>(API_ROUTES.listCategories());
+		categoryState.value.categories = response.data;
 	};
 
 	const createCategory = async (requestBody: ICreateCategory) => {
