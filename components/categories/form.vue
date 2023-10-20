@@ -1,6 +1,6 @@
 <template>
 	<div class="form-container">
-		<h2 class="form-title">Category</h2>
+		<h2 class="form-title">{{ $t("categoryForm.title.message") }}</h2>
 		<div class="flex-container">
 			<div v-for="lang in languages" :key="lang" class="flex-column">
 				<h3 class="language-title">{{ $t(`language.${lang}`) }}</h3>
@@ -63,10 +63,3 @@ const handleSubmitButton = async () => {
 	emit("submit");
 };
 </script>
-<style scoped>
-.language-title {
-	font-size: 1.25rem;
-	margin: 1rem 0;
-	text-align: center;
-}
-</style>
