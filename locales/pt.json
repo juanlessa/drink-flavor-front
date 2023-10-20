@@ -21,10 +21,22 @@
     "deleteModal.cancelButton.message": "cancelar",
     "deleteModal.deleteButton.message": "excluir",
     "drinksPage.newDrinkButton.message": "novo drink",
+    "drinksPage.loadDrinks.errorMessage": "Erro ao carregar os drinks",
     "ingredientsPage.newIngredientButton.message": "novo ingrediente",
+    "ingredientsPage.loadIngredients.errorMessage": "Erro ao carregar os ingredients",
     "categoriesPage.newCategoryButton.message": "nova categoria",
+    "categoriesPage.loadCategories.errorMessage": "Erro ao carregar as categorias",
+    "categoryForm.title.message": "Categoria",
     "categoryForm.nameInput.label": "nome",
     "categoryForm.nameInput.errorInvalidFormat": "nome deve ter no mínimo 1 caractere",
     "categoryForm.cancelButton.message": "cancelar",
-    "categoryForm.submitButton.message": "concluído"
+    "categoryForm.submitButton.message": "concluído",
+    "ingredientForm.title.message": "Ingrediente",
+    "ingredientForm.nameInput.label": "nome",
+    "ingredientForm.unitInput.label": "unidade",
+    "ingredientForm.unitPluralInput.label": "unidade plural",
+    "ingredientForm.nameInput.errorInvalidFormat": "nome deve ter no mínimo 1 caractere",
+    "ingredientForm.cancelButton.message": "cancelar",
+    "ingredientForm.submitButton.message": "concluído",
+    "searchSelect.noResult.message": "nenhum resultado"
 }
