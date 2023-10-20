@@ -11,3 +11,8 @@ export type IUser = DatabaseCommonInfo & {
 	email: string;
 	role: ROLES;
 };
+
+export type IAuthenticateUser = {
+	email: string;
+	password: string;
+};
