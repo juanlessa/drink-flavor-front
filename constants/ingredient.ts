@@ -1,4 +1,4 @@
-import { IIngredient } from "@/types/ingredient";
+import { IIngredient, IIngredientForm } from "@/types/ingredient";
 import { EMPTY_CATEGORY } from "@/constants/category";
 
 export const EMPTY_INGREDIENT: IIngredient = {
@@ -11,4 +11,13 @@ export const EMPTY_INGREDIENT: IIngredient = {
 	category: { ...EMPTY_CATEGORY },
 	created_at: new Date(),
 	updated_at: new Date(),
+};
+
+export const EMPTY_INGREDIENT_FORM: IIngredientForm = {
+	translations: {
+		en: { name: "", unit: "", unit_plural: "" },
+		pt: { name: "", unit: "", unit_plural: "" },
+	},
+	is_alcoholic: false,
+	category_id: "",
 };
