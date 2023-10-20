@@ -1,90 +1,33 @@
 <template>
-	<label class="toggle-button">
-		<input v-model="inputValueComputed" :id="props.inputId" type="checkbox" />
-		<span class="toggle-slider round"></span>
-	</label>
+	<SwitchRoot
+		:id="props.id"
+		:checked="props.value"
+		class="w-[42px] h-[25px] focus-within:outline focus-within:outline-black flex bg-gray-400 shadow-sm rounded-full relative data-[state=checked]:bg-theme cursor-default"
+		@update:checked="handleUpdate"
+	>
+		<SwitchThumb
+			class="block w-[21px] h-[21px] my-auto bg-white shadow-sm rounded-full transition-transform duration-100 translate-x-0.5 will-change-transform data-[state=checked]:translate-x-[19px]"
+		/>
+	</SwitchRoot>
 </template>
 <script setup lang="ts">
+import { SwitchRoot, SwitchThumb } from "radix-vue";
+
 const props = defineProps({
-	inputId: {
+	id: {
 		type: String,
 		default: "",
 	},
-	inputValue: {
+	value: {
 		type: Boolean,
 		default: false,
 	},
 });
 const emit = defineEmits<{
-	(e: "input", value: boolean): void;
+	(e: "update:value", value: boolean): void;
 }>();
-const inputValueComputed = computed({
-	get() {
-		return props.inputValue;
-	},
-	set(newValue) {
-		emit("input", newValue);
-	},
-});
+
+const handleUpdate = (value: boolean) => {
+	emit("update:value", value);
+};
 </script>
-<style scoped>
-.toggle-button {
-	position: relative;
-	display: inline-block;
-	width: 60px;
-	height: 34px;
-	cursor: pointer;
-}
-
-.toggle-button input {
-	opacity: 0;
-	width: 0;
-	height: 0;
-}
-
-.toggle-slider {
-	position: absolute;
-	cursor: pointer;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-color: #ccc;
-	-webkit-transition: 0.4s;
-	transition: 0.4s;
-}
-
-.toggle-slider:before {
-	position: absolute;
-	content: "";
-	height: 26px;
-	width: 26px;
-	left: 4px;
-	bottom: 4px;
-	background-color: white;
-	-webkit-transition: 0.4s;
-	transition: 0.4s;
-}
-
-input:checked + .toggle-slider {
-	background-color: #2196f3;
-}
-
-input:focus + .toggle-slider {
-	box-shadow: 0 0 1px #2196f3;
-}
-
-input:checked + .toggle-slider:before {
-	-webkit-transform: translateX(26px);
-	-ms-transform: translateX(26px);
-	transform: translateX(26px);
-}
-
-.toggle-slider.round {
-	border-radius: 34px;
-}
-
-.toggle-slider.round:before {
-	border-radius: 50%;
-}
-</style>
