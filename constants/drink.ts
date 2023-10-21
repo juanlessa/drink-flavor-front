@@ -1,4 +1,4 @@
-import { IDrink, IDrinkIngredient } from "@/types/drink";
+import { IDrinkForm, IDrink, IDrinkIngredient } from "@/types/drink";
 
 export const initEmptyDrink = (): IDrink => ({
 	_id: "",
@@ -11,4 +11,12 @@ export const initEmptyDrink = (): IDrink => ({
 	ingredients: [] as IDrinkIngredient[],
 	created_at: new Date(),
 	updated_at: new Date(),
+});
+
+export const initEmptyDrinkForm = (): IDrinkForm => ({
+	translations: {
+		en: { name: "", method: "" },
+		pt: { name: "", method: "" },
+	},
+	ingredients: [],
 });
