@@ -41,5 +41,6 @@
     "ingredientForm.nameInput.errorInvalidFormat": "nome deve ter no mínimo 1 caractere",
     "ingredientForm.cancelButton.message": "cancelar",
     "ingredientForm.submitButton.message": "concluído",
+    "updateIngredientPage.loadIngredient.errorMessage": "Erro ao carregar o ingrediente",
     "searchSelect.noResult.message": "nenhum resultado"
 }

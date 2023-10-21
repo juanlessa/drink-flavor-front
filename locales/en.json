@@ -41,5 +41,6 @@
     "ingredientForm.nameInput.errorInvalidFormat": "name must have a minimum of 1 character",
     "ingredientForm.cancelButton.message": "cancel",
     "ingredientForm.submitButton.message": "done",
+    "updateIngredientPage.loadIngredient.errorMessage": "Error loading the ingredient",
     "searchSelect.noResult.message": "no results"
 }
