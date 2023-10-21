@@ -1,6 +1,6 @@
 import { IDrink, IDrinkIngredient } from "@/types/drink";
 
-export const EMPTY_DRINK: IDrink = {
+export const initEmptyDrink = (): IDrink => ({
 	_id: "",
 	translations: {
 		en: { name: "", method: "" },
@@ -11,4 +11,4 @@ export const EMPTY_DRINK: IDrink = {
 	ingredients: [] as IDrinkIngredient[],
 	created_at: new Date(),
 	updated_at: new Date(),
-};
+});
