@@ -1,4 +1,3 @@
-import { EMPTY_CATEGORY } from "@/constants/category";
 import { ICategory, CategoryState, ICreateCategory, IUpdateCategory } from "@/types/category";
 import { API_ROUTES } from "@/constants/routes";
 
@@ -36,8 +35,6 @@ export const useCategory = () => {
 		return category;
 	};
 
-	const initEmptyCategory = (): ICategory => ({ ...EMPTY_CATEGORY });
-
 	return {
 		getCategoryState,
 		loadCategories,
@@ -45,6 +42,5 @@ export const useCategory = () => {
 		updateCategory,
 		getCategory,
 		deleteCategory,
-		initEmptyCategory,
 	};
 };

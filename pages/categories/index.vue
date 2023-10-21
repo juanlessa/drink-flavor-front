@@ -23,10 +23,11 @@ import { useI18n } from "vue-i18n";
 import { ICategory } from "@/types/category";
 import { ROUTES } from "@/types/appRoutes";
 import { IItem } from "@/types/item";
+import { initEmptyCategory } from "@/constants/category";
 
 const { $toast, $router } = useNuxtApp();
 const { t } = useI18n();
-const { loadCategories, getCategoryState, initEmptyCategory, deleteCategory } = useCategory();
+const { loadCategories, getCategoryState, deleteCategory } = useCategory();
 
 const categoryState = getCategoryState();
 
@@ -84,4 +85,3 @@ const handleDeleteCategory = async (): Promise<void> => {
 	categoryToDelete.value = initEmptyCategory();
 };
 </script>
-~/types/item

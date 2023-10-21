@@ -1,11 +1,11 @@
-import { EMPTY_CATEGORY_FORM } from "@/constants/category";
 import { CategoryFormState } from "@/types/category";
 import { FieldError } from "@/types/forms";
 import { categoryFormValidator } from "@/validations/category";
 import { useI18n } from "vue-i18n";
+import { initEmptyCategoryForm } from "@/constants/category";
 
 const initState = (): CategoryFormState => ({
-	form: { ...EMPTY_CATEGORY_FORM },
+	form: initEmptyCategoryForm(),
 	errors: [],
 	displayErrors: false,
 });

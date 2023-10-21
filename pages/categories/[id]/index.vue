@@ -6,8 +6,8 @@
 <script setup lang="ts">
 import { IBgColor } from "@/types/layout";
 import { ICategory, ICategoryForm, IUpdateCategory } from "@/types/category";
-import { EMPTY_CATEGORY } from "@/constants/category";
 import { AxiosError } from "axios";
+import { initEmptyCategory } from "@/constants/category";
 
 const { $toast, $router } = useNuxtApp();
 const { getCategory, updateCategory } = useCategory();
@@ -15,7 +15,7 @@ const { getCategoryFormState, resetCategoryFormState } = useCategoryForm();
 
 const route = useRoute();
 
-const category = ref<ICategory>({ ...EMPTY_CATEGORY });
+const category = ref<ICategory>(initEmptyCategory());
 
 const categoryFormState = getCategoryFormState();
 categoryFormState.value.displayErrors = true;
