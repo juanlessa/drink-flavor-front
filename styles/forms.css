@@ -1,6 +1,9 @@
 .form-container {
     width: 100%;
 }
+.content-mt {
+    margin-top: 2rem;
+}
 
 .form-title {
 	padding-top: 1rem;
@@ -8,18 +11,19 @@
 	font-size: 2rem;
 	width: 100%;
 	text-align: center;
-	margin-bottom: 1rem;
 }
 
 
 .flex-container {
 	display: flex;
 	flex-direction: column;
-	gap: 0.75rem;
 }
 
 .flex-column {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .input-group-margin-top {
@@ -65,7 +69,6 @@
 	border: 0.1rem solid var(--error) !important;
 }
 
-
 .form-buttons-container {
 	margin-top: 3.5rem;
 	display: flex;
@@ -86,6 +89,11 @@
 	margin-left: 0.5rem;
 }
 
+.language-title {
+	font-size: 1.25rem;
+	margin-bottom: 1rem;
+	text-align: center;
+}
 @media(min-width: 780px) {
 
 	.flex-container {
