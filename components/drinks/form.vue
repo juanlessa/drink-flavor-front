@@ -80,7 +80,7 @@
 								"
 								type="number"
 							/>
-							<span class="ingredient-unity-text">{{ ing.ingredient.unityPlural }}</span>
+							<span class="ingredient-unit-text">{{ ing.ingredient.unityPlural }}</span>
 						</div>
 						<div
 							@click="handleRemoveDrinkIngredient(ing)"
@@ -101,7 +101,6 @@
 	</div>
 </template>
 <script setup lang="ts">
-import toastConfig from "@/utils/toastConfig";
 import { Ingredient } from "@/utils/dtos/Ingredients";
 import { Drink, DrinkIngredient, ICreateDrink, IUpdateDrink } from "@/utils/dtos/Drinks";
 import { AxiosError } from "axios";
@@ -225,22 +224,22 @@ const handleQuantityHasError = (id: string): boolean => {
 const handleValidateDrink = () => {
 	const nameIsValid = !handleNameValidation(drinkToCreateName.value);
 	if (!nameIsValid) {
-		$toast.error("Name invalid.", toastConfig);
+		$toast.error("Name invalid.");
 	}
 	const methodIsValid = !handleMethodValidation(drinkToCreateMethod.value);
 	if (!methodIsValid) {
-		$toast.error("method invalid.", toastConfig);
+		$toast.error("method invalid.");
 	}
 
 	if (drinkToCreateIngredients.value.length === 0) {
-		useNuxtApp().$toast.error("Add ingredients to your drink", toastConfig);
+		useNuxtApp().$toast.error("Add ingredients to your drink");
 	}
 	const quantitiesValidation = drinkToCreateIngredients.value.map((ing) => {
 		return !handleQuantityValidation(ing.quantity.toString(), ing.ingredientId);
 	});
 	const quantitiesAreValid = quantitiesValidation.every((isValid) => isValid);
 	if (!quantitiesAreValid) {
-		useNuxtApp().$toast.error("The ingredient quantities must be greater than 0", toastConfig);
+		useNuxtApp().$toast.error("The ingredient quantities must be greater than 0");
 	}
 	if (!nameIsValid || !methodIsValid || !quantitiesAreValid || drinkToCreateIngredients.value.length === 0) {
 		return false;
@@ -292,7 +291,7 @@ const handleSubmitButton = async () => {
 			console.error(error);
 			if (axiosError.response?.status === 400) {
 				const errorMessage = (axiosError.response.data as { status: string; message: string }).message;
-				$toast.error(errorMessage, toastConfig);
+				$toast.error(errorMessage);
 			}
 			return;
 		}
@@ -306,7 +305,7 @@ const handleSubmitButton = async () => {
 			console.error(error);
 			if (axiosError.response?.status === 400) {
 				const errorMessage = (axiosError.response.data as { status: string; message: string }).message;
-				$toast.error(errorMessage, toastConfig);
+				$toast.error(errorMessage);
 			}
 			return;
 		}
@@ -322,7 +321,7 @@ const handleSubmitButton = async () => {
 			console.error(error);
 			if (axiosError.response?.status === 400) {
 				const errorMessage = (axiosError.response.data as { status: string; message: string }).message;
-				$toast.error(errorMessage, toastConfig);
+				$toast.error(errorMessage);
 			}
 			return;
 		}
@@ -338,13 +337,13 @@ const handleSubmitButton = async () => {
 			console.error(error);
 			if (axiosError.response?.status === 400) {
 				const errorMessage = (axiosError.response.data as { status: string; message: string }).message;
-				$toast.error(errorMessage, toastConfig);
+				$toast.error(errorMessage);
 			}
 			return;
 		}
 	}
 
-	useNuxtApp().$toast.success("SUCCESS", toastConfig);
+	useNuxtApp().$toast.success("SUCCESS");
 	setTimeout(() => $router.back(), 750);
 	return;
 };
@@ -411,7 +410,7 @@ const handleSubmitButton = async () => {
 	width: 60%;
 }
 
-.ingredient-unity-text {
+.ingredient-unit-text {
 	margin-left: 0.3rem;
 }
 
