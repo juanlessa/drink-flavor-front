@@ -1,23 +1,23 @@
 import { IIngredient, IIngredientForm } from "@/types/ingredient";
-import { EMPTY_CATEGORY } from "@/constants/category";
+import { initEmptyCategory } from "@/constants/category";
 
-export const EMPTY_INGREDIENT: IIngredient = {
+export const initEmptyIngredient = (): IIngredient => ({
 	_id: "",
 	translations: {
 		en: { name: "", unit: "", unit_plural: "" },
 		pt: { name: "", unit: "", unit_plural: "" },
 	},
 	is_alcoholic: false,
-	category: { ...EMPTY_CATEGORY },
+	category: initEmptyCategory(),
 	created_at: new Date(),
 	updated_at: new Date(),
-};
+});
 
-export const EMPTY_INGREDIENT_FORM: IIngredientForm = {
+export const initEmptyIngredientForm = (): IIngredientForm => ({
 	translations: {
 		en: { name: "", unit: "", unit_plural: "" },
 		pt: { name: "", unit: "", unit_plural: "" },
 	},
 	is_alcoholic: false,
 	category_id: "",
-};
+});

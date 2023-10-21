@@ -1,13 +1,14 @@
-import { EMPTY_INGREDIENT_FORM } from "@/constants/ingredient";
 import { FieldError } from "@/types/forms";
 import { useI18n } from "vue-i18n";
 import { IngredientFormState } from "@/types/ingredient";
 import { IngredientFormValidator } from "@/validations/ingredient";
+import { initEmptyIngredientForm } from "@/constants/ingredient";
 
 const initState = (): IngredientFormState => ({
-	form: { ...EMPTY_INGREDIENT_FORM },
+	form: initEmptyIngredientForm(),
 	errors: [],
 	displayErrors: false,
+	defaultCategory: "",
 });
 
 export const useIngredientForm = () => {

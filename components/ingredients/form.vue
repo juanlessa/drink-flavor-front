@@ -63,14 +63,12 @@
 						{{ $t("ingredientForm.categoryInput.label") }}
 					</label>
 					<SearchSelect
-						v-if="categoryState.categories.length !== 0"
+						id="category"
 						:class="{
 							'has-error': checkFieldError(ingredientFormState.errors, `category_id`),
 						}"
-						id="category"
 						:items="categoryState.categories"
-						v-model:search="categorySearchTerm"
-						:default="ingredientFormState.form.category_id"
+						:default="ingredientFormState.defaultCategory"
 						@update:value="handleUpdateSelectedCategory"
 						@blur="validateForm"
 					/>
@@ -112,8 +110,6 @@ const { getCategoryState, loadCategories } = useCategory();
 const ingredientFormState = getIngredientFormState();
 const categoryState = getCategoryState();
 
-const categorySearchTerm = ref<string>("");
-
 const languages = Object.values(LANGUAGES);
 
 onMounted(async () => {
@@ -138,8 +134,6 @@ const handleCancelButton = () => {
 const handleSubmitButton = async () => {
 	ingredientFormState.value.displayErrors = true;
 	validateForm();
-
-	console.log("submit method", ingredientFormState.value.form);
 
 	if (ingredientFormState.value.errors.length !== 0) {
 		return;

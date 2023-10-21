@@ -1,4 +1,3 @@
-import { EMPTY_INGREDIENT } from "@/constants/ingredient";
 import { ICreateIngredient, IIngredient, IUpdateIngredient, IngredientState } from "@/types/ingredient";
 import { API_ROUTES } from "@/constants/routes";
 
@@ -40,8 +39,6 @@ export const useIngredient = () => {
 		return ingredient;
 	};
 
-	const initEmptyIngredient = (): IIngredient => ({ ...EMPTY_INGREDIENT });
-
 	return {
 		getIngredientState,
 		loadIngredients,
@@ -49,6 +46,5 @@ export const useIngredient = () => {
 		updateIngredient,
 		getIngredient,
 		deleteIngredient,
-		initEmptyIngredient,
 	};
 };

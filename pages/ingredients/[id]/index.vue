@@ -4,18 +4,20 @@
 	</NuxtLayout>
 </template>
 <script setup lang="ts">
+import { useI18n } from "vue-i18n";
 import { IBgColor } from "@/types/layout";
 import { IIngredient, IIngredientForm, IUpdateIngredient } from "@/types/ingredient";
-import { EMPTY_INGREDIENT } from "@/constants/ingredient";
 import { AxiosError } from "axios";
+import { initEmptyIngredient } from "@/constants/ingredient";
 
 const { $toast, $router } = useNuxtApp();
+const { t } = useI18n();
 const { getIngredient, updateIngredient } = useIngredient();
 const { getIngredientFormState, resetIngredientFormState } = useIngredientForm();
 
 const route = useRoute();
 
-const ingredient = ref<IIngredient>({ ...EMPTY_INGREDIENT });
+const ingredient = ref<IIngredient>(initEmptyIngredient());
 
 const ingredientFormState = getIngredientFormState();
 ingredientFormState.value.displayErrors = true;
@@ -30,8 +32,9 @@ onMounted(async () => {
 	try {
 		ingredient.value = await getIngredient(ingredientId);
 	} catch (error) {
+		$toast.error(t("updateIngredientPage.loadIngredient.errorMessage"));
 		console.error(error);
-		return;
+		navigateTo("/");
 	}
 
 	const ingredientForm: IIngredientForm = {
@@ -40,6 +43,7 @@ onMounted(async () => {
 		category_id: ingredient.value.category._id,
 	};
 	ingredientFormState.value.form = ingredientForm;
+	ingredientFormState.value.defaultCategory = ingredient.value.category._id;
 });
 
 const handleUpdateIngredient = async () => {

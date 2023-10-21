@@ -42,4 +42,5 @@ export type IngredientFormState = {
 	form: IIngredientForm;
 	errors: FieldError[];
 	displayErrors: boolean;
+	defaultCategory: string;
 };

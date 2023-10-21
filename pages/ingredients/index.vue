@@ -23,10 +23,11 @@ import { useI18n } from "vue-i18n";
 import { IIngredient } from "@/types/ingredient";
 import { ROUTES } from "@/types/appRoutes";
 import { IItem } from "@/types/item";
+import { initEmptyIngredient } from "@/constants/ingredient";
 
 const { $toast, $router } = useNuxtApp();
 const { t } = useI18n();
-const { loadIngredients, getIngredientState, initEmptyIngredient, deleteIngredient } = useIngredient();
+const { loadIngredients, getIngredientState, deleteIngredient } = useIngredient();
 
 const ingredientState = getIngredientState();
 
