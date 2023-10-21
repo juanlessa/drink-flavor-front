@@ -12,7 +12,7 @@
 </template>
 <script setup lang="ts">
 import { IItem } from "@/types/item";
-import { LANGUAGES } from "~/types/translations";
+import { LANGUAGES } from "@/types/translations";
 
 const { $getTheme } = useNuxtApp();
 

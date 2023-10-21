@@ -1,5 +1,5 @@
-import { IAuthenticateResponse, ITokens, IRefreshTokenResponse } from "~/utils/dtos/Tokens";
-import { IUser } from "~/utils/dtos/Users";
+import { IAuthenticateResponse, ITokens, IRefreshTokenResponse } from "@/utils/dtos/Tokens";
+import { IUser } from "@/utils/dtos/Users";
 
 export type AuthState = {
 	user: {

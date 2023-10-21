@@ -24,7 +24,7 @@
 </template>
 <script setup lang="ts">
 import { ILink } from "@/types/navbar";
-import { THEME_MODES } from "~/types/theme";
+import { THEME_MODES } from "@/types/theme";
 
 const { $signOut, $getAuthState, $getTheme } = useNuxtApp();
 

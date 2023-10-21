@@ -29,4 +29,3 @@ const props = defineProps({
 	}
 }
 </style>
-~/utils/dtos/Drink

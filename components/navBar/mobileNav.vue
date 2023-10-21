@@ -47,7 +47,7 @@
 <script setup lang="ts">
 import { onClickOutside } from "@vueuse/core";
 import { ILink } from "@/types/navbar";
-import { THEME_MODES } from "~/types/theme";
+import { THEME_MODES } from "@/types/theme";
 const { $getAuthState, $signOut, $getTheme } = useNuxtApp();
 
 const menuElement = ref<HTMLElement>();

@@ -10,7 +10,7 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
 import { LANGUAGES } from "@/types/translations";
-import { LOCAL_STORAGE_KEYS } from "~/types/localStorage";
+import { LOCAL_STORAGE_KEYS } from "@/types/localStorage";
 
 const { locale } = useI18n();
 const { setLocalStorageItem } = useLocalStorage();

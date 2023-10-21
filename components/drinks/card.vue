@@ -92,4 +92,3 @@ const goToDrinkDetailPage = () => {
 	}
 }
 </style>
-~/types/appRoutes

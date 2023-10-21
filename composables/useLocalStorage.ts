@@ -1,4 +1,4 @@
-import { LOCAL_STORAGE_KEYS } from "~/types/localStorage";
+import { LOCAL_STORAGE_KEYS } from "@/types/localStorage";
 
 export const useLocalStorage = () => {
 	const getLocalStorageItem = (key: LOCAL_STORAGE_KEYS) => localStorage.getItem(key);
