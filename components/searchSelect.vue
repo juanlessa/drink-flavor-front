@@ -1,6 +1,7 @@
 <template>
 	<ComboboxRoot
 		:searchTerm="props.search"
+		v-model="comboSelected"
 		@update:searchTerm="handleSearch"
 		class="relative rounded-lg border-[1px] border-secondary"
 	>
@@ -50,20 +51,31 @@ import {
 	ComboboxInput,
 	ComboboxItem,
 	ComboboxItemIndicator,
-	ComboboxLabel,
 	ComboboxRoot,
-	ComboboxSeparator,
 	ComboboxTrigger,
 	ComboboxViewport,
 } from "radix-vue";
+import { useI18n } from "vue-i18n";
 import { IItem } from "@/types/item";
 import { LANGUAGES } from "~/types/translations";
 
 const { $getTheme } = useNuxtApp();
+const { locale } = useI18n();
 
 const themeState = $getTheme();
 
+const getItemName = (items: IItem[], itemId: string) => {
+	const item = items.find((i) => i._id === itemId);
+	console.log("getName method");
+	console.log("locale", locale.value);
+	return item?.translations[locale.value as LANGUAGES].name ?? "";
+};
+
 const props = defineProps({
+	default: {
+		type: String,
+		default: "",
+	},
 	search: {
 		type: String,
 		default: "",
@@ -76,6 +88,9 @@ const props = defineProps({
 		type: String,
 	},
 });
+
+const comboSelected = ref<string>(getItemName(props.items, props.default));
+
 const emit = defineEmits<{
 	(e: "update:value", value: string): void;
 	(e: "update:search", value: string): void;
@@ -84,11 +99,15 @@ const emit = defineEmits<{
 
 const handleUpdate = (item: IItem) => {
 	emit("update:value", item._id);
+	console.log("update method");
+	console.log("locale", locale.value);
+
 	handleBlur();
 };
 const handleSearch = (searchTerm: string) => {
 	emit("update:search", searchTerm);
 };
+
 const handleBlur = () => {
 	emit("blur");
 };
