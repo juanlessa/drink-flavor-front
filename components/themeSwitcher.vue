@@ -9,7 +9,7 @@
 </template>
 <script setup lang="ts">
 import { THEME_MODES } from "@/types/theme";
-import { LOCAL_STORAGE_KEYS } from "~/types/localStorage";
+import { LOCAL_STORAGE_KEYS } from "@/types/localStorage";
 
 const { $toggleTheme, $getTheme } = useNuxtApp();
 const { setLocalStorageItem } = useLocalStorage();
