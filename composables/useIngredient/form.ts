@@ -1,7 +1,7 @@
 import { FieldError } from "@/types/forms";
 import { useI18n } from "vue-i18n";
 import { IngredientFormState } from "@/types/ingredient";
-import { IngredientFormValidator } from "@/validations/ingredient";
+import { ingredientFormValidator } from "@/validations/ingredient";
 import { initEmptyIngredientForm } from "@/constants/ingredient";
 
 const initState = (): IngredientFormState => ({
@@ -32,7 +32,7 @@ export const useIngredientForm = () => {
 			return;
 		}
 		const data = ingredientFormState.value.form;
-		const errors = IngredientFormValidator(data);
+		const errors = ingredientFormValidator(data);
 
 		ingredientFormState.value.errors = errors;
 	};

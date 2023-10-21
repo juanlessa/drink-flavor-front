@@ -4,18 +4,24 @@ import { validateSchema } from "@/validations/validateSchema";
 import { IIngredientForm } from "@/types/ingredient";
 
 // fields validation
-export const ingredientNameValidation = z.string().trim().min(1, { message: "INGREDIENT_ERRORS.invalid_name_format" });
-
-export const ingredientUnitValidation = z.string().trim().min(1, { message: "INGREDIENT_ERRORS.invalid_unit_format" });
-
-export const ingredientUnityPluralValidation = z
+export const ingredientNameValidation = z
 	.string()
 	.trim()
-	.min(1, { message: "INGREDIENT_ERRORS.invalid_unit_plural_format" });
+	.min(1, { message: "ingredientForm.nameInput.errorInvalidFormat" });
+
+export const ingredientUnitValidation = z
+	.string()
+	.trim()
+	.min(1, { message: "ingredientForm.unitInput.errorInvalidFormat" });
+
+export const ingredientUnitPluralValidation = z
+	.string()
+	.trim()
+	.min(1, { message: "ingredientForm.unitPluralInput.errorInvalidFormat" });
 
 export const ingredientCategoryIdValidation = z
 	.string()
-	.length(24, { message: "INGREDIENT_ERRORS.invalid_category_format" });
+	.min(1, { message: "INGREDIENT_ERRORS.invalid_category_format" });
 
 export const ingredientIsAlcoholicValidation = z.boolean();
 
@@ -23,7 +29,7 @@ export const ingredientIsAlcoholicValidation = z.boolean();
 export const ingredientTranslationSchema = z.object({
 	name: ingredientNameValidation,
 	unit: ingredientUnitValidation,
-	unit_plural: ingredientUnityPluralValidation,
+	unit_plural: ingredientUnitPluralValidation,
 });
 
 export const ingredientFormSchema = z.object({
@@ -33,4 +39,4 @@ export const ingredientFormSchema = z.object({
 });
 
 //validators
-export const IngredientFormValidator = validateSchema<IIngredientForm>(ingredientFormSchema);
+export const ingredientFormValidator = validateSchema<IIngredientForm>(ingredientFormSchema);
