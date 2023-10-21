@@ -28,7 +28,7 @@
 						v-model="ingredientFormState.form.translations[lang].unit"
 						:class="{
 							'text-input': true,
-							'has-error': checkFieldError(ingredientFormState.errors, `translations.${lang}.name`),
+							'has-error': checkFieldError(ingredientFormState.errors, `translations.${lang}.unit`),
 						}"
 						type="text"
 						id="unit"
@@ -55,18 +55,22 @@
 				</div>
 			</div>
 		</div>
-
-		<div class="flex-container content-mt">
+		<h3 class="language-title content-mt">{{ $t("ingredientForm.generalSection.label") }}</h3>
+		<div class="flex-container">
 			<div class="flex-column">
 				<div>
-					<label class="input-label input-label-margin-bottom" for="category">category</label>
+					<label class="input-label input-label-margin-bottom" for="category">
+						{{ $t("ingredientForm.categoryInput.label") }}
+					</label>
 					<SearchSelect
+						v-if="categoryState.categories.length !== 0"
 						:class="{
 							'has-error': checkFieldError(ingredientFormState.errors, `category_id`),
 						}"
 						id="category"
 						:items="categoryState.categories"
 						v-model:search="categorySearchTerm"
+						:default="ingredientFormState.form.category_id"
 						@update:value="handleUpdateSelectedCategory"
 						@blur="validateForm"
 					/>
@@ -74,8 +78,14 @@
 			</div>
 			<div class="flex-column">
 				<div class="input-group-margin-top is-alcoholic-input-group">
-					<label class="input-label" for="is_alcoholic">is alcoholic</label>
-					<ToggleInput v-model="ingredientFormState.form.is_alcoholic" id="is_alcoholic" />
+					<label class="input-label" for="is_alcoholic">
+						{{ $t("ingredientForm.isAlcoholicInput.label") }}
+					</label>
+					<ToggleInput
+						:value="ingredientFormState.form.is_alcoholic"
+						@update:value="handleUpdateIsAlcoholic"
+						id="is_alcoholic"
+					/>
 				</div>
 			</div>
 		</div>
@@ -129,11 +139,17 @@ const handleSubmitButton = async () => {
 	ingredientFormState.value.displayErrors = true;
 	validateForm();
 
+	console.log("submit method", ingredientFormState.value.form);
+
 	if (ingredientFormState.value.errors.length !== 0) {
 		return;
 	}
 
 	emit("submit");
+};
+
+const handleUpdateIsAlcoholic = (value: boolean) => {
+	ingredientFormState.value.form.is_alcoholic = value;
 };
 
 const handleUpdateSelectedCategory = (id: string) => {
@@ -143,6 +159,7 @@ const handleUpdateSelectedCategory = (id: string) => {
 <style scoped>
 .is-alcoholic-input-group {
 	display: flex;
+	height: 100%;
 	gap: 0.5rem;
 	align-items: center;
 }
