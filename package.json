@@ -10,11 +10,15 @@
     },
     "devDependencies": {
         "@types/node": "^18",
-        "nuxt": "^3.4.3"
+        "autoprefixer": "^10.4.16",
+        "nuxt": "^3.4.3",
+        "postcss": "^8.4.31",
+        "tailwindcss": "^3.3.3"
     },
     "dependencies": {
         "@vueuse/nuxt": "^10.1.0",
         "axios": "^1.4.0",
+        "radix-vue": "^0.4.1",
         "vue-i18n": "^9.5.0",
         "vue-toastification": "^2.0.0-rc.5",
         "vue3-dropzone": "^2.1.2",
