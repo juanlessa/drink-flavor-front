@@ -19,11 +19,13 @@
 	</NuxtLayout>
 </template>
 <script setup lang="ts">
+import { useI18n } from "vue-i18n";
 import { IIngredient } from "@/types/ingredient";
 import { ROUTES } from "@/types/appRoutes";
-import { IItem } from "@/types/deleteModal";
+import { IItem } from "@/types/item";
 
 const { $toast, $router } = useNuxtApp();
+const { t } = useI18n();
 const { loadIngredients, getIngredientState, initEmptyIngredient, deleteIngredient } = useIngredient();
 
 const ingredientState = getIngredientState();
@@ -34,8 +36,14 @@ const ingredientToDelete = ref<IIngredient>(initEmptyIngredient());
 definePageMeta({
 	middleware: "auth",
 });
-onMounted(() => {
-	handleLoadIngredients();
+onMounted(async () => {
+	try {
+		await handleLoadIngredients();
+	} catch (error) {
+		$toast.error(t("ingredientsPage.loadIngredients.errorMessage"));
+		console.error(error);
+		navigateTo("/");
+	}
 });
 
 const handleNewIngredient = () => {
@@ -58,8 +66,10 @@ const handleCancelModalClick = (): void => {
 	ingredientToDelete.value = initEmptyIngredient();
 };
 const handleDeleteIngredient = async (): Promise<void> => {
+	const ingredientId = ingredientToDelete.value._id;
+
 	try {
-		await deleteIngredient(ingredientToDelete.value);
+		await deleteIngredient(ingredientId);
 		$toast.success("SUCCESS");
 		handleLoadIngredients();
 	} catch (error) {
