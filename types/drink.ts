@@ -29,6 +29,17 @@ export type IDrinkIngredientRequest = {
 	ingredient_id: string;
 };
 
+export type ICreateDrink = {
+	translations: ITranslations<IDrinkTranslation>;
+	ingredients: IDrinkIngredientRequest[];
+};
+
+export type IUpdateDrink = {
+	id: string;
+	translations: ITranslations<IDrinkTranslation>;
+	ingredients: IDrinkIngredientRequest[];
+};
+
 export type IDrinkForm = {
 	translations: ITranslations<IDrinkTranslation>;
 	ingredients: IDrinkIngredientRequest[];
@@ -36,6 +47,8 @@ export type IDrinkForm = {
 
 export type DrinkFormState = {
 	form: IDrinkForm;
+	cover: File;
+	thumbnail: File;
 	errors: FieldError[];
 	displayErrors: boolean;
 	defaultIngredients: IDrinkIngredientRequest[];
