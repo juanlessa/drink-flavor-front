@@ -41,12 +41,12 @@
 		<h3 class="language-title content-mt">{{ $t("drinkForm.generalSection.label") }}</h3>
 
 		<div class="flex-container">
-			<div class="flex-column">
-				<div class="drink-drop-zone-item">
+			<div class="flex-column mb-8 md:mb-0">
+				<div>
 					<label class="input-label input-label-margin-bottom" for="cover">cover</label>
 					<DropZoneInput @file="handleCoverFileUpdate" id="cover" />
 				</div>
-				<div class="drink-drop-zone-item">
+				<div>
 					<label class="input-label input-label-margin-bottom" for="thumbnail">thumbnail</label>
 					<DropZoneInput @file="handleThumbnailFileUpdate" id="thumbnail" />
 				</div>
