@@ -17,4 +17,3 @@ onMounted(async () => {
 	loadDrinks();
 });
 </script>
-~/utils/dtos/Drink
