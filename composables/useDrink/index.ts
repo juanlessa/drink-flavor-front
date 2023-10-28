@@ -1,4 +1,4 @@
-import { DrinkState, IDrink } from "@/types/drink";
+import { DrinkState, ICreateDrink, IDrink, IUpdateDrink } from "@/types/drink";
 import { API_ROUTES } from "@/constants/routes";
 
 const initState = (): DrinkState => ({
@@ -19,6 +19,14 @@ export const useDrink = () => {
 		} catch (error) {
 			console.error("error ");
 		}
+	};
+
+	const createDrink = async (requestBody: ICreateDrink) => {
+		await axios.post(API_ROUTES.createDrink(), requestBody);
+	};
+
+	const updateDrink = async (requestBody: IUpdateDrink) => {
+		await axios.patch(API_ROUTES.updateDrink(), requestBody);
 	};
 
 	const deleteDrink = async (drinkToDelete: IDrink) => {
@@ -42,5 +50,7 @@ export const useDrink = () => {
 		loadDrinks,
 		getDrink,
 		deleteDrink,
+		createDrink,
+		updateDrink,
 	};
 };
