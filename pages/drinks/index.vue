@@ -17,10 +17,11 @@
 <script setup lang="ts">
 import { IDrink } from "@/types/drink";
 import { ROUTES } from "@/types/appRoutes";
-import { IItem } from "@/types/deleteModal";
+import { IItem } from "@/types/item";
+import { initEmptyDrink } from "@/constants/drink";
 
 const { $toast, $router } = useNuxtApp();
-const { loadDrinks, getDrinkState, initEmptyDrink, deleteDrink } = useDrink();
+const { loadDrinks, getDrinkState, deleteDrink } = useDrink();
 
 const drinkState = getDrinkState();
 

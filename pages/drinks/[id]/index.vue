@@ -6,8 +6,9 @@
 <script setup lang="ts">
 import { IDrink } from "@/types/drink";
 import { IBgColor } from "@/types/layout";
+import { initEmptyDrink } from "@/constants/drink";
 
-const { getDrink, initEmptyDrink } = useDrink();
+const { getDrink } = useDrink();
 const route = useRoute();
 
 const drink = ref<IDrink>(initEmptyDrink());

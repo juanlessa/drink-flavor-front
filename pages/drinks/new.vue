@@ -1,10 +1,42 @@
 <template>
-	<PageTemplate bg-color="primary-background">
-		<DrinksForm class="main-content-padding" />
-	</PageTemplate>
+	<NuxtLayout :bg-color="IBgColor.primary">
+		<DrinksForm class="main-content-padding" @submit="handleCreateDrink" />
+	</NuxtLayout>
 </template>
 <script setup lang="ts">
+import { IBgColor } from "@/types/layout";
+import { AxiosError } from "axios";
+
+const { $toast, $router } = useNuxtApp();
+const { createDrink } = useDrink();
+
+const { getDrinkFormState, resetDrinkFormState } = useDrinkForm();
+
+const drinkFormState = getDrinkFormState();
+
 definePageMeta({
 	middleware: "auth",
 });
+
+const handleCreateDrink = async () => {
+	const drinkToCreate = drinkFormState.value.form;
+	try {
+		await createDrink(drinkToCreate);
+	} catch (error) {
+		const axiosError = error as AxiosError;
+		console.error(error);
+		if (axiosError.response?.status === 400) {
+			const errorMessage = (axiosError.response.data as { status: string; message: string }).message;
+			$toast.error(errorMessage);
+		}
+		return;
+	}
+
+	$toast.success("SUCCESS");
+	setTimeout(() => {
+		$router.back();
+		resetDrinkFormState();
+	}, 750);
+	return;
+};
 </script>
