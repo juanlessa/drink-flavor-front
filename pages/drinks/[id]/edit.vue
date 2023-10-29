@@ -12,7 +12,7 @@ import { IDrink, IDrinkForm, IUpdateDrink } from "@/types/drink";
 
 const { $toast, $router } = useNuxtApp();
 const { t } = useI18n();
-const { updateDrink, getDrink } = useDrink();
+const { updateDrink, updateDrinkCover, updateDrinkThumbnail, getDrink } = useDrink();
 const { getDrinkFormState, resetDrinkFormState } = useDrinkForm();
 
 const route = useRoute();
@@ -58,6 +58,34 @@ const handleUpdateDrink = async () => {
 			$toast.error(errorMessage);
 		}
 		return;
+	}
+
+	if (drinkFormState.value.cover) {
+		try {
+			await updateDrinkCover(drink.value._id, drinkFormState.value.cover);
+		} catch (error) {
+			const axiosError = error as AxiosError;
+			console.error(error);
+			if (axiosError.response?.status === 400) {
+				const errorMessage = (axiosError.response.data as { status: string; message: string }).message;
+				$toast.error(errorMessage);
+			}
+			return;
+		}
+	}
+
+	if (drinkFormState.value.thumbnail) {
+		try {
+			await updateDrinkThumbnail(drink.value._id, drinkFormState.value.thumbnail);
+		} catch (error) {
+			const axiosError = error as AxiosError;
+			console.error(error);
+			if (axiosError.response?.status === 400) {
+				const errorMessage = (axiosError.response.data as { status: string; message: string }).message;
+				$toast.error(errorMessage);
+			}
+			return;
+		}
 	}
 
 	$toast.success("SUCCESS");

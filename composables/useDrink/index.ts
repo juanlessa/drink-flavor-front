@@ -1,4 +1,4 @@
-import { DrinkState, ICreateDrink, IDrink, IUpdateDrink } from "@/types/drink";
+import { DrinkState, ICreateDrink, ICreateDrinkResponse, IDrink, IUpdateDrink } from "@/types/drink";
 import { API_ROUTES } from "@/constants/routes";
 
 const initState = (): DrinkState => ({
@@ -22,11 +22,26 @@ export const useDrink = () => {
 	};
 
 	const createDrink = async (requestBody: ICreateDrink) => {
-		await axios.post(API_ROUTES.createDrink(), requestBody);
+		const { data } = await axios.post<ICreateDrinkResponse>(API_ROUTES.createDrink(), requestBody);
+		return data.id;
 	};
 
 	const updateDrink = async (requestBody: IUpdateDrink) => {
 		await axios.patch(API_ROUTES.updateDrink(), requestBody);
+	};
+
+	const updateDrinkCover = async (id: string, file: File) => {
+		const formData = new FormData();
+		formData.append("cover", file, file.name);
+
+		await axios.patch(API_ROUTES.updateDrinkCover(id), formData);
+	};
+
+	const updateDrinkThumbnail = async (id: string, file: File) => {
+		const formData = new FormData();
+		formData.append("thumbnail", file, file.name);
+
+		await axios.patch(API_ROUTES.updateDrinkThumbnail(id), formData);
 	};
 
 	const deleteDrink = async (drinkToDelete: IDrink) => {
@@ -52,5 +67,7 @@ export const useDrink = () => {
 		deleteDrink,
 		createDrink,
 		updateDrink,
+		updateDrinkCover,
+		updateDrinkThumbnail,
 	};
 };

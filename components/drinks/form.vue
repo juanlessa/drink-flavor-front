@@ -43,20 +43,28 @@
 		<div class="flex-container">
 			<div class="flex-column mb-8 md:mb-0">
 				<div>
-					<label class="input-label input-label-margin-bottom" for="cover">cover</label>
-					<DropZoneInput @file="handleCoverFileUpdate" id="cover" />
+					<label class="input-label input-label-margin-bottom" for="cover">
+						{{ $t("drinkForm.coverInput.label") }}
+					</label>
+					<DropZone @file="handleCoverFileUpdate" id="cover" />
 				</div>
 				<div>
-					<label class="input-label input-label-margin-bottom" for="thumbnail">thumbnail</label>
-					<DropZoneInput @file="handleThumbnailFileUpdate" id="thumbnail" />
+					<label class="input-label input-label-margin-bottom" for="thumbnail">
+						{{ $t("drinkForm.thumbnailInput.label") }}
+					</label>
+					<DropZone @file="handleThumbnailFileUpdate" id="thumbnail" />
 				</div>
 			</div>
 
 			<div class="flex-column">
 				<div class="input-search-ingredient-group">
 					<div class="input-search-ingredient-row">
-						<label class="search-ingredient-label" for="searchIngredient">ingredients</label>
-						<NuxtLink href="/ingredients/new" class="new-ingredient-link">new ingredient</NuxtLink>
+						<label class="search-ingredient-label" for="searchIngredient">
+							{{ $t("drinkForm.ingredientsInput.label") }}
+						</label>
+						<NuxtLink href="/ingredients/new" class="new-ingredient-link">
+							{{ $t("drinkForm.ingredientsInput.new.message") }}
+						</NuxtLink>
 					</div>
 					<div class="input-search-ingredient-row">
 						<SearchInput
@@ -67,8 +75,12 @@
 				</div>
 				<div class="ingredients-list-container">
 					<div class="ingredients-list-row input-group-margin-top">
-						<div class="ingredient-list-name-column text-center">name</div>
-						<div class="ingredient-list-quantity-column text-center">quantity</div>
+						<div class="ingredient-list-name-column text-center">
+							{{ $t("drinkForm.ingredientsInput.name.label") }}
+						</div>
+						<div class="ingredient-list-quantity-column text-center">
+							{{ $t("drinkForm.ingredientsInput.quantity.label") }}
+						</div>
 						<div class="ingredient-list-delete-column"></div>
 					</div>
 
@@ -180,10 +192,10 @@ const handleSubmitButton = async () => {
 	emit("submit");
 };
 
-const handleThumbnailFileUpdate = (file: File) => {
+const handleThumbnailFileUpdate = (file: File | undefined) => {
 	drinkFormState.value.thumbnail = file;
 };
-const handleCoverFileUpdate = (file: File) => {
+const handleCoverFileUpdate = (file: File | undefined) => {
 	drinkFormState.value.cover = file;
 };
 </script>

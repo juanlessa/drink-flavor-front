@@ -8,7 +8,7 @@ import { IBgColor } from "@/types/layout";
 import { AxiosError } from "axios";
 
 const { $toast, $router } = useNuxtApp();
-const { createDrink } = useDrink();
+const { createDrink, updateDrinkCover, updateDrinkThumbnail } = useDrink();
 
 const { getDrinkFormState, resetDrinkFormState } = useDrinkForm();
 
@@ -20,8 +20,9 @@ definePageMeta({
 
 const handleCreateDrink = async () => {
 	const drinkToCreate = drinkFormState.value.form;
+	let createdDrinkId = "";
 	try {
-		await createDrink(drinkToCreate);
+		createdDrinkId = await createDrink(drinkToCreate);
 	} catch (error) {
 		const axiosError = error as AxiosError;
 		console.error(error);
@@ -30,6 +31,34 @@ const handleCreateDrink = async () => {
 			$toast.error(errorMessage);
 		}
 		return;
+	}
+
+	if (drinkFormState.value.cover && createdDrinkId) {
+		try {
+			await updateDrinkCover(createdDrinkId, drinkFormState.value.cover);
+		} catch (error) {
+			const axiosError = error as AxiosError;
+			console.error(error);
+			if (axiosError.response?.status === 400) {
+				const errorMessage = (axiosError.response.data as { status: string; message: string }).message;
+				$toast.error(errorMessage);
+			}
+			return;
+		}
+	}
+
+	if (drinkFormState.value.thumbnail && createdDrinkId) {
+		try {
+			await updateDrinkThumbnail(createdDrinkId, drinkFormState.value.thumbnail);
+		} catch (error) {
+			const axiosError = error as AxiosError;
+			console.error(error);
+			if (axiosError.response?.status === 400) {
+				const errorMessage = (axiosError.response.data as { status: string; message: string }).message;
+				$toast.error(errorMessage);
+			}
+			return;
+		}
 	}
 
 	$toast.success("SUCCESS");

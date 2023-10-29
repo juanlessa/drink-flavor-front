@@ -9,8 +9,8 @@ import { IItem } from "@/types/item";
 const initState = (): DrinkFormState => ({
 	form: initEmptyDrinkForm(),
 	errors: [],
-	cover: {} as File,
-	thumbnail: {} as File,
+	cover: undefined,
+	thumbnail: undefined,
 	displayErrors: false,
 	defaultIngredients: [],
 });
