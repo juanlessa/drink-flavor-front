@@ -20,6 +20,12 @@
     "drinkForm.methodInput.label": "method",
     "drinkForm.nameInput.errorInvalidFormat": "name must have a minimum of 1 character",
     "drinkForm.nameInput.label": "name",
+    "drinkForm.coverInput.label": "cover",
+    "drinkForm.thumbnailInput.label": "thumbnail",
+    "drinkForm.ingredientsInput.label": "ingredients",
+    "drinkForm.ingredientsInput.name.label": "name",
+    "drinkForm.ingredientsInput.quantity.label": "quantity",
+    "drinkForm.ingredientsInput.new.message": "new ingredient",
     "drinkForm.submitButton.message": "done",
     "drinksPage.loadDrinks.errorMessage": "Error loading drinks",
     "drinksPage.newDrinkButton.message": "new drink",
@@ -54,5 +60,9 @@
     "navbar.login": "login",
     "navbar.logout": "logout",
     "searchSelect.noResult.message": "no results",
-    "updateIngredientPage.loadIngredient.errorMessage": "Error loading the ingredient"
+    "updateIngredientPage.loadIngredient.errorMessage": "Error loading the ingredient",
+    "dropZone.drag.message": "Drag and drop the file here",
+    "dropZone.drop.message": "Drop the file here",
+    "dropZone.or.message": "OR",
+    "dropZone.selectFile.message": "select file"
 }
