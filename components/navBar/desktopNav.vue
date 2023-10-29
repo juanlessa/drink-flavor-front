@@ -67,6 +67,7 @@ const handleLogout = () => {
 
 .img-logo {
 	cursor: pointer;
+	height: 4rem;
 }
 
 .link-group {
