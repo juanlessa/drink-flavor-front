@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { validateSchema } from "@/validations/validateSchema";
-import { IAuthenticateUser } from "@/types/user";
+import { IAuthenticateUser } from "@/types/authentication";
 
 // fields validation
 export const userNameValidation = z.string().trim().min(1, { message: "USER_ERRORS.invalid_name_format" });
