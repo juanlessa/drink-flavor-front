@@ -30,6 +30,7 @@ export default defineNuxtPlugin(() => {
 		document.documentElement.style.setProperty("--cancel-button", colors.cancelButton);
 		document.documentElement.style.setProperty("--box-shadow-color", colors.boxShadowColor);
 		document.documentElement.style.setProperty("--icons-color", colors.iconsColor);
+		document.documentElement.style.setProperty("--select-file-button", colors.selectFileButton);
 	};
 
 	const toggleTheme = () => {

@@ -16,6 +16,7 @@ export type IThemeColors = {
 	cancelButton: string;
 	boxShadowColor: string;
 	iconsColor: string;
+	selectFileButton: string;
 };
 
 export type ITheme = {

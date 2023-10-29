@@ -13,7 +13,13 @@
 		</div>
 		<div class="drag-drop-label">
 			<p v-if="file">{{ file.name }}</p>
-			<IconsClose v-if="file" :size="14" class="cursor-pointer" @click="handleClear" />
+			<IconsClose
+				v-if="file"
+				:size="14"
+				:color="themeState.colors.iconsColor"
+				class="cursor-pointer"
+				@click="handleClear"
+			/>
 		</div>
 	</div>
 </template>
@@ -21,6 +27,10 @@
 <script setup lang="ts">
 import { reactive } from "vue";
 import { useDropzone, FileRejectReason } from "vue3-dropzone";
+
+const { $getTheme } = useNuxtApp();
+
+const themeState = $getTheme();
 
 const emit = defineEmits<{
 	(e: "file", value: File | undefined): void;
@@ -71,7 +81,7 @@ const { getRootProps, getInputProps, isDragActive, isFocused, isDragReject, open
 .select-file-button {
 	padding: 0.5rem 1.25rem;
 	font-size: 0.8rem;
-	background-color: #81d8d0;
+	background-color: var(--select-file-button);
 	border: none;
 	border-radius: 1rem;
 }

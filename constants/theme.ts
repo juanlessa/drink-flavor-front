@@ -14,6 +14,7 @@ export const THEMES_COLORS: ITheme = {
 		cancelButton: "#E6E6FA",
 		boxShadowColor: "rgba(0, 0, 0, 0.25)",
 		iconsColor: "#14213D",
+		selectFileButton: "#81d8d0",
 	},
 	[THEME_MODES.dark]: {
 		primaryColor: "#FFD700",
@@ -28,5 +29,6 @@ export const THEMES_COLORS: ITheme = {
 		cancelButton: "#525161",
 		boxShadowColor: "rgba(0,0,0,0.85)",
 		iconsColor: "#F4F5F0",
+		selectFileButton: "#626A61",
 	},
 };
