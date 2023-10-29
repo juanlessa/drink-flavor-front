@@ -13,27 +13,29 @@
 			<div class="input-item">
 				<label class="input-label" for="emailInput">{{ $t("loginPage.email.label") }}</label>
 				<input
-					v-model="emailInputValue"
-					@blur="handleEmailValidate(($event.target as HTMLInputElement).value)"
-					:class="{ 'text-input': true, 'has-error': isEmailInvalid }"
+					v-model="loginFormState.form.email"
+					@blur="validateForm"
+					:class="{ 'text-input': true, 'has-error': checkFieldError(loginFormState.errors, 'email') }"
 					type="email"
 					id="emailInput"
 				/>
-				<span v-show="isEmailInvalid" class="error-message">{{ $t("loginPage.email.errorMessage") }}</span>
+				<span v-show="checkFieldError(loginFormState.errors, 'email')" class="error-message">
+					{{ $t("loginPage.email.errorMessage") }}
+				</span>
 			</div>
 			<div class="input-item">
 				<label class="input-label" for="passwordInput">{{ $t("loginPage.password.label") }}</label>
 				<input
-					v-model="passwordInputValue"
-					@blur="handlePasswordValidate(($event.target as HTMLInputElement).value)"
-					:class="{ 'text-input': true, 'has-error': isPasswordInvalid }"
+					v-model="loginFormState.form.password"
+					@blur="validateForm"
+					:class="{ 'text-input': true, 'has-error': checkFieldError(loginFormState.errors, 'password') }"
 					type="password"
 					id="passwordInput"
 					name="password"
 				/>
-				<span v-show="isPasswordInvalid" class="error-message">{{
-					$t("loginPage.password.errorMessage")
-				}}</span>
+				<span v-show="checkFieldError(loginFormState.errors, 'password')" class="error-message">
+					{{ $t("loginPage.password.errorMessage") }}
+				</span>
 			</div>
 			<button @click="handleLogin" class="button-submit">{{ $t("loginPage.loginButton.label") }}</button>
 		</div>
@@ -41,17 +43,13 @@
 </template>
 <script setup lang="ts">
 import { AxiosError } from "axios";
-import { IAuthenticateResponse, ITokens } from "~/utils/dtos/Tokens";
-import toastConfig from "@/utils/toastConfig";
-import { THEME_MODES } from "~/types/theme";
-const { $axios: axios, $login, $toast, $router, $getTheme } = useNuxtApp();
+import { THEME_MODES } from "@/types/theme";
+
+const { $login, $toast, $router, $getTheme } = useNuxtApp();
+const { getLoginFormState, checkFieldError, validateForm } = useLoginForm();
 
 const themeState = $getTheme();
-
-const emailInputValue = ref<string>("");
-const passwordInputValue = ref<string>("");
-const isEmailInvalid = ref<boolean>(false);
-const isPasswordInvalid = ref<boolean>(false);
+const loginFormState = getLoginFormState();
 
 definePageMeta({
 	middleware: "guest",
@@ -60,27 +58,15 @@ definePageMeta({
 onMounted(() => {});
 
 const handleLogin = async () => {
-	handleEmailValidate(emailInputValue.value);
-	handlePasswordValidate(passwordInputValue.value);
+	loginFormState.value.displayErrors = true;
+	validateForm();
 
-	if (isEmailInvalid.value || isPasswordInvalid.value) {
+	if (loginFormState.value.errors.length !== 0) {
 		return;
 	}
-
-	const requestBody = {
-		email: emailInputValue.value,
-		password: passwordInputValue.value,
-	};
-
+	const requestBody = loginFormState.value.form;
 	try {
-		const response = await axios.post<IAuthenticateResponse>("/sessions", requestBody, {
-			headers: { NoAuth: true },
-		});
-
-		$login(response.data);
-
-		$toast.success("SUCCESS", toastConfig);
-		setTimeout(() => $router.back(), 750);
+		$login(requestBody);
 	} catch (error) {
 		const axiosError = error as AxiosError;
 		if (axiosError.response?.status === 400) {
@@ -90,19 +76,13 @@ const handleLogin = async () => {
 					message: string;
 				}
 			).message;
-			$toast.error(errorMessage, toastConfig);
+			$toast.error(errorMessage);
 		}
+		return;
 	}
-};
 
-const handleEmailValidate = (emailValue: string) => {
-	const emailRegex = /\S+@\S+\.\S+/;
-	const isValid = emailRegex.test(emailValue);
-	return (isEmailInvalid.value = !isValid);
-};
-const handlePasswordValidate = (passwordValue: string) => {
-	const isValid = passwordValue.length >= 8;
-	return (isPasswordInvalid.value = !isValid);
+	$toast.success("SUCCESS");
+	setTimeout(() => $router.back(), 750);
 };
 </script>
 <style scoped>

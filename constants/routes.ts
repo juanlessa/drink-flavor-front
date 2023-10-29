@@ -18,4 +18,6 @@ export const API_ROUTES = {
 	updateDrink: () => `/drinks`,
 	updateDrinkCover: (id: string) => `/drinks/${id}/cover`,
 	updateDrinkThumbnail: (id: string) => `/drinks/${id}/thumbnail`,
+
+	authenticateUser: () => `/sessions`,
 };

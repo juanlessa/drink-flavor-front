@@ -1,5 +1,7 @@
-import { IAuthenticateResponse, ITokens, IRefreshTokenResponse } from "@/utils/dtos/Tokens";
-import { IUser } from "@/utils/dtos/Users";
+import { IAuthenticateResponse, ITokens, IRefreshTokenResponse } from "@/types/authentication";
+import { IUser } from "@/types/user";
+import { API_ROUTES } from "~/constants/routes";
+import { IAuthenticateUser } from "@/types/authentication";
 
 export type AuthState = {
 	user: {
@@ -14,7 +16,7 @@ declare module "#app" {
 		$getAuthState: () => globalThis.Ref<AuthState>;
 		$storeTokens: (data: ITokens) => void;
 		$checkTokens: () => boolean;
-		$login: (data: IAuthenticateResponse) => void;
+		$login: (data: IAuthenticateUser) => void;
 		$authenticate: () => Promise<boolean>;
 		$signOut: (manual?: boolean) => void;
 		$refreshToken: () => Promise<string>;
@@ -70,7 +72,14 @@ export default defineNuxtPlugin(() => {
 		return true;
 	};
 
-	const login = (data: IAuthenticateResponse) => {
+	const login = async (requestBody: IAuthenticateUser) => {
+		const { $axios: axios } = useNuxtApp();
+
+		const { data } = await axios.post<IAuthenticateResponse>(API_ROUTES.authenticateUser(), requestBody, {
+			headers: { NoAuth: true },
+		});
+		console.log("login", data);
+
 		const tokens: ITokens = {
 			token: {
 				token: data.token.token,
