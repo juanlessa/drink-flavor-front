@@ -5,7 +5,7 @@
 		class="bg-light-secondary dark:bg-dark-secondary w-16 h-8 rounded-full px-1 relative flex items-center cursor-pointer"
 	>
 		<div class="btn__indicator">
-			<div class="w-full h-full flex justify-center items-center">
+			<div class="btn__icon-container">
 				<i ref="btnIcon" class="btn__icon fa-solid"></i>
 			</div>
 		</div>
@@ -58,13 +58,23 @@ const handleToggleTheme = () => {
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css");
 
 .btn__indicator {
-	@apply bg-light-primary dark:bg-dark-primary w-6 h-6 rounded-full absolute;
+	@apply bg-light-primary w-6 h-6 rounded-full absolute;
 	box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
 	transition: transform 0.3s ease;
 }
 
+.btn__icon-container {
+	width: 100%;
+	height: 100%;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
 .btn__icon {
-	@apply text-light-theme dark:text-dark-theme text-base;
+	@apply text-light-theme;
+	font-size: 1rem;
 }
 
 /* -------------- ANIMATION ------------ */
@@ -81,7 +91,12 @@ const handleToggleTheme = () => {
 /* -------------- DARKMODE -------------- */
 
 .dark .btn__indicator {
+	@apply bg-dark-primary;
 	transform: translateX(2rem);
 	box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+}
+
+.dark .btn__icon {
+	@apply text-dark-theme;
 }
 </style>
