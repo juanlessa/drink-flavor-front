@@ -11,7 +11,7 @@
 		>
 			<ComboboxInput :id="props.id" class="bg-transparent outline-none w-full" @blur="handleBlur" />
 			<ComboboxTrigger>
-				<IconsBottomArrow :size="22" :color="themeState.colors.iconsColor" />
+				<IconsBottomArrow :size="22" :color="$getThemeColors().iconsColor" />
 			</ComboboxTrigger>
 		</ComboboxHeader>
 
@@ -32,7 +32,7 @@
 						@click="handleUpdate(item)"
 					>
 						<ComboboxItemIndicator class="absolute left-0 w-[1rem] inline-flex items-center justify-center">
-							<IconsChecked :size="10" :color="themeState.colors.iconsColor" />
+							<IconsChecked :size="10" :color="$getThemeColors().iconsColor" />
 						</ComboboxItemIndicator>
 						<span>
 							{{ item.translations[$i18n.locale as LANGUAGES].name }}
@@ -60,10 +60,7 @@ import { useI18n } from "vue-i18n";
 import { IItem } from "@/types/item";
 import { LANGUAGES } from "@/types/translations";
 
-const { $getTheme } = useNuxtApp();
 const { locale } = useI18n();
-
-const themeState = $getTheme();
 
 const componentKey = ref(0);
 

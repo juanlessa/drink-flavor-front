@@ -2,11 +2,11 @@
 	<div class="login-page-container">
 		<div class="login-content">
 			<NuxtLink class="back-button" to="/">
-				<IconsLeftArrow :size="14" :color="themeState.colors.iconsColor" />
+				<IconsLeftArrow :size="14" :color="$getThemeColors().iconsColor" />
 				<span> {{ $t("loginPage.back.label") }}</span>
 			</NuxtLink>
 			<img
-				:src="themeState.themeMode === THEME_MODES.light ? '/light-logo.png' : '/dark-logo.png'"
+				:src="$getTheme() === THEME_MODES.light ? '/light-logo.png' : '/dark-logo.png'"
 				height="120"
 				alt="logo"
 			/>
@@ -48,7 +48,6 @@ import { THEME_MODES } from "@/types/theme";
 const { $login, $toast, $router, $getTheme } = useNuxtApp();
 const { getLoginFormState, checkFieldError, validateForm } = useLoginForm();
 
-const themeState = $getTheme();
 const loginFormState = getLoginFormState();
 
 definePageMeta({

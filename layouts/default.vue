@@ -1,10 +1,12 @@
 <template>
-	<div class="page-container">
+	<div class="min-h-screen flex flex-col">
 		<NavBar />
-		<main class="main-content" :style="{ 'background-color': 'var(--' + props.bgColor + ')' }">
+		<main
+			class="flex-1 w-screen mx-auto my-1/4 pb-4 md:max-w-1190 md:mx-auto bg-light-secondary dark:bg-dark-secondary"
+		>
 			<slot />
 		</main>
-		<Footer :style="{ 'background-color': 'var(--' + props.bgColor + ')' }" />
+		<Footer class="bg-light-secondary dark:bg-dark-secondary" />
 	</div>
 </template>
 <script setup lang="ts">
@@ -12,28 +14,9 @@ import { IBgColor } from "@/types/layout";
 
 const props = defineProps({
 	bgColor: {
-		type: String as PropType<IBgColor>,
-		default: IBgColor.secondary,
+		type: String,
+		default: "primary",
 	},
 });
 </script>
-<style scoped>
-.page-container {
-	min-height: 100vh;
-	display: flex;
-	flex-direction: column;
-}
-
-.main-content {
-	flex: 1;
-	width: 100vw;
-	margin: 0.25rem auto 0 auto;
-	padding-bottom: 1rem;
-}
-
-@media (min-width: 1190px) {
-	.main-content {
-		max-width: 1190px;
-	}
-}
-</style>
+<style scoped></style>

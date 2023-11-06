@@ -4,7 +4,7 @@
 			class="inline-flex items-center justify-between rounded pl-[0.5rem] text-[1rem] leading-none h-[1.5rem] gap-[0.25rem] text-grass11 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-green9 outline-none"
 		>
 			<SelectValue />
-			<IconsBottomArrow :size="22" :color="themeState.colors.iconsColor" />
+			<IconsBottomArrow :size="22" :color="$getThemeColors().iconsColor" />
 		</SelectTrigger>
 
 		<SelectPortal>
@@ -25,7 +25,7 @@
 							<SelectItemIndicator
 								class="absolute left-0 w-[25px] inline-flex items-center justify-center"
 							>
-								<IconsChecked :size="10" :color="themeState.colors.iconsColor" />
+								<IconsChecked :size="10" :color="$getThemeColors().iconsColor" />
 							</SelectItemIndicator>
 							<SelectItemText>
 								{{ option.toLocaleUpperCase() }}
@@ -55,11 +55,9 @@ import { useI18n } from "vue-i18n";
 import { LANGUAGES } from "@/types/translations";
 import { LOCAL_STORAGE_KEYS } from "@/types/localStorage";
 
-const { $getTheme } = useNuxtApp();
 const { locale } = useI18n();
 const { setLocalStorageItem } = useLocalStorage();
 
-const themeState = $getTheme();
 const languages = Object.values(LANGUAGES);
 
 watch(locale, (newLocale) => {

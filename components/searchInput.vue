@@ -3,15 +3,15 @@
 		<ComboboxHeader
 			class="w-full inline-flex px-[0.75rem] py-[0.5rem] items-center rounded-full text-[1rem] gap-[0.5rem] bg-secondary"
 		>
-			<IconsSearch :size="18" :color="themeState.colors.iconsColor" />
+			<IconsSearch :size="18" :color="$getThemeColors().iconsColor" />
 
 			<ComboboxInput :id="props.id" class="bg-transparent outline-none w-full" @blur="handleBlur" />
 
 			<ComboboxCancel>
-				<IconsClose :size="18" :color="themeState.colors.iconsColor" />
+				<IconsClose :size="18" :color="$getThemeColors().iconsColor" />
 			</ComboboxCancel>
 			<ComboboxTrigger>
-				<IconsBottomArrow :size="22" :color="themeState.colors.iconsColor" />
+				<IconsBottomArrow :size="22" :color="$getThemeColors().iconsColor" />
 			</ComboboxTrigger>
 		</ComboboxHeader>
 
@@ -56,10 +56,6 @@ import {
 } from "radix-vue";
 import { IItem } from "@/types/item";
 import { LANGUAGES } from "@/types/translations";
-
-const { $getTheme } = useNuxtApp();
-
-const themeState = $getTheme();
 
 const componentKey = ref(0);
 

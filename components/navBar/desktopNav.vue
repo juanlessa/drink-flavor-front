@@ -1,17 +1,17 @@
 <template>
-	<header ref="menuElement" class="header-container">
-		<div class="header-content">
-			<NuxtLink to="/" class="logo-container">
+	<header ref="menuElement" class="bg-light-primary dark:bg-dark-primary h-20 w-screen">
+		<div class="max-w-screen-xl mx-auto flex justify-between items-center h-full">
+			<NuxtLink to="/" class="text-light-theme dark:text-dark-theme flex items-center gap-2 text-4xl">
 				<img
-					class="img-logo"
-					:src="themeState.themeMode === THEME_MODES.light ? '/light-logo.png' : '/dark-logo.png'"
+					class="cursor-pointer h-16"
+					:src="$getTheme() === THEME_MODES.light ? '/light-logo.png' : '/dark-logo.png'"
 					height="40"
 					alt="DrunkFlavor"
 				/>
 				<span>DrunkFlavor</span>
 			</NuxtLink>
 
-			<div class="link-group">
+			<div class="pr-12 flex items-center gap-8">
 				<LanguageSwitcher />
 				<ThemeSwitcher />
 				<NuxtLink v-for="l in props.links" :key="l.path" class="link-item" :to="l.path">
@@ -43,43 +43,7 @@ const handleLogout = () => {
 };
 </script>
 <style scoped>
-.header-container {
-	height: 5rem;
-	width: 100vw;
-	background-color: var(--primary-background);
-}
-.logo-container {
-	display: flex;
-	align-items: center;
-	gap: 0.5rem;
-
-	font-size: 2rem;
-	color: var(--primary-color);
-}
-.header-content {
-	width: 1190px;
-	margin: auto;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	height: 100%;
-}
-
-.img-logo {
-	cursor: pointer;
-	height: 4rem;
-}
-
-.link-group {
-	padding-right: 3rem;
-	display: flex;
-	align-items: center;
-	gap: 2rem;
-}
-
 .link-item {
-	font-size: 1.2rem;
-	display: block;
-	cursor: pointer;
+	@apply text-lg block cursor-pointer;
 }
 </style>

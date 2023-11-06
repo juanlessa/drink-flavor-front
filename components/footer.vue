@@ -1,20 +1,17 @@
 <template>
 	<footer class="footer-container">
 		<NuxtLink class="footer-item" to="https://www.linkedin.com/in/juanlessa">
-			<IconsCopyright :size="16" :color="themeState.colors.iconsColor" />
+			<IconsCopyright :size="16" :color="$getThemeColors().iconsColor" />
 			<span>{{ $t("footer.author") }}</span></NuxtLink
 		>
 
 		<NuxtLink class="footer-item" to="https://github.com/juanlessa/drunk-flavor-front">
-			<IconsGithub :size="16" :color="themeState.colors.iconsColor" />
+			<IconsGithub :size="16" :color="$getThemeColors().iconsColor" />
 			<span>{{ $t("footer.githubProject") }}</span>
 		</NuxtLink>
 	</footer>
 </template>
-<script setup lang="ts">
-const { $getTheme } = useNuxtApp();
-const themeState = $getTheme();
-</script>
+<script setup lang="ts"></script>
 <style scoped>
 .footer-container {
 	width: 100vw;

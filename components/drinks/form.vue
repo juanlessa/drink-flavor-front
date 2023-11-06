@@ -117,7 +117,7 @@
 							class="ingredient-list-delete-column drink-delete-box"
 							@click="removeIngredient(ing.ingredient_id)"
 						>
-							<IconsGarbage :size="24" :color="themeState.colors.iconsColor" alt="delete" />
+							<IconsGarbage :size="24" :color="$getThemeColors().iconsColor" alt="delete" />
 						</div>
 					</div>
 				</div>
@@ -139,7 +139,7 @@ import { LANGUAGES } from "@/types/translations";
 import { getItemName } from "@/helpers/getItemName";
 import { IIngredient } from "~/types/ingredient";
 
-const { $router, $toast, $getTheme } = useNuxtApp();
+const { $router, $toast } = useNuxtApp();
 const { t } = useI18n();
 const {
 	getDrinkFormState,
@@ -152,7 +152,6 @@ const {
 } = useDrinkForm();
 const { getIngredientState, loadIngredients } = useIngredient();
 
-const themeState = $getTheme();
 const drinkFormState = getDrinkFormState();
 const ingredientState = getIngredientState();
 

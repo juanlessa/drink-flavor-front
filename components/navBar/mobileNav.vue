@@ -1,10 +1,10 @@
 <template>
-	<header ref="menuElement" class="header-container">
-		<div class="header-content">
-			<NuxtLink to="/" class="logo-container">
+	<header ref="menuElement" class="h-20 w-screen bg-light-primary dark:bg-dark-primary relative">
+		<div class="w-[95%] mx-auto flex justify-between items-center h-full">
+			<NuxtLink to="/" class="flex items-center gap-2 text-4xl text-light-theme dark:text-dark-theme">
 				<img
-					class="img-logo"
-					:src="themeState.themeMode === THEME_MODES.light ? '/light-logo.png' : '/dark-logo.png'"
+					class="cursor-pointer h-16"
+					:src="$getTheme() === THEME_MODES.light ? '/light-logo.png' : '/dark-logo.png'"
 					height="40"
 					alt="DrunkFlavor"
 				/>
@@ -14,31 +14,34 @@
 			<IconsMenu
 				v-if="!isMenuOpen"
 				:size="26"
-				:color="themeState.colors.iconsColor"
+				:color="$getThemeColors().iconsColor"
 				alt="open menu"
 				@click="handleToggleMenu"
 			/>
 			<IconsMenuClose
 				v-else
 				:size="26"
-				:color="themeState.colors.iconsColor"
+				:color="$getThemeColors().iconsColor"
 				alt="close menu"
 				@click="handleToggleMenu"
 			/>
 		</div>
-		<div v-show="isMenuOpen" class="menu-modal">
-			<div class="switchers-container">
+		<div
+			v-show="isMenuOpen"
+			class="absolute top-full left-0 w-screen z-10 bg-light-primary dark:bg-dark-primary shadow-md"
+		>
+			<div class="flex items-center gap-12 justify-center mb-6">
 				<LanguageSwitcher />
 				<ThemeSwitcher />
 			</div>
-			<div class="link-group">
+			<div class="flex flex-col my-4 mx-12">
 				<NuxtLink v-for="l in props.links" :key="l.path" class="link-item" :to="l.path">
 					<span>{{ $t(l.i18nKey) }}</span
-					><IconsRightArrow :size="16" :color="themeState.colors.iconsColor" />
+					><IconsRightArrow :size="16" :color="$getThemeColors().iconsColor" />
 				</NuxtLink>
 				<div v-show="authSate.authenticated" @click="handleLogout" class="link-item">
 					<span>{{ $t("navbar.logout") }}</span
-					><IconsRightArrow :size="16" :color="themeState.colors.iconsColor" />
+					><IconsRightArrow :size="16" :color="$getThemeColors().iconsColor" />
 				</div>
 			</div>
 		</div>
@@ -53,7 +56,6 @@ const { $getAuthState, $signOut, $getTheme } = useNuxtApp();
 const menuElement = ref<HTMLElement>();
 const isMenuOpen = ref<boolean>(false);
 const authSate = $getAuthState();
-const themeState = $getTheme();
 
 const props = defineProps({
 	links: {
@@ -73,69 +75,7 @@ const handleLogout = () => {
 };
 </script>
 <style scoped>
-.logo-container {
-	display: flex;
-	align-items: center;
-	gap: 0.5rem;
-
-	font-size: 2rem;
-	color: var(--primary-color);
-}
-
-.header-container {
-	height: 5rem;
-	width: 100vw;
-	background-color: var(--primary-background);
-	position: relative;
-}
-.switchers-container {
-	display: flex;
-	align-items: center;
-	gap: 3rem;
-	justify-content: center;
-	margin-bottom: 1.5rem;
-}
-.header-content {
-	width: 95%;
-	margin: auto auto;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	height: 100%;
-}
-.right-icons {
-	display: flex;
-	gap: 1.5rem;
-	align-items: center;
-}
-.menu-modal {
-	position: absolute;
-	top: 100%;
-	left: 0;
-	width: 100vw;
-	z-index: 1;
-	background-color: var(--primary-background);
-	box-shadow: 0 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
-}
-
-.img-logo {
-	cursor: pointer;
-	height: 4rem;
-}
-
 .link-item {
-	font-size: 1.2rem;
-	padding: 0.5rem 0;
-	margin: 0.25rem 0;
-	cursor: pointer;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.link-group {
-	display: flex;
-	flex-direction: column;
-	margin: 1rem 3rem;
+	@apply text-lg py-2 px-2 my-1 mx-1 cursor-pointer flex justify-between items-center;
 }
 </style>

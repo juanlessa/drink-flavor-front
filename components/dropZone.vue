@@ -16,7 +16,7 @@
 			<IconsClose
 				v-if="file"
 				:size="14"
-				:color="themeState.colors.iconsColor"
+				:color="$getThemeColors().iconsColor"
 				class="cursor-pointer"
 				@click="handleClear"
 			/>
@@ -27,10 +27,6 @@
 <script setup lang="ts">
 import { reactive } from "vue";
 import { useDropzone, FileRejectReason } from "vue3-dropzone";
-
-const { $getTheme } = useNuxtApp();
-
-const themeState = $getTheme();
 
 const emit = defineEmits<{
 	(e: "file", value: File | undefined): void;
