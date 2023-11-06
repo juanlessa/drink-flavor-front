@@ -5,12 +5,6 @@ export default defineNuxtConfig({
 			apiBase: "",
 		},
 	},
-	postcss: {
-		plugins: {
-			tailwindcss: {},
-			autoprefixer: {},
-		},
-	},
 	imports: {
 		dirs: [
 			"composables", // top-level modules
@@ -18,5 +12,14 @@ export default defineNuxtConfig({
 		],
 	},
 	css: ["@/styles/global.css"],
-	modules: ["@vueuse/nuxt"],
+	modules: ["@vueuse/nuxt", "@nuxtjs/tailwindcss"],
+
+	tailwindcss: {
+		cssPath: "~/styles/tailwind.css",
+		configPath: "tailwind.config.ts",
+		exposeConfig: false,
+		config: {},
+		injectPosition: 0,
+		viewer: true,
+	},
 });

@@ -1,9 +1,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
 @import url('./forms.css');
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url('./tailwind.css');
 
 * {
     margin: 0;
@@ -13,9 +11,9 @@
 }
 
 body {
+    @apply bg-light-secondary dark:bg-dark-secondary;
     line-height: 1;
     width: 100vw;
-    background-color: var(--secondary-background);
     margin: 0;
     padding: 0;
 
@@ -41,10 +39,11 @@ a {
 }
 
 body, input, textarea, select, button {
+    @apply text-txt-dark dark:text-txt-light;
     font-weight: 400;
     font-size: 1rem;
-    color: var(--primary-text);
 }
+
 h1, h2, h3, h4, h5, h6 {
     font-weight: 500;
     color: var(--primary-text);
@@ -71,7 +70,7 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 1rem;
 }
 .primary-button-color {
-    background-color: var(--primary-color);
+    @apply bg-light-theme dark:bg-dark-theme;
     color: var(--secondary-text);
 }
 .cancel-button-color {
