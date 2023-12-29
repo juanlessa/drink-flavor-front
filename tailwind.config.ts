@@ -31,8 +31,8 @@ module.exports = {
 		},
 		colors: {
 			transparent: "transparent",
+			inherit: "inherit",
 			white: "#FFFFFF",
-
 			txt: {
 				dark: "#14213D",
 				light: "#FFFFFF",

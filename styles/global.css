@@ -24,7 +24,7 @@ button {
 }
 
 a {
-    @apply text-inherit no-underline;
+    @apply text-inherit	 no-underline;
 }
 
 body, input, textarea, select, button {
@@ -32,7 +32,7 @@ body, input, textarea, select, button {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    @apply font-medium text-txt-light dark:text-txt-dark;
+    @apply font-medium text-txt-dark dark:text-txt-light;
 }
 
 [disabled] {
