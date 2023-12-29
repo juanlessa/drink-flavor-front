@@ -1,7 +1,7 @@
 <template>
 	<ComboboxRoot :key="componentKey" :searchTerm="props.search" @update:searchTerm="handleSearch" class="relative">
 		<ComboboxHeader
-			class="w-full inline-flex px-[0.75rem] py-[0.5rem] items-center rounded-full text-[1rem] gap-[0.5rem] bg-secondary"
+			class="w-full inline-flex px-[0.75rem] py-[0.5rem] items-center rounded-full text-[1rem] gap-[0.5rem] bg-light-secondary dark:bg-dark-secondary"
 		>
 			<IconsSearch :size="18" :color="$getThemeColors().iconsColor" />
 
@@ -16,7 +16,7 @@
 		</ComboboxHeader>
 
 		<ComboboxContent
-			class="absolute z-10 w-full mt-1 bg-secondary overflow-hidden rounded-lg will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
+			class="absolute z-10 w-full mt-1 max-h-[9rem] overflow-scroll bg-light-secondary dark:bg-dark-secondary rounded-lg will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
 		>
 			<ComboboxViewport class="p-1">
 				<ComboboxEmpty class="text-[1rem] font-medium text-center py-2">

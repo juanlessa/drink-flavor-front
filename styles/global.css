@@ -47,7 +47,7 @@ h1, h2, h3, h4, h5, h6 {
     @apply block h-10 border-none rounded-2xl;
 }
 .primary-button-color {
-    @apply bg-light-theme dark:bg-dark-theme text-txt-dark dark:text-txt-light;
+    @apply bg-light-theme dark:bg-dark-theme dark:text-txt-dark text-txt-light;
 }
 .cancel-button-color {
     @apply bg-light-cancel dark:bg-dark-cancel text-txt-dark;

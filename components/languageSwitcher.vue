@@ -1,7 +1,7 @@
 <template>
 	<SelectRoot v-model="$i18n.locale">
 		<SelectTrigger
-			class="inline-flex items-center justify-between rounded pl-[0.5rem] text-[1rem] leading-none h-[1.5rem] gap-[0.25rem] text-grass11 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-green9 outline-none"
+			class="inline-flex items-center justify-between rounded pl-[0.5rem] text-base leading-none h-[1.5rem] gap-[0.25rem] text-grass11 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-green9 outline-none"
 		>
 			<SelectValue />
 			<IconsBottomArrow :size="22" :color="$getThemeColors().iconsColor" />
@@ -9,7 +9,7 @@
 
 		<SelectPortal>
 			<SelectContent
-				class="min-w-[4.5rem] bg-primary rounded shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade z-[100]"
+				class="min-w-[4.5rem] bg-light-primary dark:bg-dark-primary rounded shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade z-[10]"
 				position="popper"
 				:sideOffset="-25"
 				align="end"
@@ -64,18 +64,3 @@ watch(locale, (newLocale) => {
 	setLocalStorageItem(LOCAL_STORAGE_KEYS.locale, newLocale);
 });
 </script>
-<style scoped>
-.language-switcher {
-	margin-left: 0.75rem;
-	display: flex;
-}
-.language-select-input {
-	font-size: 1rem;
-	background-color: var(--primary-background);
-	border: none;
-	border-radius: 0.5rem;
-	padding: 0.5rem;
-	width: 100%;
-	outline: none;
-}
-</style>
