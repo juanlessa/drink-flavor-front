@@ -1,5 +1,5 @@
 <template>
-	<NuxtLayout :bg-color="IBgColor.primary">
+	<NuxtLayout bg-primary>
 		<CategoriesForm class="main-content-padding" @submit="handleCreateCategory" />
 	</NuxtLayout>
 </template>

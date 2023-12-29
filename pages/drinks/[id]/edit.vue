@@ -1,5 +1,5 @@
 <template>
-	<NuxtLayout :bg-color="IBgColor.primary">
+	<NuxtLayout bg-primary>
 		<DrinksForm :drink="drink" class="main-content-padding" @submit="handleUpdateDrink" />
 	</NuxtLayout>
 </template>

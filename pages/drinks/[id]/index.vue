@@ -1,11 +1,10 @@
 <template>
-	<NuxtLayout :bg-color="IBgColor.primary">
+	<NuxtLayout bg-primary>
 		<DrinksDetailsSection :drink="drink" />
 	</NuxtLayout>
 </template>
 <script setup lang="ts">
 import { IDrink } from "@/types/drink";
-import { IBgColor } from "@/types/layout";
 import { initEmptyDrink } from "@/constants/drink";
 
 const { getDrink } = useDrink();
