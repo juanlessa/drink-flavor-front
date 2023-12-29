@@ -1,5 +1,5 @@
 import { THEMES_COLORS } from "@/constants/theme";
-import { ThemeState, THEME_MODES, IThemeColors } from "@/types/theme";
+import { THEME_MODES, IThemeColors } from "@/types/theme";
 import { useDark, useToggle } from "@vueuse/core";
 
 export default defineNuxtPlugin(() => {

@@ -1,12 +1,15 @@
 <template>
-	<div @click="goToDrinkDetailPage" class="card-container">
-		<img class="card-image" :src="drink.thumbnail || '/default-drink-thumb.png'" />
-		<div class="card-content">
-			<h2 class="card-title">
+	<div
+		@click="goToDrinkDetailPage"
+		class="bg-light-primary dark:bg-dark-primary h-[8.5rem] w-full tablet:max-w-[44vw] desktop:max-w-[23.25rem] flex gap-3 p-2 rounded-lg cursor-pointer shadow-light-card dark:shadow-dark-card"
+	>
+		<img class="h-[7.5rem] w-[7rem] rounded" :src="drink.thumbnail || '/default-drink-thumb.png'" />
+		<div class="w-full">
+			<h2 class="w-full h-16 flex items-center justify-center text-center text-[1.5rem]">
 				<div>{{ props.drink.translations[$i18n.locale as LANGUAGES].name }}</div>
 			</h2>
-			<div class="card-ingredients">
-				<div v-for="cat in categories" :key="cat._id" class="ingredient">
+			<div class="mt-3 flex flex-wrap gap-y-[0.3rem] gap-x-[0.75rem]">
+				<div v-for="cat in categories" :key="cat._id" class="text-base">
 					{{ cat.translations[$i18n.locale as LANGUAGES].name }}
 				</div>
 			</div>
@@ -34,61 +37,3 @@ const goToDrinkDetailPage = () => {
 	$router.push(`${ROUTES.drinks}/${props.drink._id}`);
 };
 </script>
-<style scoped>
-.card-container {
-	background-color: var(--primary-background);
-	height: 8.5rem;
-	width: 100%;
-	box-shadow: 0 0.25rem 0.25rem var(--box-shadow-color);
-	border-radius: 0.5rem;
-	padding: 0.5rem;
-	display: flex;
-	gap: 0.75rem;
-	cursor: pointer;
-}
-
-.card-image {
-	border-radius: 0.25rem;
-	height: 7.5rem;
-	width: 7rem;
-}
-
-.card-content {
-	width: 100%;
-}
-
-.card-title {
-	width: 100%;
-	text-align: center;
-	height: 4rem;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-
-	font-style: normal;
-	font-size: 1.6rem;
-}
-
-.card-ingredients {
-	margin-top: 0.75rem;
-	display: flex;
-	flex-wrap: wrap;
-	gap: 0.3rem 0.75rem;
-}
-
-.ingredient {
-	font-size: 1rem;
-}
-
-@media (min-width: 768px) {
-	.card-container {
-		max-width: 44vw;
-	}
-}
-
-@media (min-width: 1190px) {
-	.card-container {
-		max-width: 23.25rem;
-	}
-}
-</style>
