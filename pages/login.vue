@@ -1,7 +1,12 @@
 <template>
-	<div class="login-page-container">
+	<div
+		class="w-[100vw] h-[100vh] p-8 relative bg-light-primary dark:bg-dark-primary tablet:bg-light-secondary tablet:dark:bg-dark-secondary"
+	>
 		<div class="login-content">
-			<NuxtLink class="back-button" to="/">
+			<NuxtLink
+				class="absolute top-0 left-0 text-base mt-6 ml-6 flex items-center gap-2 tablet:mt-4 tablet:ml-6"
+				to="/"
+			>
 				<IconsLeftArrow :size="14" :color="$getThemeColors().iconsColor" />
 				<span> {{ $t("loginPage.back.label") }}</span>
 			</NuxtLink>
@@ -37,7 +42,12 @@
 					{{ $t("loginPage.password.errorMessage") }}
 				</span>
 			</div>
-			<button @click="handleLogin" class="button-submit">{{ $t("loginPage.loginButton.label") }}</button>
+			<button
+				class="mt-4 w-full max-w-[12rem] h-10 border-none rounded-2xl bg-light-theme dark:bg-dark-theme text-txt-light dark:text-txt-dark"
+				@click="handleLogin"
+			>
+				{{ $t("loginPage.loginButton.label") }}
+			</button>
 		</div>
 	</div>
 </template>
@@ -85,95 +95,23 @@ const handleLogin = async () => {
 };
 </script>
 <style scoped>
-.login-page-container {
-	width: 100vw;
-	height: 100vh;
-	background-color: var(--primary-background);
-	padding: 2rem;
-	position: relative;
-}
-
 .login-content {
-	margin: 10vh auto 0 auto;
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 1rem;
+	@apply mt-[10vh] mx-auto w-full flex flex-col items-center gap-4;
+	@apply tablet:relative tablet:max-w-[25rem] tablet:mt-[15rem] tablet:py-12 tablet:px-8 tablet:rounded-2xl tablet:bg-light-primary tablet:dark:bg-dark-primary tablet:shadow-light-card tablet:dark:shadow-dark-card;
 }
-
 .input-item {
-	width: 100%;
-	display: flex;
-	flex-direction: column;
+	@apply w-full flex flex-col;
 }
 
 .input-label {
-	display: block;
-	margin-bottom: 0.5rem;
-	margin-left: 0.5rem;
-	font-size: 1rem;
+	@apply block mb-2 ml-2 text-base;
 }
 
 .text-input {
-	font-size: 1rem;
-	background-color: var(--secondary-background);
-	border: 0.5px solid var(--secondary-background);
-	border-radius: 0.5rem;
-	padding: 0.5rem;
-	width: 100%;
+	@apply w-full p-2 text-base rounded-lg border-solid border-[1px] border-light-secondary dark:border-dark-secondary;
 }
 
 .error-message {
-	color: var(--error);
-	margin-top: 0.25rem;
-	font-size: 0.9rem;
-	margin-left: 0.5rem;
-}
-
-.back-button {
-	position: absolute;
-	top: 0;
-	left: 0;
-	font-size: 1rem;
-	margin-top: 1.5rem;
-	margin-left: 1.5rem;
-	display: flex;
-	align-items: center;
-	gap: 0.5rem;
-}
-
-.button-submit {
-	margin-top: 1rem;
-	width: 100%;
-	max-width: 12rem;
-	padding: auto;
-	height: 2.5rem;
-	background-color: var(--primary-color);
-	border: none;
-	border-radius: 1rem;
-	color: var(--secondary-text);
-}
-
-@media (min-width: 780px) {
-	.login-page-container {
-		background-color: var(--secondary-background);
-	}
-
-	.login-content {
-		max-width: 25rem;
-		margin: 15vh auto 0 auto;
-		background-color: var(--primary-background);
-		padding: 3rem 2rem;
-		border-radius: 1rem;
-		box-shadow: 0 0.3rem 0.3rem rgba(0, 0, 0, 0.25);
-
-		position: relative;
-	}
-
-	.back-button {
-		margin-top: 1rem;
-		margin-left: 1.5rem;
-	}
+	@apply mt-[0.125rem] ml-2 text-[0.9rem] text-light-error dark:text-dark-error;
 }
 </style>
