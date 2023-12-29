@@ -32,6 +32,7 @@ module.exports = {
 		colors: {
 			transparent: "transparent",
 			white: "#FFFFFF",
+
 			txt: {
 				dark: "#14213D",
 				light: "#FFFFFF",
@@ -40,11 +41,17 @@ module.exports = {
 				theme: "#4E86E4",
 				primary: "#FFFFFF",
 				secondary: "#F0F5F5",
+				error: "#E60000",
+				cancel: "#E6E6FA",
+				delete: "#E60000",
 			},
 			dark: {
 				theme: "#FFD700",
 				primary: "#262528",
 				secondary: "#3F3F41",
+				error: "#FF3333",
+				cancel: "#525161",
+				delete: "#CC0000",
 			},
 			gray: {
 				10: "#f0f0f0",
