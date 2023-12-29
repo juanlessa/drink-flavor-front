@@ -1,6 +1,6 @@
 <template>
 	<header ref="menuElement" class="bg-light-primary dark:bg-dark-primary h-20 w-screen">
-		<div class="max-w-screen-xl mx-auto flex justify-between items-center h-full">
+		<div class="max-w-screen-desktop mx-auto flex justify-between items-center h-full">
 			<NuxtLink to="/" class="text-light-theme dark:text-dark-theme flex items-center gap-2 text-4xl">
 				<img
 					class="cursor-pointer h-16"
@@ -17,7 +17,7 @@
 				<NuxtLink v-for="l in props.links" :key="l.path" class="link-item" :to="l.path">
 					{{ $t(l.i18nKey) }}
 				</NuxtLink>
-				<div v-show="authSate.authenticated" @click="handleLogout" class="link-item">logout</div>
+				<div v-show="authSate.authenticated" @click="handleLogout()" class="link-item">logout</div>
 			</div>
 		</div>
 	</header>
@@ -29,8 +29,6 @@ import { THEME_MODES } from "@/types/theme";
 const { $signOut, $getAuthState, $getTheme } = useNuxtApp();
 
 const authSate = $getAuthState();
-const themeState = $getTheme();
-
 const props = defineProps({
 	links: {
 		type: Array<ILink>,
