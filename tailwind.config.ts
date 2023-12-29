@@ -33,6 +33,7 @@ module.exports = {
 			transparent: "transparent",
 			inherit: "inherit",
 			white: "#FFFFFF",
+			black: "#000000",
 			txt: {
 				dark: "#14213D",
 				light: "#FFFFFF",
@@ -44,6 +45,7 @@ module.exports = {
 				error: "#E60000",
 				cancel: "#E6E6FA",
 				delete: "#E60000",
+				"select-file": "#81d8d0",
 			},
 			dark: {
 				theme: "#FFD700",
@@ -52,6 +54,7 @@ module.exports = {
 				error: "#FF3333",
 				cancel: "#525161",
 				delete: "#CC0000",
+				"select-file": "#626A61",
 			},
 			gray: {
 				10: "#f0f0f0",

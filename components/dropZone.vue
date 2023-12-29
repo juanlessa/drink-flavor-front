@@ -1,13 +1,19 @@
 <template>
 	<div>
 		<div class="relative">
-			<div v-bind="getRootProps()" class="drop-area">
+			<div
+				v-bind="getRootProps()"
+				class="w-full pt-6 px-4 pb-16 flex flex-col items-center gap-2 rounded-lg bg-light-secondary dark:bg-dark-secondary"
+			>
 				<input v-bind="getInputProps()" />
 				<p class="drag-drop-label" v-if="isDragActive">{{ $t("dropZone.drop.message") }}</p>
 				<p class="drag-drop-label" v-else>{{ $t("dropZone.drag.message") }}</p>
 				<p class="drag-drop-label">{{ $t("dropZone.or.message") }}</p>
 			</div>
-			<button class="select-file-button absolute bottom-6 left-1/2 transform -translate-x-1/2" @click="open">
+			<button
+				class="py-1 px-5 text-[0.8rem] border-none rounded-xl bg-light-select-file dark:bg-dark-select-file absolute bottom-6 left-1/2 transform -translate-x-1/2"
+				@click="open"
+			>
 				{{ $t("dropZone.selectFile.message") }}
 			</button>
 		</div>
@@ -55,30 +61,7 @@ const options = reactive({
 const { getRootProps, getInputProps, isDragActive, isFocused, isDragReject, open } = useDropzone(options);
 </script>
 <style scoped>
-.drop-area {
-	width: 100%;
-	padding: 1.5rem 1rem 4rem 1rem;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 0.5rem;
-	background-color: var(--secondary-background);
-	border-radius: 0.5rem;
-}
-
 .drag-drop-label {
-	font-size: 0.8rem;
-	min-height: 1rem;
-	display: inline-flex;
-	gap: 0.5rem;
-	align-items: center;
-}
-
-.select-file-button {
-	padding: 0.5rem 1.25rem;
-	font-size: 0.8rem;
-	background-color: var(--select-file-button);
-	border: none;
-	border-radius: 1rem;
+	@apply text-[0.8rem] min-h-[1rem] inline-flex gap-2 items-center;
 }
 </style>

@@ -1,11 +1,15 @@
 <template>
 	<div>
-		<div v-show="props.showModal" class="delete-modal-background"></div>
-		<div v-show="props.showModal" ref="deleteNodalBox" class="delete-modal-box">
-			<p class="delete-modal-message">
+		<div v-show="props.showModal" class="absolute top-0 left-0 w-[100vw] h-full z-[2] bg-black opacity-30"></div>
+		<div
+			v-show="props.showModal"
+			ref="deleteNodalBox"
+			class="absolute top-[30%] left-1/2 transform -translate-x-1/2 w-[84%] tablet:w-[54%] desktop:w-[30%] desktop:max-w-[35rem] h-40 z-[2] rounded-2xl flex flex-col gap-6 items-center justify-center p-6 bg-light-primary dark:bg-dark-primary"
+		>
+			<p class="text-base text-center">
 				{{ `${$t("deleteModal.message")} ${props.deleteItem.translations[$i18n.locale as LANGUAGES].name}` }}
 			</p>
-			<div class="buttons-container">
+			<div class="flex gap-2 items-center justify-center">
 				<button @click="handleCancelButton" class="action-button cancel-button-color modal-button">
 					{{ $t("deleteModal.cancelButton.message") }}
 				</button>
@@ -32,10 +36,12 @@ const props = defineProps({
 		default: {},
 	},
 });
+
 const emit = defineEmits<{
 	(e: "cancelClick", value: string): void;
 	(e: "deleteClick", value: string): void;
 }>();
+
 const handleCancelButton = () => {
 	emit("cancelClick", "cancel");
 };
@@ -47,62 +53,7 @@ const handleDeleteButton = () => {
 onClickOutside(deleteNodalBox, handleCancelButton);
 </script>
 <style scoped>
-.delete-modal-background {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100vw;
-	height: 100%;
-	z-index: 2;
-	background-color: black;
-	opacity: 0.3;
-}
-
-.delete-modal-box {
-	position: absolute;
-	top: 30%;
-	left: 8%;
-	width: 84%;
-	height: 10rem;
-	z-index: 2;
-	background-color: var(--primary-background);
-	border-radius: 1rem;
-	display: flex;
-	flex-direction: column;
-	gap: 1.5rem;
-	align-items: center;
-	justify-content: center;
-	padding: 1.5rem;
-}
-
-.delete-modal-message {
-	font-size: 1rem;
-	text-align: center;
-	line-height: 1.25rem;
-}
-
-.buttons-container {
-	display: flex;
-	gap: 0.5rem;
-	align-items: center;
-	justify-content: center;
-}
 .modal-button {
-	width: 8rem;
-}
-
-@media (min-width: 780px) {
-	.delete-modal-box {
-		left: 23%;
-		width: 54%;
-	}
-}
-
-@media (min-width: 1190px) {
-	.delete-modal-box {
-		left: 35%;
-		width: 30%;
-		max-width: 35rrem;
-	}
+	@apply w-32;
 }
 </style>

@@ -64,17 +64,11 @@ const handleToggleTheme = () => {
 }
 
 .btn__icon-container {
-	width: 100%;
-	height: 100%;
-
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	@apply w-full h-full flex justify-center items-center;
 }
 
 .btn__icon {
-	@apply text-light-theme;
-	font-size: 1rem;
+	@apply text-light-theme text-base;
 }
 
 /* -------------- ANIMATION ------------ */
