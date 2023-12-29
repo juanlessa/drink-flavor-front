@@ -1,116 +1,61 @@
 .form-container {
-    width: 100%;
+    @apply w-full
 }
 .content-mt {
-    margin-top: 2rem;
+    @apply mt-8;
 }
 
 .form-title {
-	padding-top: 1rem;
-	display: block;
-	font-size: 2rem;
-	width: 100%;
-	text-align: center;
+    @apply block w-full pt-4 text-[2rem] text-center;
 }
 
 
 .flex-container {
-	display: flex;
-	flex-direction: column;
+    @apply flex flex-col tablet:flex-row tablet:gap-6;
 }
 
 .flex-column {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    @apply flex flex-1 flex-col gap-2;
 }
 
 .input-group-margin-top {
-    margin-top: 0.75rem;
+    @apply mt-3;
 }
 .input-label-margin-bottom {
-    margin-bottom: 0.5rem;
+    @apply mb-2;
 }
 .input-label {
-	display: block;
-    margin-left: 0.5rem;
-	font-size: 1rem;
+    @apply block ml-2 text-base;
 }
 
 .text-input {
-	font-size: 1rem;
-	background-color: var(--secondary-background);
-	border: 0.5px solid var(--secondary-background);
-	border-radius: 0.5rem;
-	padding: 0.5rem;
-	width: 100%;
+    @apply w-full bg-light-secondary dark:bg-dark-secondary rounded-lg p-2 text-base border-solid border-[0.5px] border-light-secondary dark:border-dark-secondary;
 }
 
 .select-input {
-    font-size: 1rem;
-	background-color: var(--secondary-background);
-	border: 0.5px solid var(--secondary-background);
-	border-radius: 0.5rem;
-	padding: 0.5rem;
-	width: 100%;
+    @apply w-full bg-light-secondary dark:bg-dark-secondary rounded-lg p-2 text-base border-solid border-[0.5px] border-light-secondary dark:border-dark-secondary;
 }
 
 .textarea-input {
-	font-size: 1rem;
-	background-color: var(--secondary-background);
-	border: 0.5px solid var(--secondary-background);
-	border-radius: 0.5rem;
-	padding: 0.5rem;
-	width: 100%;
+    @apply w-full bg-light-secondary dark:bg-dark-secondary rounded-lg p-2 text-base border-solid border-[0.5px] border-light-secondary dark:border-dark-secondary;
 }
 
 .has-error {
-	border: 0.1rem solid var(--error) !important;
+    @apply border-solid border-[1px] !border-light-error dark:!border-dark-error;
 }
 
 .form-buttons-container {
-	margin-top: 3.5rem;
-	display: flex;
-	flex-direction: column-reverse;
-	gap: 0.75rem;
-	align-items: center;
+    @apply mt-14 flex flex-col-reverse  gap-3 items-center tablet:flex-row tablet:gap-6 tablet:justify-center;
 }
 
 .form-button-size {
-	width: 100%;
-	max-width: 25rem;
+    @apply w-full max-w-[25rem] tablet:max-w-[15rem];
 }
 
 .input-error-message {
-	color: var(--error);
-	margin-top: 0.25rem;
-	font-size: 0.9rem;
-	margin-left: 0.5rem;
+    @apply mt-1 ml-2 text-[0.9rem] text-light-error dark:text-dark-error; 
 }
 
 .language-title {
-	font-size: 1.25rem;
-	margin-bottom: 1rem;
-	text-align: center;
-}
-@media(min-width: 780px) {
-
-	.flex-container {
-		flex-direction: row;
-		gap: 1.5rem;
-	}
-
-	
-    .form-buttons-container {
-		flex-direction: row;
-		gap: 1.5rem;
-		justify-content: center;
-	}
-
-	.form-button-size {
-        max-width: 15rem;
-    }
-
-	
+    @apply text-lg text-center mb-4;
 }
