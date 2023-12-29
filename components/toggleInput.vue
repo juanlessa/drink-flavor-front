@@ -2,7 +2,7 @@
 	<SwitchRoot
 		:id="props.id"
 		:checked="props.value"
-		class="w-[42px] h-[25px] focus-within:outline focus-within:outline-black flex bg-gray-400 shadow-sm rounded-full relative data-[state=checked]:bg-theme cursor-default"
+		class="w-[42px] h-[25px] focus-within:outline focus-within:outline-black flex bg-gray-400 shadow-sm rounded-full relative data-[state=checked]:bg-light-theme data-[state=checked]:dark:bg-dark-theme cursor-default"
 		@update:checked="handleUpdate"
 	>
 		<SwitchThumb

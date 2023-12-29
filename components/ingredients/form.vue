@@ -75,7 +75,7 @@
 				</div>
 			</div>
 			<div class="flex-column">
-				<div class="input-group-margin-top is-alcoholic-input-group">
+				<div class="input-group-margin-top flex h-full gap-2 items-center">
 					<label class="input-label" for="is_alcoholic">
 						{{ $t("ingredientForm.isAlcoholicInput.label") }}
 					</label>
@@ -150,11 +150,3 @@ const handleUpdateSelectedCategory = (id: string) => {
 	ingredientFormState.value.form.category_id = id;
 };
 </script>
-<style scoped>
-.is-alcoholic-input-group {
-	display: flex;
-	height: 100%;
-	gap: 0.5rem;
-	align-items: center;
-}
-</style>
