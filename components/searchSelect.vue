@@ -7,7 +7,7 @@
 		class="relative rounded-lg border-[1px] border-secondary"
 	>
 		<ComboboxHeader
-			class="w-full inline-flex px-[0.5rem] py-[0.5rem] items-center rounded-lg text-[1rem] gap-[0.5rem] bg-secondary"
+			class="w-full inline-flex px-[0.5rem] py-[0.5rem] items-center rounded-lg text-[1rem] gap-[0.5rem] bg-light-secondary dark:bg-dark-secondary"
 		>
 			<ComboboxInput :id="props.id" class="bg-transparent outline-none w-full" @blur="handleBlur" />
 			<ComboboxTrigger>
@@ -16,7 +16,7 @@
 		</ComboboxHeader>
 
 		<ComboboxContent
-			class="absolute z-10 w-full mt-1 bg-secondary overflow-hidden rounded-lg will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
+			class="absolute z-10 w-full mt-1 max-h-[9rem] bg-light-secondary dark:bg-dark-secondary overflow-auto rounded-lg will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
 		>
 			<ComboboxViewport class="p-1">
 				<ComboboxEmpty class="text-[1rem] font-medium text-center py-2">
@@ -27,7 +27,7 @@
 					<ComboboxItem
 						v-for="item in props.items"
 						:key="item._id"
-						class="cursor-pointer text-[1rem] leading-none text-grass11 flex items-center h-[1.5rem] pr-[2.25rem] pl-[1.15rem] rounded-lg relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-primary data-[highlighted]:text-grass1"
+						class="cursor-pointer text-[1rem] leading-none text-grass11 flex items-center h-[1.5rem] pr-[2.25rem] pl-[1.15rem] rounded-lg relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-light-theme data-[highlighted]:text-txt-light dark:data-[highlighted]:bg-dark-primary data-[highlighted]:text-grass1"
 						:value="item.translations[$i18n.locale as LANGUAGES].name"
 						@click="handleUpdate(item)"
 					>
