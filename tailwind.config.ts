@@ -10,7 +10,6 @@ module.exports = {
 		"./nuxt.config.{js,ts}",
 		"./app.vue",
 	],
-
 	theme: {
 		extend: {},
 		screens: {

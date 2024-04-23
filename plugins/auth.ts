@@ -78,7 +78,6 @@ export default defineNuxtPlugin(() => {
 		const { data } = await axios.post<IAuthenticateResponse>(API_ROUTES.authenticateUser(), requestBody, {
 			headers: { NoAuth: true },
 		});
-		console.log("login", data);
 
 		const tokens: ITokens = {
 			token: {
